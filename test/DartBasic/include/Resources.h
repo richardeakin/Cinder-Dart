@@ -6,3 +6,4 @@
 
 
 
+#define RES_DART_SNAPSHOT		CINDER_RESOURCE( ../../../../../cinder-dev/blocks/Cinder-Dart/dart-runtime/osx/, snapshot_gen.bin, 128, IMAGE )

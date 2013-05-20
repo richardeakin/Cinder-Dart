@@ -1,34 +1,38 @@
 #include "cinder/app/AppNative.h"
 #include "cinder/gl/gl.h"
 
+#include "CinderDart.h"
+
 using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-class DartBasicTestApp : public AppNative {
+class DartBasicApp : public AppNative {
   public:
 	void setup();
 	void mouseDown( MouseEvent event );	
 	void update();
 	void draw();
+
+	cinderdart::CinderDart mDart;
 };
 
-void DartBasicTestApp::setup()
+void DartBasicApp::setup()
 {
 }
 
-void DartBasicTestApp::mouseDown( MouseEvent event )
+void DartBasicApp::mouseDown( MouseEvent event )
 {
 }
 
-void DartBasicTestApp::update()
+void DartBasicApp::update()
 {
 }
 
-void DartBasicTestApp::draw()
+void DartBasicApp::draw()
 {
 	// clear out the window with black
 	gl::clear( Color( 0, 0, 0 ) ); 
 }
 
-CINDER_APP_NATIVE( DartBasicTestApp, RendererGl )
+CINDER_APP_NATIVE( DartBasicApp, RendererGl )
