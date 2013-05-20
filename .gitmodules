@@ -1,0 +1,3 @@
+[submodule "dart-runtime"]
+	path = dart-runtime
+	url = git@github.com:reakinator/dart-runtime-libs.git
