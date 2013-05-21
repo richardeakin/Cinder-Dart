@@ -12,6 +12,8 @@
 		00B784B40FF439BC000DE1D7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B00FF439BC000DE1D7 /* AudioToolbox.framework */; };
 		00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B10FF439BC000DE1D7 /* AudioUnit.framework */; };
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
+		11F2FCD3174B3D9D004B69D5 /* DartTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11F2FCD1174B3D9D004B69D5 /* DartTypes.cpp */; };
+		11F2FCD5174B4469004B69D5 /* main.dart in Resources */ = {isa = PBXBuildFile; fileRef = 11F2FCD4174B4469004B69D5 /* main.dart */; };
 		4A28A468A8694C20A3EA5ABC /* CinderDart.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93D66D98C7BF4530A8C085DC /* CinderDart.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
@@ -29,6 +31,9 @@
 		00B784B20FF439BC000DE1D7 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		11F2FCD01749D68D004B69D5 /* debug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = debug.h; path = ../../../src/debug.h; sourceTree = "<group>"; };
+		11F2FCD1174B3D9D004B69D5 /* DartTypes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DartTypes.cpp; path = ../../../src/DartTypes.cpp; sourceTree = "<group>"; };
+		11F2FCD2174B3D9D004B69D5 /* DartTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DartTypes.h; path = ../../../src/DartTypes.h; sourceTree = "<group>"; };
+		11F2FCD4174B4469004B69D5 /* main.dart */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.dart; path = ../resources/main.dart; sourceTree = "<group>"; };
 		2730F19BCC084D6B89BBA052 /* DartBasic_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = DartBasic_Prefix.pch; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -181,9 +186,12 @@
 		E4AB3925906043CC8B28FA6A /* src */ = {
 			isa = PBXGroup;
 			children = (
+				11F2FCD4174B4469004B69D5 /* main.dart */,
 				11F2FCD01749D68D004B69D5 /* debug.h */,
 				BE4157FBC00D499E8A1E823A /* CinderDart.h */,
 				93D66D98C7BF4530A8C085DC /* CinderDart.cpp */,
+				11F2FCD2174B3D9D004B69D5 /* DartTypes.h */,
+				11F2FCD1174B3D9D004B69D5 /* DartTypes.cpp */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -240,6 +248,7 @@
 			files = (
 				59CE73DB70064828835143A5 /* CinderApp.icns in Resources */,
 				BB7EFB0435F5450985C16995 /* snapshot_gen.bin in Resources */,
+				11F2FCD5174B4469004B69D5 /* main.dart in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,6 +261,7 @@
 			files = (
 				E11B07B22E3D4B08A4C6ED11 /* DartBasicApp.cpp in Sources */,
 				4A28A468A8694C20A3EA5ABC /* CinderDart.cpp in Sources */,
+				11F2FCD3174B3D9D004B69D5 /* DartTypes.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
