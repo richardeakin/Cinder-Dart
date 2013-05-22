@@ -6,9 +6,6 @@
 #include "cinder/app/App.h"
 #include "cinder/Utilities.h"
 
-// TODO NEXT: create cinder.dart package with print / setup stuff, load it from main.dart
-// TODO: report required blank setup() call as bug, once this sample is public
-
 using namespace std;
 using namespace ci;
 
@@ -76,25 +73,6 @@ void CinderDart::loadScript( ci::DataSourceRef script )
 	Dart_Handle source = Dart_NewStringFromCString( scriptContents.c_str() );
 	CHECK_DART( source );
 	CHECK_DART( Dart_LoadScript( url, source, 0, 0 ) );
-
-	// TODO: below was in the tag handler - check if it comes up there after 'import : cinder'
-	
-	// apparently 'something' must be called before swapping in print,
-	// else she blows up with: parser.cc:4996: error: expected: current_class().is_finalized()
-//	invoke( "setup" );
-//
-//	Dart_Handle library = Dart_RootLibrary();
-//	if ( Dart_IsNull( library ) ) {
-//		LOG_E << "Unable to find root library" << endl;
-//		return;
-//	}
-//
-//	// load in our custom _printCloser, which maps back to Log
-//	Dart_Handle corelib = checkError( Dart_LookupLibrary( Dart_NewStringFromCString( "dart:core" ) ) );
-//	Dart_Handle print = checkError( Dart_GetField( library, Dart_NewStringFromCString( "_printClosure" ) ) );
-//	checkError( Dart_SetField( corelib, Dart_NewStringFromCString( "_printClosure" ), print ) );
-//
-//	checkError( Dart_SetNativeResolver( library, ResolveName ) );
 
 	// I guess main needs to be manually invoked...
 	// TODO: check dartium to see how it handles this part.
@@ -212,12 +190,30 @@ Dart_Handle libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Ha
 {
 	const char* url;
 	Dart_StringToCString( urlHandle, &url );
-	LOG_V << "(unahndled) url: " << url;
 
-	if (tag == kCanonicalizeUrl) {
+
+	if( tag == kCanonicalizeUrl ) {
 		LOG_V << "\tkCanonicalizeUrl" << endl;
 		return urlHandle;
 	}
+
+	if( strcmp( url, "cinder" ) == 0 ) {
+		DataSourceRef script = app::loadResource( "cinder.dart" );
+		string scriptContents = loadString( script );
+
+		LOG_V << "script contents: " << scriptContents << endl;
+
+		Dart_Handle source = Dart_NewStringFromCString( scriptContents.c_str() );
+		CHECK_DART( source );
+
+		// TODO NEXT: figure out how to properly load this library
+
+		LOG_V << "TODO: load cinder.dart" << endl;
+		return nullptr;
+	}
+
+
+	CI_ASSERT( false );
 	return nullptr;
 }
 
