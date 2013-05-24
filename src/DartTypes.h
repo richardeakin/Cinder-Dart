@@ -10,7 +10,7 @@ namespace cinderdart {
 	};
 
 	// TODO: move
-	void log(Dart_NativeArguments arguments);
+	void console( Dart_NativeArguments arguments );
 
 
 	// TODO: bah, these names are ambigous when used from another file.

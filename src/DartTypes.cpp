@@ -5,7 +5,7 @@ using namespace std;
 
 namespace cinderdart {
 
-	void log( Dart_NativeArguments arguments ) {
+	void console( Dart_NativeArguments arguments ) {
 		DartScope enterScope;
 		Dart_Handle handle = Dart_GetNativeArgument( arguments, 0 );
 		CHECK_DART( handle );

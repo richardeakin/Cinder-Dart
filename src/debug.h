@@ -12,6 +12,7 @@
 
 #include "dart_api.h"
 
+// FIXME: this macro is not safe
 #define CHECK_DART(result)							\
 if (Dart_IsError(result)) {							\
 	LOG_E << Dart_GetError(result) << std::endl;	\

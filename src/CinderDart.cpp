@@ -31,6 +31,36 @@ void closeFileCallback(void* file);
 Dart_Handle libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Handle urlHandle );
 
 
+// TODO: fix this up with a proper map
+
+struct FunctionLookup {
+	const char* name;
+	Dart_NativeFunction function;
+};
+
+FunctionLookup function_list[] = {
+	{"console", console },
+	{NULL, NULL}
+};
+
+Dart_NativeFunction ResolveName(Dart_Handle name, int argc)
+{
+	if ( !Dart_IsString(name) ) return NULL;
+	Dart_NativeFunction result = NULL;
+	Dart_EnterScope();
+	const char* cname;
+	CHECK_DART( Dart_StringToCString( name, &cname ) );
+	for (int i = 0; function_list[i].name != NULL; ++i) {
+		if (strcmp(function_list[i].name, cname) == 0) {
+			result = function_list[i].function;
+			break;
+		}
+	}
+	Dart_ExitScope();
+	return result;
+}
+
+
 CinderDart::CinderDart()
 {
 	mVMFlags.push_back( "--enable-checked-mode" );
@@ -201,15 +231,25 @@ Dart_Handle libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Ha
 		DataSourceRef script = app::loadResource( "cinder.dart" );
 		string scriptContents = loadString( script );
 
-		LOG_V << "script contents: " << scriptContents << endl;
+//		LOG_V << "script contents:\n\n" << scriptContents << endl;
 
 		Dart_Handle source = Dart_NewStringFromCString( scriptContents.c_str() );
 		CHECK_DART( source );
 
-		// TODO NEXT: figure out how to properly load this library
+		Dart_Handle library = Dart_LoadLibrary( urlHandle, source );
+		CHECK_DART( library );
 
-		LOG_V << "TODO: load cinder.dart" << endl;
-		return nullptr;
+		// swap in our custom _printClosure, which maps back to Log
+		Dart_Handle corelib = Dart_LookupLibrary( Dart_NewStringFromCString( "dart:core" ) );
+		CHECK_DART( corelib );
+		Dart_Handle print = Dart_GetField( library, Dart_NewStringFromCString( "_printClosure" ) );
+		CHECK_DART( print );
+		CHECK_DART( Dart_SetField( corelib, Dart_NewStringFromCString( "_printClosure" ), print ) );
+
+
+		CHECK_DART( Dart_SetNativeResolver( library, ResolveName ) );
+
+		return library;
 	}
 
 
