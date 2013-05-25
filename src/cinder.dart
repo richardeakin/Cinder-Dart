@@ -9,6 +9,4 @@ get _printClosure => ( s ) {
 };
 
 void console( String message ) native "console";
-
-// TODO: use type safety 
-void toCinder( var map ) native "toCinder";
+void toCinder( Map<String, dynamic> data ) native "toCinder";
