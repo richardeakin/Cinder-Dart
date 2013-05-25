@@ -87,12 +87,6 @@ void toCinder( Dart_NativeArguments arguments ) {
 	}
 }
 
-// TODO: move this to CinderDart, retrieve it through scope data
-map<string, Dart_NativeFunction> sNativeFunctionMap = {
-	{ "console", console },
-	{ "toCinder", toCinder }
-};
-
 Dart_NativeFunction resolveName( Dart_Handle handle, int argc )
 {
 	if ( ! Dart_IsString( handle ) )
@@ -105,8 +99,10 @@ Dart_NativeFunction resolveName( Dart_Handle handle, int argc )
 
 	string name = getString( handle );
 
-	auto functionIt = sNativeFunctionMap.find( name );
-	if( functionIt != sNativeFunctionMap.end() )
+	CinderDart *cd = static_cast<CinderDart *>( Dart_CurrentIsolateData() );
+	auto& functionMap = cd->getFunctionMap();
+	auto functionIt = functionMap.find( name );
+	if( functionIt != functionMap.end() )
 		return functionIt->second;
 
 	return nullptr;
@@ -121,6 +117,13 @@ CinderDart::CinderDart()
 	const char **vmCFlags = (const char **)malloc( mVMFlags.size() * sizeof( const char * ) );
 	for( size_t i = 0; i < mVMFlags.size(); i++ )
 		vmCFlags[i] = mVMFlags[i].c_str();
+
+
+	mNativeFunctionMap = {
+		{ "console", console },
+		{ "toCinder", toCinder }
+	};
+
 
 	LOG_V << "Setting VM Options" << endl;
 	bool success = Dart_SetVMFlags( mVMFlags.size(), vmCFlags );

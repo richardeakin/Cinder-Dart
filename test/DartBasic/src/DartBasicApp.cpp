@@ -19,8 +19,7 @@ class DartBasicApp : public AppNative {
 
 void DartBasicApp::setup()
 {
-	DataSourceRef script = loadResource( "main.dart" );
-	mDart.loadScript( script );
+	mDart.loadScript( loadResource( "main.dart" ) );
 }
 
 void DartBasicApp::mouseDown( MouseEvent event )
