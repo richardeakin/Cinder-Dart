@@ -6,6 +6,8 @@
 #include "cinder/app/App.h"
 #include "cinder/Utilities.h"
 
+#include <map>
+
 using namespace std;
 using namespace ci;
 
@@ -30,34 +32,84 @@ void closeFileCallback(void* file);
 // Dart_LibraryTagHandler
 Dart_Handle libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Handle urlHandle );
 
+void toCinder( Dart_NativeArguments arguments ) {
+	DartScope enterScope;
+	Dart_Handle handle = Dart_GetNativeArgument( arguments, 0 );
 
-// TODO: fix this up with a proper map
-
-struct FunctionLookup {
-	const char* name;
-	Dart_NativeFunction function;
-};
-
-FunctionLookup function_list[] = {
-	{"console", console },
-	{NULL, NULL}
-};
-
-Dart_NativeFunction ResolveName(Dart_Handle name, int argc)
-{
-	if ( !Dart_IsString(name) ) return NULL;
-	Dart_NativeFunction result = NULL;
-	Dart_EnterScope();
-	const char* cname;
-	CHECK_DART( Dart_StringToCString( name, &cname ) );
-	for (int i = 0; function_list[i].name != NULL; ++i) {
-		if (strcmp(function_list[i].name, cname) == 0) {
-			result = function_list[i].function;
-			break;
-		}
+	if( ! Dart_IsInstance( handle ) ) {
+		LOG_E << "not a dart instance." << endl;
+		return;
 	}
-	Dart_ExitScope();
-	return result;
+
+	Dart_Handle instanceClass = Dart_InstanceGetClass( handle );
+	CHECK_DART( instanceClass );
+	Dart_Handle className = Dart_ClassName( instanceClass );
+	CHECK_DART( className );
+
+	string nameString = getString( className );
+	LOG_V << "class name: " << nameString << endl;
+
+	// TODO: use Dart_ObjectIsType to ensure the class is of type Map
+	if( ! hasFunction( instanceClass, "keys" ) ) {
+		LOG_V << "no keys method, this is probably not of type Map" << endl;
+		return;
+	}
+
+	// get keys:
+
+	// ???: why does this return true, but Dart_Invoke() fails - you must use Dart_GetField instead.
+	if( hasFunction( instanceClass, "length" ) ) {
+		LOG_V << "has length function" << endl;
+	}
+
+	Dart_Handle length = getField( handle, "length" );
+
+	int numEntries = getInt( length );
+	LOG_V << "numEntries: " << numEntries << endl;
+
+	Dart_Handle keys = getField( handle, "keys" );
+
+	Dart_Handle lengthIter = getField( keys, "length" );
+	int lenIter = getInt( lengthIter );
+	CI_ASSERT( numEntries == lenIter );
+
+	for( size_t i = 0; i < lenIter; i++ ) {
+		Dart_Handle args[] = { newInt( i ) };
+		Dart_Handle key = callFunction( keys, "elementAt", 1, args );
+		string keyString = getString( key );
+		LOG_V << "\t- key: " << keyString << endl;
+
+		args[0] = key;
+		Dart_Handle value = callFunction( handle, "[]", 1, args );
+
+		// TODO: parse value to boost::any
+
+	}
+}
+
+// TODO: move this to CinderDart, retrieve it through scope data
+map<string, Dart_NativeFunction> sNativeFunctionMap = {
+	{ "console", console },
+	{ "toCinder", toCinder }
+};
+
+Dart_NativeFunction resolveName( Dart_Handle handle, int argc )
+{
+	if ( ! Dart_IsString( handle ) )
+		return nullptr;
+
+	DartScope enterScope;
+
+	const char* cname;
+	CHECK_DART( Dart_StringToCString( handle, &cname ) );
+
+	string name = getString( handle );
+
+	auto functionIt = sNativeFunctionMap.find( name );
+	if( functionIt != sNativeFunctionMap.end() )
+		return functionIt->second;
+
+	return nullptr;
 }
 
 
@@ -247,7 +299,7 @@ Dart_Handle libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Ha
 		CHECK_DART( Dart_SetField( corelib, Dart_NewStringFromCString( "_printClosure" ), print ) );
 
 
-		CHECK_DART( Dart_SetNativeResolver( library, ResolveName ) );
+		CHECK_DART( Dart_SetNativeResolver( library, resolveName ) );
 
 		return library;
 	}
