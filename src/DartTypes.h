@@ -2,6 +2,8 @@
 
 #include "dart_api.h"
 
+#include "cinder/Color.h"
+
 namespace cidart {
 
 	struct DartScope {
@@ -30,5 +32,13 @@ namespace cidart {
 	Dart_Handle callFunction( Dart_Handle target, const std::string &name, int numArgs = 0, Dart_Handle *args = nullptr );
 
 	Dart_Handle getField( Dart_Handle container, const std::string &name );
+
+	std::string getClassName( Dart_Handle handle );
+
+	bool isMap( Dart_Handle handle );
+
+	bool isColor( Dart_Handle handle );
+	ci::ColorA getColor( Dart_Handle handle );
+
 
 } // namespace cidart

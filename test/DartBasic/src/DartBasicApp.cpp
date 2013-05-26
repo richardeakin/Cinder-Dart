@@ -21,10 +21,14 @@ class DartBasicApp : public AppNative {
 	cidart::CinderDart mDart;
 
 	size_t mNumCircleSegments;
+	ColorA mCircleColor;
 };
 
 void DartBasicApp::setup()
 {
+	mNumCircleSegments = 3;
+	mCircleColor = ColorA::white();
+
 	mDart.setMapReceiver( bind( &DartBasicApp::receiveMap, this, std::_1 ) );
 	mDart.loadScript( loadAsset( "main.dart" ) );
 }
@@ -33,22 +37,21 @@ void DartBasicApp::receiveMap( const cidart::DataMap& map )
 {
 	LOG_V << "huzzah" << endl;
 	for( auto &mp : map ) {
-		LOG_V << "key: " << mp.first << ", value: ";
-		Dart_Handle value = mp.second;
-		if( Dart_IsInteger( value ) ) {
-			console() << cidart::getInt( value ) << endl;
-		}
-		else if( Dart_IsDouble( value ) ) {
-			console() << cidart::getFloat( value ) << endl;
-		}
-		else {
-			console() << "unknown type" << endl;
-		}
+		LOG_V << "key: " << mp.first << ", value type: " << cidart::getClassName( mp.second ) << endl;
 	}
 
 	auto segIt = map.find( "segments" );
 	if( segIt != map.end() )
 		mNumCircleSegments = cidart::getInt( segIt->second );
+
+	auto colorIt = map.find( "color" );
+	if( colorIt != map.end() ) {
+		if( cidart::isColor( colorIt->second ) )
+			mCircleColor = cidart::getColor( colorIt->second );
+		else
+			LOG_E << "expected value for key 'color' to be of type Color." << endl;
+	}
+
 }
 
 void DartBasicApp::keyDown( KeyEvent event )
@@ -69,7 +72,7 @@ void DartBasicApp::draw()
 	gl::clear( Color( 0, 0, 0 ) );
 
 
-	gl::color( Color::white() );
+	gl::color( mCircleColor );
 	gl::drawSolidCircle( getWindowCenter(), 200.0f, mNumCircleSegments );
 }
 

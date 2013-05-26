@@ -58,4 +58,38 @@ namespace cidart {
 		return result;
 	}
 
+	string getClassName( Dart_Handle handle ) {
+		Dart_Handle instanceClass = Dart_InstanceGetClass( handle );
+		CHECK_DART( instanceClass );
+		Dart_Handle className = Dart_ClassName( instanceClass );
+		CHECK_DART( className );
+
+		return getString( className );
+	}
+
+	bool isMap( Dart_Handle handle ) {
+		Dart_Handle instanceClass = Dart_InstanceGetClass( handle );
+		return hasFunction( instanceClass, "keys" ); // all map classes contain this function
+	}
+
+
+	bool isColor( Dart_Handle handle ) {
+		return ( getClassName( handle ) == "Color" );
+	}
+
+	ci::ColorA getColor( Dart_Handle handle ) {
+		ci::ColorA result;
+		if( ! isColor ) {
+			LOG_E << "expected handle to be of type Color" << endl;
+			return result;
+		}
+
+		result.r = getFloat( getField( handle, "r" ) );
+		result.g = getFloat( getField( handle, "g" ) );
+		result.b = getFloat( getField( handle, "b" ) );
+		result.a = getFloat( getField( handle, "a" ) );
+
+		return result;
+	}
+
 } // namespace cidart

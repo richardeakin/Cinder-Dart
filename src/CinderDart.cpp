@@ -32,6 +32,7 @@ void closeFileCallback(void* file);
 // Dart_LibraryTagHandler
 Dart_Handle libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Handle urlHandle );
 
+// TODO: see if I can use Dart_ObjectIsType to ensure the class is of type Map
 void toCinder( Dart_NativeArguments arguments ) {
 
 	DartScope enterScope;
@@ -49,26 +50,15 @@ void toCinder( Dart_NativeArguments arguments ) {
 		return;
 	}
 
-	Dart_Handle instanceClass = Dart_InstanceGetClass( handle );
-	CHECK_DART( instanceClass );
-	Dart_Handle className = Dart_ClassName( instanceClass );
-	CHECK_DART( className );
+	string className = getClassName( handle );
+	LOG_V << "class name: " << className << endl;
 
-	string nameString = getString( className );
-	LOG_V << "class name: " << nameString << endl;
-
-	// TODO: use Dart_ObjectIsType to ensure the class is of type Map
-	if( ! hasFunction( instanceClass, "keys" ) ) {
-		LOG_V << "no keys method, this is probably not of type Map" << endl;
+	if( ! isMap( handle ) ) {
+		LOG_E << "expected object of type map" << endl;
 		return;
 	}
 
 	// get keys:
-
-	// ???: why does this return true, but Dart_Invoke() fails - you must use Dart_GetField instead.
-	if( hasFunction( instanceClass, "length" ) ) {
-		LOG_V << "has length function" << endl;
-	}
 
 	Dart_Handle length = getField( handle, "length" );
 
@@ -91,7 +81,7 @@ void toCinder( Dart_NativeArguments arguments ) {
 		args[0] = key;
 		Dart_Handle value = callFunction( handle, "[]", 1, args );
 
-		// fallback: just hand user the Dart_Handle
+		// hand user the Dart_Handle
 		map[keyString] = value;
 	}
 
