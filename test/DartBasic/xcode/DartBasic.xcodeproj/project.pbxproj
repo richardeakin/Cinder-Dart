@@ -15,7 +15,6 @@
 		111035AE174F204B008E63C0 /* CinderDart.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 111035AD174F204B008E63C0 /* CinderDart.cpp */; };
 		1111BE7A174C95BF00110583 /* cinder.dart in Resources */ = {isa = PBXBuildFile; fileRef = 1111BE79174C95BF00110583 /* cinder.dart */; };
 		11F2FCD3174B3D9D004B69D5 /* DartTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11F2FCD1174B3D9D004B69D5 /* DartTypes.cpp */; };
-		11F2FCD5174B4469004B69D5 /* main.dart in Resources */ = {isa = PBXBuildFile; fileRef = 11F2FCD4174B4469004B69D5 /* main.dart */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
 		59CE73DB70064828835143A5 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4C3A5872A52A4121A541E814 /* CinderApp.icns */; };
@@ -36,7 +35,6 @@
 		11F2FCD01749D68D004B69D5 /* debug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = debug.h; path = ../../../src/debug.h; sourceTree = "<group>"; };
 		11F2FCD1174B3D9D004B69D5 /* DartTypes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DartTypes.cpp; path = ../../../src/DartTypes.cpp; sourceTree = "<group>"; };
 		11F2FCD2174B3D9D004B69D5 /* DartTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DartTypes.h; path = ../../../src/DartTypes.h; sourceTree = "<group>"; };
-		11F2FCD4174B4469004B69D5 /* main.dart */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.dart; path = ../resources/main.dart; sourceTree = "<group>"; };
 		2730F19BCC084D6B89BBA052 /* DartBasic_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = DartBasic_Prefix.pch; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -189,7 +187,6 @@
 			isa = PBXGroup;
 			children = (
 				1111BE79174C95BF00110583 /* cinder.dart */,
-				11F2FCD4174B4469004B69D5 /* main.dart */,
 				11F2FCD01749D68D004B69D5 /* debug.h */,
 				BE4157FBC00D499E8A1E823A /* CinderDart.h */,
 				111035AD174F204B008E63C0 /* CinderDart.cpp */,
@@ -251,7 +248,6 @@
 			files = (
 				59CE73DB70064828835143A5 /* CinderApp.icns in Resources */,
 				BB7EFB0435F5450985C16995 /* snapshot_gen.bin in Resources */,
-				11F2FCD5174B4469004B69D5 /* main.dart in Resources */,
 				1111BE7A174C95BF00110583 /* cinder.dart in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

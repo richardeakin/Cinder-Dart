@@ -122,6 +122,7 @@ Dart_NativeFunction resolveName( Dart_Handle handle, int argc )
 
 
 CinderDart::CinderDart()
+: mIsolate( nullptr )
 {
 	mVMFlags.push_back( "--enable-checked-mode" );
 //	mVMFlags.push_back( "--print-flags" );
@@ -150,6 +151,12 @@ CinderDart::CinderDart()
 
 void CinderDart::loadScript( ci::DataSourceRef script )
 {
+	if( mIsolate ) {
+		LOG_V << "isolate already loaded, shutting down first" << endl;
+		Dart_EnterIsolate( mIsolate );
+		Dart_ShutdownIsolate();
+	}
+
 	const char *scriptPath = script->getFilePath().c_str();
 	char *error;
 	mIsolate = createIsolateCallback( scriptPath, "main", this, &error );

@@ -8,7 +8,7 @@ void main() {
 
   var m = {
     'a' : 1,
-    'b' : 2,
+    'b' : 2.0,
     'color' : [1, 0.0, 0.5],
     'segments' : 13
   };

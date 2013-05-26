@@ -12,7 +12,7 @@ using namespace std;
 class DartBasicApp : public AppNative {
   public:
 	void setup();
-	void mouseDown( MouseEvent event );	
+	void keyDown( KeyEvent event );
 	void update();
 	void draw();
 
@@ -23,6 +23,7 @@ class DartBasicApp : public AppNative {
 
 void DartBasicApp::setup()
 {
+
 	mDart.setMapReceiver( [this]( const cinderdart::DataMap& map ) {
 		LOG_V << "huzzah" << endl;
 		for( auto &mp : map ) {
@@ -44,12 +45,15 @@ void DartBasicApp::setup()
 			mNumCircleSegments = cinderdart::getInt( segIt->second );
 	} );
 
-	mDart.loadScript( loadResource( "main.dart" ) );
-
+	mDart.loadScript( loadAsset( "main.dart" ) );
 }
 
-void DartBasicApp::mouseDown( MouseEvent event )
+void DartBasicApp::keyDown( KeyEvent event )
 {
+	if( event.getChar() == 'r') {
+		LOG_V << "reload." << endl;
+		mDart.loadScript( loadAsset( "main.dart" ) ); // TODO: add CinderDart::reload
+	}
 }
 
 void DartBasicApp::update()
