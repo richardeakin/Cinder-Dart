@@ -2,9 +2,9 @@
 #include "cinder/gl/gl.h"
 #include "cinder/Timeline.h"
 
-#include "CinderDart.h"
-#include "DartTypes.h"
-#include "debug.h"
+#include "cidart/CinderDart.h"
+#include "cidart/DartTypes.h"
+#include "cidart/debug.h"
 
 using namespace ci;
 using namespace ci::app;

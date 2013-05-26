@@ -15,8 +15,8 @@
 	<includePath>src</includePath>
 
 	<headerPattern>dart-runtime/*.h</headerPattern>
-	<headerPattern>src/*.h</headerPattern>
-	<sourcePattern>src/*.cpp</sourcePattern>
+	<headerPattern>src/cidart/*.h</headerPattern>
+	<sourcePattern>src/cidart/*.cpp</sourcePattern>
 
 	<platform os="macosx">
 		<staticLibrary>dart-runtime/osx/libdart_builtin.a</staticLibrary>
@@ -28,6 +28,8 @@
 
 		<resource name="RES_DART_SNAPSHOT" type="IMAGE">dart-runtime/osx/snapshot_gen.bin</resource>
 	</platform>
+
+	<resource name="RES_CINDER_DART" type="DART">src/cidart/cinder.dart</resource>
 
 </block>
 </cinder>

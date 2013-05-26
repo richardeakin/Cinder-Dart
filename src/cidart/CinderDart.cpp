@@ -1,8 +1,7 @@
-#include "cidart/CinderDart.h"
-#include "cidart/debug.h"
-#include "cidart/DartTypes.h"
-
+#include "CinderDart.h"
+#include "debug.h"
 #include "Resources.h"
+#include "DartTypes.h"
 
 #include "cinder/app/App.h"
 #include "cinder/Utilities.h"
@@ -286,7 +285,7 @@ Dart_Handle libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Ha
 	}
 
 	if( strcmp( url, "cinder" ) == 0 ) {
-		DataSourceRef script = app::loadResource( "cinder.dart" );
+		DataSourceRef script = app::loadResource( RES_CINDER_DART );
 		string scriptContents = loadString( script );
 
 //		LOG_V << "script contents:\n\n" << scriptContents << endl;
