@@ -17,13 +17,13 @@ namespace cidart {
 
 	typedef std::map<std::string, Dart_Handle> DataMap;
 
-	class CinderDart {
+	class DartVM {
 	public:
 
 		typedef std::map<std::string, Dart_NativeFunction> NativeFunctionMap;
 		typedef std::function<void( const DataMap& )>	ReceiveMapCallback;
 
-		CinderDart();
+		DartVM();
 
 		void loadScript( ci::DataSourceRef script );
 		void invoke( const std::string &functionName, int argc = 0, Dart_Handle *args = nullptr );

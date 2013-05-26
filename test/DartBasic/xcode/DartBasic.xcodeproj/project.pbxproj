@@ -13,7 +13,7 @@
 		00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B10FF439BC000DE1D7 /* AudioUnit.framework */; };
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
 		11D679A3175298E100E96E0D /* cinder.dart in Resources */ = {isa = PBXBuildFile; fileRef = 11D6799D175298E100E96E0D /* cinder.dart */; };
-		11D679A4175298E100E96E0D /* CinderDart.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11D6799E175298E100E96E0D /* CinderDart.cpp */; };
+		11D679A4175298E100E96E0D /* DartVM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11D6799E175298E100E96E0D /* DartVM.cpp */; };
 		11D679A5175298E100E96E0D /* DartTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11D679A0175298E100E96E0D /* DartTypes.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
@@ -31,8 +31,8 @@
 		00B784B20FF439BC000DE1D7 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		11D6799D175298E100E96E0D /* cinder.dart */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cinder.dart; sourceTree = "<group>"; };
-		11D6799E175298E100E96E0D /* CinderDart.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CinderDart.cpp; sourceTree = "<group>"; };
-		11D6799F175298E100E96E0D /* CinderDart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CinderDart.h; sourceTree = "<group>"; };
+		11D6799E175298E100E96E0D /* DartVM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DartVM.cpp; sourceTree = "<group>"; };
+		11D6799F175298E100E96E0D /* DartVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DartVM.h; sourceTree = "<group>"; };
 		11D679A0175298E100E96E0D /* DartTypes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DartTypes.cpp; sourceTree = "<group>"; };
 		11D679A1175298E100E96E0D /* DartTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DartTypes.h; sourceTree = "<group>"; };
 		11D679A2175298E100E96E0D /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; };
@@ -113,8 +113,8 @@
 			isa = PBXGroup;
 			children = (
 				11D6799D175298E100E96E0D /* cinder.dart */,
-				11D6799E175298E100E96E0D /* CinderDart.cpp */,
-				11D6799F175298E100E96E0D /* CinderDart.h */,
+				11D6799E175298E100E96E0D /* DartVM.cpp */,
+				11D6799F175298E100E96E0D /* DartVM.h */,
 				11D679A0175298E100E96E0D /* DartTypes.cpp */,
 				11D679A1175298E100E96E0D /* DartTypes.h */,
 				11D679A2175298E100E96E0D /* debug.h */,
@@ -269,7 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E11B07B22E3D4B08A4C6ED11 /* DartBasicApp.cpp in Sources */,
-				11D679A4175298E100E96E0D /* CinderDart.cpp in Sources */,
+				11D679A4175298E100E96E0D /* DartVM.cpp in Sources */,
 				11D679A5175298E100E96E0D /* DartTypes.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

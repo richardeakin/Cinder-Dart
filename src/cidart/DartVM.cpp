@@ -2,10 +2,11 @@
 // Use of this source code (and the Dart itself) is governed by a
 // BSD-style license that can be found in the LICENSE.txt file.
 
-#include "CinderDart.h"
-#include "debug.h"
+#include "cidart/DartVM.h"
+#include "cidart/debug.h"
+#include "cidart/DartTypes.h"
+
 #include "Resources.h"
-#include "DartTypes.h"
 
 #include "cinder/app/App.h"
 #include "cinder/Utilities.h"
@@ -41,7 +42,7 @@ void toCinder( Dart_NativeArguments arguments ) {
 
 	DartScope enterScope;
 
-	CinderDart *cd = static_cast<CinderDart *>( Dart_CurrentIsolateData() );
+	DartVM *cd = static_cast<DartVM *>( Dart_CurrentIsolateData() );
 	if( ! cd->mReceiveMapCallback ) {
 		LOG_E << "no ReceiveMapCallback, returning." << endl;
 		return;
@@ -103,7 +104,7 @@ Dart_NativeFunction resolveName( Dart_Handle handle, int argc )
 
 	string name = getString( handle );
 
-	CinderDart *cd = static_cast<CinderDart *>( Dart_CurrentIsolateData() );
+	DartVM *cd = static_cast<DartVM *>( Dart_CurrentIsolateData() );
 	auto& functionMap = cd->mNativeFunctionMap;
 	auto functionIt = functionMap.find( name );
 	if( functionIt != functionMap.end() )
@@ -113,7 +114,7 @@ Dart_NativeFunction resolveName( Dart_Handle handle, int argc )
 }
 
 
-CinderDart::CinderDart()
+DartVM::DartVM()
 : mIsolate( nullptr )
 {
 	mVMFlags.push_back( "--enable-checked-mode" );
@@ -141,7 +142,7 @@ CinderDart::CinderDart()
 	LOG_V << "Dart_Initialize complete." << endl;
 }
 
-void CinderDart::loadScript( ci::DataSourceRef script )
+void DartVM::loadScript( ci::DataSourceRef script )
 {
 	Dart_Isolate currentIsolate = Dart_CurrentIsolate();
 	if( currentIsolate && currentIsolate == mIsolate ) {
@@ -174,7 +175,7 @@ void CinderDart::loadScript( ci::DataSourceRef script )
 	invoke( "main" );
 }
 
-void CinderDart::invoke( const string &functionName, int argc, Dart_Handle* args )
+void DartVM::invoke( const string &functionName, int argc, Dart_Handle* args )
 {
 	Dart_Handle library = Dart_RootLibrary();
 	CI_ASSERT( ! Dart_IsNull( library ) );

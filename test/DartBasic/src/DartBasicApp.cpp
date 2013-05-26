@@ -2,7 +2,7 @@
 #include "cinder/gl/gl.h"
 #include "cinder/Timeline.h"
 
-#include "cidart/CinderDart.h"
+#include "cidart/DartVM.h"
 #include "cidart/DartTypes.h"
 #include "cidart/debug.h"
 
@@ -19,7 +19,7 @@ class DartBasicApp : public AppNative {
 
 	void receiveMap(  const cidart::DataMap& map );
 
-	cidart::CinderDart mDart;
+	cidart::DartVM mDart;
 
 	size_t mNumCircleSegments;
 	ColorA mCircleColor;
@@ -66,7 +66,7 @@ void DartBasicApp::keyDown( KeyEvent event )
 {
 	if( event.getChar() == 'r') {
 		LOG_V << "reload." << endl;
-		mDart.loadScript( loadAsset( "main.dart" ) ); // TODO: add CinderDart::reload
+		mDart.loadScript( loadAsset( "main.dart" ) ); // TODO: add DartVM::reload
 	}
 }
 
