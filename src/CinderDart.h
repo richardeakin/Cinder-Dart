@@ -9,7 +9,7 @@
 #include <vector>
 #include <map>
 
-namespace cinderdart {
+namespace cidart {
 
 	typedef std::map<std::string, Dart_Handle> DataMap;
 
@@ -37,4 +37,4 @@ namespace cinderdart {
 		friend void toCinder( Dart_NativeArguments arguments );
 		friend Dart_NativeFunction resolveName( Dart_Handle handle, int argc );
 	};
-} // namespace cinderdart
+} // namespace cidart

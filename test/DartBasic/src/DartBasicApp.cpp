@@ -16,7 +16,7 @@ class DartBasicApp : public AppNative {
 	void update();
 	void draw();
 
-	cinderdart::CinderDart mDart;
+	cidart::CinderDart mDart;
 
 	size_t mNumCircleSegments;
 };
@@ -24,16 +24,16 @@ class DartBasicApp : public AppNative {
 void DartBasicApp::setup()
 {
 
-	mDart.setMapReceiver( [this]( const cinderdart::DataMap& map ) {
+	mDart.setMapReceiver( [this]( const cidart::DataMap& map ) {
 		LOG_V << "huzzah" << endl;
 		for( auto &mp : map ) {
 			LOG_V << "key: " << mp.first << ", value: ";
 			Dart_Handle value = mp.second;
 			if( Dart_IsInteger( value ) ) {
-				console() << cinderdart::getInt( value );
+				console() << cidart::getInt( value );
 			}
 			else if( Dart_IsDouble( value ) ) {
-				console() << cinderdart::getFloat( value );
+				console() << cidart::getFloat( value );
 			}
 			else {
 				console() << "unknown type" << endl;
@@ -42,7 +42,7 @@ void DartBasicApp::setup()
 
 		auto segIt = map.find( "segments" );
 		if( segIt != map.end() )
-			mNumCircleSegments = cinderdart::getInt( segIt->second );
+			mNumCircleSegments = cidart::getInt( segIt->second );
 	} );
 
 	mDart.loadScript( loadAsset( "main.dart" ) );

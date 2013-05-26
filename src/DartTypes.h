@@ -2,7 +2,7 @@
 
 #include "dart_api.h"
 
-namespace cinderdart {
+namespace cidart {
 
 	struct DartScope {
 		DartScope() { Dart_EnterScope(); }
@@ -31,4 +31,4 @@ namespace cinderdart {
 
 	Dart_Handle getField( Dart_Handle container, const std::string &name );
 
-} // namespace cinderdart
+} // namespace cidart

@@ -3,7 +3,7 @@
 
 using namespace std;
 
-namespace cinderdart {
+namespace cidart {
 
 	void console( Dart_NativeArguments arguments ) {
 		DartScope enterScope;
@@ -58,4 +58,4 @@ namespace cinderdart {
 		return result;
 	}
 
-} // namespace cinderdart
+} // namespace cidart

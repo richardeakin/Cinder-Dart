@@ -11,7 +11,7 @@
 using namespace std;
 using namespace ci;
 
-namespace cinderdart {
+namespace cidart {
 
 // Dart_IsolateCreateCallback
 Dart_Isolate createIsolateCallback( const char* script_uri, const char* main, void* data, char** error );
@@ -41,8 +41,6 @@ void toCinder( Dart_NativeArguments arguments ) {
 		LOG_E << "no ReceiveMapCallback, returning." << endl;
 		return;
 	}
-
-
 
 	Dart_Handle handle = Dart_GetNativeArgument( arguments, 0 );
 
@@ -331,4 +329,4 @@ Dart_Handle libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Ha
 	return nullptr;
 }
 
-} // namespace cinderdart
+} // namespace cidart
