@@ -2,6 +2,7 @@
 #include "cinder/gl/gl.h"
 
 #include "CinderDart.h"
+#include "DartTypes.h"
 #include "debug.h"
 
 using namespace ci;
@@ -26,12 +27,13 @@ void DartBasicApp::setup()
 		LOG_V << "huzzah" << endl;
 		for( auto &mp : map ) {
 			LOG_V << "key: " << mp.first << ", value: ";
-			if( mp.second.type() == typeid(int) )
-				console() << boost::any_cast<int>( mp.second ) << endl;
-			else if( mp.second.type() == typeid(float) )
-				console() << boost::any_cast<float>( mp.second ) << endl;
-			else if( mp.second.type() == typeid(Dart_Handle) )
-				console() << "Dart_Handle" << endl;
+			Dart_Handle value = mp.second;
+			if( Dart_IsInteger( value ) ) {
+				console() << cinderdart::getInt( value );
+			}
+			else if( Dart_IsDouble( value ) ) {
+				console() << cinderdart::getFloat( value );
+			}
 			else {
 				console() << "unknown type" << endl;
 			}
@@ -39,7 +41,7 @@ void DartBasicApp::setup()
 
 		auto segIt = map.find( "segments" );
 		if( segIt != map.end() )
-			mNumCircleSegments = boost::any_cast<int>( segIt->second );
+			mNumCircleSegments = cinderdart::getInt( segIt->second );
 	} );
 
 	mDart.loadScript( loadResource( "main.dart" ) );

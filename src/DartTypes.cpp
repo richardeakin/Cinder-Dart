@@ -27,6 +27,7 @@ namespace cinderdart {
 		return string( result );
 	}
 
+	// TODO: if type isn't int but it is number, get it however possible and cast it to int
 	int getInt( Dart_Handle handle ) {
 		int64_t result;
 		CHECK_DART( Dart_IntegerToInt64( handle, &result ) );

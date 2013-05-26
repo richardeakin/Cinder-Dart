@@ -9,11 +9,9 @@
 #include <vector>
 #include <map>
 
-#include <boost/any.hpp>
-
 namespace cinderdart {
 
-	typedef std::map<std::string, boost::any> DataMap;
+	typedef std::map<std::string, Dart_Handle> DataMap;
 
 	class CinderDart {
 	public:

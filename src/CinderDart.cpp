@@ -93,16 +93,8 @@ void toCinder( Dart_NativeArguments arguments ) {
 		args[0] = key;
 		Dart_Handle value = callFunction( handle, "[]", 1, args );
 
-		if( Dart_IsInteger( value ) ) {
-			map[keyString] = getInt( value );
-		}
-		else if( Dart_IsDouble( value ) ) {
-			map[keyString] = getFloat( value );
-		}
-		else {
-			// fallback: just hand user the Dart_Handle
-			map[keyString] = value;
-		}
+		// fallback: just hand user the Dart_Handle
+		map[keyString] = value;
 	}
 
 	cd->mReceiveMapCallback( map );
