@@ -36,6 +36,7 @@
 		11D679A0175298E100E96E0D /* DartTypes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DartTypes.cpp; sourceTree = "<group>"; };
 		11D679A1175298E100E96E0D /* DartTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DartTypes.h; sourceTree = "<group>"; };
 		11D679A2175298E100E96E0D /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; };
+		11D679BC1752A73400E96E0D /* main.dart */ = {isa = PBXFileReference; lastKnownFileType = text; name = main.dart; path = ../assets/main.dart; sourceTree = "<group>"; };
 		2730F19BCC084D6B89BBA052 /* DartBasic_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = DartBasic_Prefix.pch; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -80,6 +81,7 @@
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				11D679BC1752A73400E96E0D /* main.dart */,
 				9B083A6ED8DE4EDC810DB7D4 /* DartBasicApp.cpp */,
 			);
 			name = Source;
