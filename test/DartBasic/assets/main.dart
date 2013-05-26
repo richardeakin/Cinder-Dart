@@ -11,6 +11,7 @@ void main() {
   // print( "r: ${c.r}, g: ${c.g}, b: ${c.b}, a: ${c.a");
 
   var m = {
+    'radius' : 200.0,
     'segments' : 5,
     'color' : new Color( 1.0, 0.3, 0.15, 1.0 ),
     'rotationRate' : 8.0

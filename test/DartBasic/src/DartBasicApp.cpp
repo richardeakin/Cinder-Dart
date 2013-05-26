@@ -14,7 +14,6 @@ class DartBasicApp : public AppNative {
   public:
 	void setup();
 	void keyDown( KeyEvent event );
-	void update();
 	void draw();
 
 	void receiveMap(  const cidart::DataMap& map );
@@ -23,13 +22,14 @@ class DartBasicApp : public AppNative {
 
 	size_t mNumCircleSegments;
 	ColorA mCircleColor;
-	float mRotationRate;
-
+	float mCircleRadius, mRotationRate;
 	Anim<float> mRotation;
 };
 
 void DartBasicApp::setup()
 {
+	// these values will be updated from main.dart:
+	mCircleRadius = 1.0f;
 	mNumCircleSegments = 3;
 	mCircleColor = ColorA::white();
 	mRotationRate = 2.0f;
@@ -46,6 +46,10 @@ void DartBasicApp::receiveMap( const cidart::DataMap& map )
 	for( auto &mp : map ) {
 		LOG_V << "key: " << mp.first << ", value type: " << cidart::getClassName( mp.second ) << endl;
 	}
+
+	auto radiusIt = map.find( "radius" );
+	if( radiusIt != map.end() )
+		mCircleRadius = cidart::getFloat( radiusIt->second );
 
 	auto segIt = map.find( "segments" );
 	if( segIt != map.end() )
@@ -70,10 +74,6 @@ void DartBasicApp::keyDown( KeyEvent event )
 	}
 }
 
-void DartBasicApp::update()
-{
-}
-
 void DartBasicApp::draw()
 {
 	gl::clear();
@@ -82,7 +82,7 @@ void DartBasicApp::draw()
 		gl::translate( getWindowCenter() );
 		gl::rotate( mRotation );
 		gl::color( mCircleColor );
-		gl::drawSolidCircle( Vec2f::zero(), 200.0f, mNumCircleSegments );
+		gl::drawSolidCircle( Vec2f::zero(), mCircleRadius, mNumCircleSegments );
 	gl::popMatrices();
 }
 
