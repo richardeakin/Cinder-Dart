@@ -36,80 +36,10 @@ void writeFileCallback(const void* data, intptr_t length, void* file);
 void closeFileCallback(void* file);
 // Dart_LibraryTagHandler
 Dart_Handle libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Handle urlHandle );
-
-// TODO: see if I can use Dart_ObjectIsType to ensure the class is of type Map
-void toCinder( Dart_NativeArguments arguments ) {
-
-	DartScope enterScope;
-
-	DartVM *cd = static_cast<DartVM *>( Dart_CurrentIsolateData() );
-	if( ! cd->mReceiveMapCallback ) {
-		LOG_E << "no ReceiveMapCallback, returning." << endl;
-		return;
-	}
-
-	Dart_Handle handle = Dart_GetNativeArgument( arguments, 0 );
-
-	if( ! Dart_IsInstance( handle ) ) {
-		LOG_E << "not a dart instance." << endl;
-		return;
-	}
-
-	string className = getClassName( handle );
-	LOG_V << "class name: " << className << endl;
-
-	if( ! isMap( handle ) ) {
-		LOG_E << "expected object of type map" << endl;
-		return;
-	}
-
-	// get keys:
-
-	Dart_Handle length = getField( handle, "length" );
-
-	int numEntries = getInt( length );
-	LOG_V << "numEntries: " << numEntries << endl;
-
-	Dart_Handle keys = getField( handle, "keys" );
-
-	Dart_Handle lengthIter = getField( keys, "length" );
-	int lenIter = getInt( lengthIter );
-	CI_ASSERT( numEntries == lenIter );
-
-	DataMap map;
-
-	for( size_t i = 0; i < lenIter; i++ ) {
-		Dart_Handle args[] = { newInt( i ) };
-		Dart_Handle key = callFunction( keys, "elementAt", 1, args );
-		string keyString = getString( key );
-
-		args[0] = key;
-		Dart_Handle value = callFunction( handle, "[]", 1, args );
-
-		// hand user the Dart_Handle
-		map[keyString] = value;
-	}
-
-	cd->mReceiveMapCallback( map );
-}
-
-Dart_NativeFunction resolveName( Dart_Handle handle, int argc )
-{
-	CI_ASSERT( Dart_IsString( handle ) );
-
-	DartScope enterScope;
-
-	string name = getString( handle );
-
-	DartVM *cd = static_cast<DartVM *>( Dart_CurrentIsolateData() );
-	auto& functionMap = cd->mNativeFunctionMap;
-	auto functionIt = functionMap.find( name );
-	if( functionIt != functionMap.end() )
-		return functionIt->second;
-
-	return nullptr;
-}
-
+// Dart_NativeEntryResolver
+Dart_NativeFunction resolveName( Dart_Handle handle, int argc );
+// Native callback that handles a Map of arbitrary data
+void toCinder( Dart_NativeArguments arguments );
 
 DartVM::DartVM()
 : mIsolate( nullptr )
@@ -313,6 +243,79 @@ Dart_Handle libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Ha
 
 	CI_ASSERT( false );
 	return nullptr;
+}
+
+Dart_NativeFunction resolveName( Dart_Handle handle, int argc )
+{
+	CI_ASSERT( Dart_IsString( handle ) );
+
+	DartScope enterScope;
+
+	string name = getString( handle );
+
+	DartVM *cd = static_cast<DartVM *>( Dart_CurrentIsolateData() );
+	auto& functionMap = cd->mNativeFunctionMap;
+	auto functionIt = functionMap.find( name );
+	if( functionIt != functionMap.end() )
+		return functionIt->second;
+
+	return nullptr;
+}
+
+// TODO: see if I can use Dart_ObjectIsType to ensure the class is of type Map
+void toCinder( Dart_NativeArguments arguments ) {
+
+	DartScope enterScope;
+
+	DartVM *cd = static_cast<DartVM *>( Dart_CurrentIsolateData() );
+	if( ! cd->mReceiveMapCallback ) {
+		LOG_E << "no ReceiveMapCallback, returning." << endl;
+		return;
+	}
+
+	Dart_Handle handle = Dart_GetNativeArgument( arguments, 0 );
+
+	if( ! Dart_IsInstance( handle ) ) {
+		LOG_E << "not a dart instance." << endl;
+		return;
+	}
+
+	string className = getClassName( handle );
+	LOG_V << "class name: " << className << endl;
+
+	if( ! isMap( handle ) ) {
+		LOG_E << "expected object of type map" << endl;
+		return;
+	}
+
+	// get keys:
+
+	Dart_Handle length = getField( handle, "length" );
+
+	int numEntries = getInt( length );
+	LOG_V << "numEntries: " << numEntries << endl;
+
+	Dart_Handle keys = getField( handle, "keys" );
+
+	Dart_Handle lengthIter = getField( keys, "length" );
+	int lenIter = getInt( lengthIter );
+	CI_ASSERT( numEntries == lenIter );
+
+	DataMap map;
+
+	for( size_t i = 0; i < lenIter; i++ ) {
+		Dart_Handle args[] = { newInt( i ) };
+		Dart_Handle key = callFunction( keys, "elementAt", 1, args );
+		string keyString = getString( key );
+
+		args[0] = key;
+		Dart_Handle value = callFunction( handle, "[]", 1, args );
+
+		// hand user the Dart_Handle
+		map[keyString] = value;
+	}
+
+	cd->mReceiveMapCallback( map );
 }
 
 } // namespace cidart
