@@ -33,7 +33,17 @@ void closeFileCallback(void* file);
 Dart_Handle libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Handle urlHandle );
 
 void toCinder( Dart_NativeArguments arguments ) {
+
 	DartScope enterScope;
+
+	CinderDart *cd = static_cast<CinderDart *>( Dart_CurrentIsolateData() );
+	if( ! cd->mReceiveMapCallback ) {
+		LOG_E << "no ReceiveMapCallback, returning." << endl;
+		return;
+	}
+
+
+
 	Dart_Handle handle = Dart_GetNativeArgument( arguments, 0 );
 
 	if( ! Dart_IsInstance( handle ) ) {
@@ -73,24 +83,34 @@ void toCinder( Dart_NativeArguments arguments ) {
 	int lenIter = getInt( lengthIter );
 	CI_ASSERT( numEntries == lenIter );
 
+	DataMap map;
+
 	for( size_t i = 0; i < lenIter; i++ ) {
 		Dart_Handle args[] = { newInt( i ) };
 		Dart_Handle key = callFunction( keys, "elementAt", 1, args );
 		string keyString = getString( key );
-		LOG_V << "\t- key: " << keyString << endl;
 
 		args[0] = key;
 		Dart_Handle value = callFunction( handle, "[]", 1, args );
 
-		// TODO: parse value to boost::any
-
+		if( Dart_IsInteger( value ) ) {
+			map[keyString] = getInt( value );
+		}
+		else if( Dart_IsDouble( value ) ) {
+			map[keyString] = getFloat( value );
+		}
+		else {
+			// fallback: just hand user the Dart_Handle
+			map[keyString] = value;
+		}
 	}
+
+	cd->mReceiveMapCallback( map );
 }
 
 Dart_NativeFunction resolveName( Dart_Handle handle, int argc )
 {
-	if ( ! Dart_IsString( handle ) )
-		return nullptr;
+	CI_ASSERT( Dart_IsString( handle ) );
 
 	DartScope enterScope;
 
@@ -100,7 +120,7 @@ Dart_NativeFunction resolveName( Dart_Handle handle, int argc )
 	string name = getString( handle );
 
 	CinderDart *cd = static_cast<CinderDart *>( Dart_CurrentIsolateData() );
-	auto& functionMap = cd->getFunctionMap();
+	auto& functionMap = cd->mNativeFunctionMap;
 	auto functionIt = functionMap.find( name );
 	if( functionIt != functionMap.end() )
 		return functionIt->second;
