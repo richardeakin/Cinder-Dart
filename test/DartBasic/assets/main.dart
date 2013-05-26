@@ -11,10 +11,9 @@ void main() {
   // print( "r: ${c.r}, g: ${c.g}, b: ${c.b}, a: ${c.a");
 
   var m = {
-    'a' : 1,
-    'b' : 2.0,
+    'segments' : 5,
     'color' : new Color( 1.0, 0.3, 0.15, 1.0 ),
-    'segments' : 5
+    'rotationRate' : 8.0
   };
 
   toCinder( m );

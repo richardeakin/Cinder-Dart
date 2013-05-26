@@ -1,5 +1,6 @@
 #include "cinder/app/AppNative.h"
 #include "cinder/gl/gl.h"
+#include "cinder/Timeline.h"
 
 #include "CinderDart.h"
 #include "DartTypes.h"
@@ -22,15 +23,21 @@ class DartBasicApp : public AppNative {
 
 	size_t mNumCircleSegments;
 	ColorA mCircleColor;
+	float mRotationRate;
+
+	Anim<float> mRotation;
 };
 
 void DartBasicApp::setup()
 {
 	mNumCircleSegments = 3;
 	mCircleColor = ColorA::white();
+	mRotationRate = 2.0f;
+	mRotation = 0;
 
 	mDart.setMapReceiver( bind( &DartBasicApp::receiveMap, this, std::_1 ) );
 	mDart.loadScript( loadAsset( "main.dart" ) );
+
 }
 
 void DartBasicApp::receiveMap( const cidart::DataMap& map )
@@ -45,13 +52,14 @@ void DartBasicApp::receiveMap( const cidart::DataMap& map )
 		mNumCircleSegments = cidart::getInt( segIt->second );
 
 	auto colorIt = map.find( "color" );
-	if( colorIt != map.end() ) {
-		if( cidart::isColor( colorIt->second ) )
-			mCircleColor = cidart::getColor( colorIt->second );
-		else
-			LOG_E << "expected value for key 'color' to be of type Color." << endl;
-	}
+	if( colorIt != map.end() )
+		mCircleColor = cidart::getColor( colorIt->second );
 
+	auto rotationRateIt = map.find( "rotationRate" );
+	if( rotationRateIt != map.end() ) {
+		mRotationRate = cidart::getFloat( rotationRateIt->second );
+		timeline().apply( &mRotation, mRotation + 360.0f, mRotationRate ).loop();
+	}
 }
 
 void DartBasicApp::keyDown( KeyEvent event )
@@ -68,12 +76,14 @@ void DartBasicApp::update()
 
 void DartBasicApp::draw()
 {
-	// clear out the window with black
-	gl::clear( Color( 0, 0, 0 ) );
+	gl::clear();
 
-
-	gl::color( mCircleColor );
-	gl::drawSolidCircle( getWindowCenter(), 200.0f, mNumCircleSegments );
+	gl::pushMatrices();
+		gl::translate( getWindowCenter() );
+		gl::rotate( mRotation );
+		gl::color( mCircleColor );
+		gl::drawSolidCircle( Vec2f::zero(), 200.0f, mNumCircleSegments );
+	gl::popMatrices();
 }
 
 CINDER_APP_NATIVE( DartBasicApp, RendererGl )
