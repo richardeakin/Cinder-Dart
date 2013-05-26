@@ -211,7 +211,6 @@ Dart_Isolate createIsolateCallback( const char* script_uri, const char* main, vo
 	}
 
 	// Set up the library tag handler for this isolate.
-	LOG_V << "Setting up library tag handler" << endl;
 	DartScope enterScope;
 	Dart_Handle result = Dart_SetLibraryTagHandler( libraryTagHandler );
 	CHECK_DART( result );
@@ -280,16 +279,11 @@ void closeFileCallback(void* file)
 // details of this method aren't really documented yet so I just log what I can here and move on.
 Dart_Handle libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Handle urlHandle )
 {
-	const char* url;
-	Dart_StringToCString( urlHandle, &url );
-
-
-	if( tag == kCanonicalizeUrl ) {
-		LOG_V << "\tkCanonicalizeUrl" << endl;
+	if( tag == kCanonicalizeUrl )
 		return urlHandle;
-	}
 
-	if( strcmp( url, "cinder" ) == 0 ) {
+	string url = getString( urlHandle );
+	if( url == "cinder" ) {
 		DataSourceRef script = app::loadResource( RES_CINDER_DART );
 		string scriptContents = loadString( script );
 
