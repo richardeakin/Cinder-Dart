@@ -12,10 +12,15 @@
 
 #include "dart_api.h"
 
-// FIXME: this macro is not safe
+// FIXME: this macro is not safe - syntax errors in the script will bring it down
 #define CHECK_DART(result)							\
 if (Dart_IsError(result)) {							\
 	LOG_E << Dart_GetError(result) << std::endl;	\
 	CI_ASSERT( 0 );									\
 }
 
+#define CHECK_DART_RETURN(result)					\
+if (Dart_IsError(result)) {							\
+	LOG_E << Dart_GetError(result) << std::endl;	\
+	return;											\
+}

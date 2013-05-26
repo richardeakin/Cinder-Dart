@@ -149,9 +149,9 @@ CinderDart::CinderDart()
 
 void CinderDart::loadScript( ci::DataSourceRef script )
 {
-	if( mIsolate ) {
+	Dart_Isolate currentIsolate = Dart_CurrentIsolate();
+	if( currentIsolate && currentIsolate == mIsolate ) {
 		LOG_V << "isolate already loaded, shutting down first" << endl;
-		Dart_EnterIsolate( mIsolate );
 		Dart_ShutdownIsolate();
 	}
 
@@ -163,26 +163,21 @@ void CinderDart::loadScript( ci::DataSourceRef script )
 		CI_ASSERT( false );
 	}
 
-	// TODO: try DartScope here and see if it messes with isolate's exit
-	Dart_EnterScope();
+	DartScope enterScope;
 
-	Dart_Handle url = Dart_NewStringFromCString( scriptPath );
-	CHECK_DART( url );
+	Dart_Handle url = newString( scriptPath );
 	string scriptContents = loadString( script );
 
 //	LOG_V << "script contents: " << scriptContents << endl;
 
 	Dart_Handle source = Dart_NewStringFromCString( scriptContents.c_str() );
 	CHECK_DART( source );
-	CHECK_DART( Dart_LoadScript( url, source, 0, 0 ) );
+	CHECK_DART_RETURN( Dart_LoadScript( url, source, 0, 0 ) );
 
 	// I guess main needs to be manually invoked...
 	// TODO: check dartium to see how it handles this part.
 	//	- maybe it is handled with Dart_RunLoop() ?
 	invoke( "main" );
-
-	Dart_ExitScope();
-    Dart_ExitIsolate();
 }
 
 void CinderDart::invoke( const string &functionName, int argc, Dart_Handle* args )
@@ -192,7 +187,7 @@ void CinderDart::invoke( const string &functionName, int argc, Dart_Handle* args
 
 	Dart_Handle nameHandle = Dart_NewStringFromCString( functionName.c_str() );
 	Dart_Handle result = Dart_Invoke( library, nameHandle, argc, args );
-	CHECK_DART( result );
+	CHECK_DART_RETURN( result );
 
 	// TODO: there was originally a note saying this probably isn't necessary.. try removing
 	// Keep handling messages until the last active receive port is closed.
