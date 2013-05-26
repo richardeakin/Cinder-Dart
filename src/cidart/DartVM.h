@@ -29,6 +29,8 @@ namespace cidart {
 		void invoke( const std::string &functionName, int argc = 0, Dart_Handle *args = nullptr );
 
 		void setMapReceiver( const ReceiveMapCallback& callback )	{ mReceiveMapCallback = callback; }
+
+		void addNativeFunction( const std::string dartFuncName, Dart_NativeFunction nativeFunc )	{ mNativeFunctionMap[dartFuncName] = nativeFunc; }
 	private:
 
 		Dart_Isolate mIsolate;

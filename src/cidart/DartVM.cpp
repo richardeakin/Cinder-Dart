@@ -99,9 +99,6 @@ Dart_NativeFunction resolveName( Dart_Handle handle, int argc )
 
 	DartScope enterScope;
 
-	const char* cname;
-	CHECK_DART( Dart_StringToCString( handle, &cname ) );
-
 	string name = getString( handle );
 
 	DartVM *cd = static_cast<DartVM *>( Dart_CurrentIsolateData() );
@@ -168,6 +165,11 @@ void DartVM::loadScript( ci::DataSourceRef script )
 	Dart_Handle source = Dart_NewStringFromCString( scriptContents.c_str() );
 	CHECK_DART( source );
 	CHECK_DART_RETURN( Dart_LoadScript( url, source, 0, 0 ) );
+
+	Dart_Handle library = Dart_RootLibrary();
+	CI_ASSERT( ! Dart_IsNull( library ) );
+
+	CHECK_DART( Dart_SetNativeResolver( library, resolveName ) );
 
 	// I guess main needs to be manually invoked...
 	// TODO: check dartium to see how it handles this part.
