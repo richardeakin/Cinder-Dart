@@ -16,6 +16,8 @@ class DartBasicApp : public AppNative {
 	void update();
 	void draw();
 
+	void receiveMap(  const cidart::DataMap& map );
+
 	cidart::CinderDart mDart;
 
 	size_t mNumCircleSegments;
@@ -23,29 +25,30 @@ class DartBasicApp : public AppNative {
 
 void DartBasicApp::setup()
 {
-
-	mDart.setMapReceiver( [this]( const cidart::DataMap& map ) {
-		LOG_V << "huzzah" << endl;
-		for( auto &mp : map ) {
-			LOG_V << "key: " << mp.first << ", value: ";
-			Dart_Handle value = mp.second;
-			if( Dart_IsInteger( value ) ) {
-				console() << cidart::getInt( value );
-			}
-			else if( Dart_IsDouble( value ) ) {
-				console() << cidart::getFloat( value );
-			}
-			else {
-				console() << "unknown type" << endl;
-			}
-		}
-
-		auto segIt = map.find( "segments" );
-		if( segIt != map.end() )
-			mNumCircleSegments = cidart::getInt( segIt->second );
-	} );
-
+	mDart.setMapReceiver( bind( &DartBasicApp::receiveMap, this, std::_1 ) );
 	mDart.loadScript( loadAsset( "main.dart" ) );
+}
+
+void DartBasicApp::receiveMap( const cidart::DataMap& map )
+{
+	LOG_V << "huzzah" << endl;
+	for( auto &mp : map ) {
+		LOG_V << "key: " << mp.first << ", value: ";
+		Dart_Handle value = mp.second;
+		if( Dart_IsInteger( value ) ) {
+			console() << cidart::getInt( value ) << endl;
+		}
+		else if( Dart_IsDouble( value ) ) {
+			console() << cidart::getFloat( value ) << endl;
+		}
+		else {
+			console() << "unknown type" << endl;
+		}
+	}
+
+	auto segIt = map.find( "segments" );
+	if( segIt != map.end() )
+		mNumCircleSegments = cidart::getInt( segIt->second );
 }
 
 void DartBasicApp::keyDown( KeyEvent event )
