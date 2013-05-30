@@ -3,7 +3,7 @@ import 'cinder';
 void blarg() native "blarg";
 
 void main() {
-  print("PropBag test.");
+  print("NativeCallback test.");
   blarg();
 } 
  
