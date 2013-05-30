@@ -76,14 +76,38 @@ namespace cidart {
 		return hasFunction( instanceClass, "keys" ); // all map classes contain this function
 	}
 
+//	bool isMap( Dart_Handle handle ) {
+//		Dart_Handle coreUrl = newString( "dart:core" );
+//		CHECK_DART( coreUrl );
+//		Dart_Handle coreLib = Dart_LookupLibrary( coreUrl );
+//		CHECK_DART( coreLib );
+//
+//		Dart_Handle mapClassName = newString( "Map" );
+//		CHECK_DART( mapClassName );
+//		Dart_Handle mapClass = Dart_GetClass( coreLib, mapClassName );
+//		CHECK_DART( mapClass );
+//
+//		// FIXME: this fails assertion with the following:
+//		// /Volumes/ssd/code/chromium/dart-svn/dart/runtime/vm/object.cc:9653: error: expected: !type_class.HasTypeArguments()
+//		bool result;
+//		CHECK_DART( Dart_ObjectIsType( handle, mapClass, &result ) );
+//		return result;
+//	}
 
 	bool isColor( Dart_Handle handle ) {
-		return ( getClassName( handle ) == "Color" );
+		Dart_Handle cinderLib = Dart_LookupLibrary( newString( "cinder" ) );
+		CHECK_DART( cinderLib );
+		Dart_Handle colorClass = Dart_GetClass( cinderLib, newString( "Color" ) );
+		CHECK_DART( colorClass );
+
+		bool result;
+		CHECK_DART( Dart_ObjectIsType( handle, colorClass, &result ) );
+		return result;
 	}
 
 	ci::ColorA getColor( Dart_Handle handle ) {
 		ci::ColorA result;
-		if( ! isColor ) {
+		if( ! isColor( handle ) ) {
 			LOG_E << "expected handle to be of type Color" << endl;
 			return result;
 		}
