@@ -21,7 +21,7 @@ namespace cidart {
 
 	// TODO: bah, these names are ambigous when used from another file.
 	
-	Dart_Handle newString(const char* str);
+	Dart_Handle newString( const char* str );
 
 	Dart_Handle newInt( int i );
 

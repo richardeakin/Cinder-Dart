@@ -17,7 +17,7 @@ namespace cidart {
 		LOG_V << getString( handle ) << std::endl;
 	}
 
-	Dart_Handle newString(const char* str) {
+	Dart_Handle newString( const char* str ) {
 		return Dart_NewStringFromCString(str);
 	}
 
