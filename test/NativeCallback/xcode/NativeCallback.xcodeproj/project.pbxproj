@@ -31,22 +31,22 @@
 		00B784B20FF439BC000DE1D7 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		11D679C11752B48800E96E0D /* main.dart */ = {isa = PBXFileReference; lastKnownFileType = text; name = main.dart; path = ../assets/main.dart; sourceTree = "<group>"; };
-		140BB7032E4B4AB696B4A880 /* debug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = debug.h; path = "../../../../../cinder-dev/blocks/Cinder-Dart/src/cidart/debug.h"; sourceTree = "<group>"; };
+		140BB7032E4B4AB696B4A880 /* debug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = debug.h; path = "../../../src/cidart/debug.h"; sourceTree = "<group>"; };
 		1F64CF3949FB4FC4995B8F6E /* NativeCallback_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = NativeCallback_Prefix.pch; sourceTree = "<group>"; };
 		20BB2EC14DEF43CD89E048FF /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		5323E6B50EAFCA7E003A9687 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
-		55FE90549522455797B10A5B /* dart_api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = dart_api.h; path = "../../../../../cinder-dev/blocks/Cinder-Dart/dart-runtime/dart_api.h"; sourceTree = "<group>"; };
-		57ADD1EBB51945CD8999A032 /* DartVM.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = DartVM.cpp; path = "../../../../../cinder-dev/blocks/Cinder-Dart/src/cidart/DartVM.cpp"; sourceTree = "<group>"; };
-		5A8C5DDAA70E4D578E3BF912 /* DartVM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DartVM.h; path = "../../../../../cinder-dev/blocks/Cinder-Dart/src/cidart/DartVM.h"; sourceTree = "<group>"; };
-		869F564EF30A41729773BD9D /* DartTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DartTypes.h; path = "../../../../../cinder-dev/blocks/Cinder-Dart/src/cidart/DartTypes.h"; sourceTree = "<group>"; };
-		87AF580E0A6F466487ECDC68 /* cinder.dart */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; name = cinder.dart; path = "../../../../../cinder-dev/blocks/Cinder-Dart/src/cidart/cinder.dart"; sourceTree = "<group>"; };
+		55FE90549522455797B10A5B /* dart_api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = dart_api.h; path = "../../../dart-runtime/dart_api.h"; sourceTree = "<group>"; };
+		57ADD1EBB51945CD8999A032 /* DartVM.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = DartVM.cpp; path = "../../../src/cidart/DartVM.cpp"; sourceTree = "<group>"; };
+		5A8C5DDAA70E4D578E3BF912 /* DartVM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DartVM.h; path = "../../../src/cidart/DartVM.h"; sourceTree = "<group>"; };
+		869F564EF30A41729773BD9D /* DartTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DartTypes.h; path = "../../../src/cidart/DartTypes.h"; sourceTree = "<group>"; };
+		87AF580E0A6F466487ECDC68 /* cinder.dart */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; name = cinder.dart; path = "../../../src/cidart/cinder.dart"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* NativeCallback.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativeCallback.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8E9BD10A56A84DA9AB163458 /* DartTypes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = DartTypes.cpp; path = "../../../../../cinder-dev/blocks/Cinder-Dart/src/cidart/DartTypes.cpp"; sourceTree = "<group>"; };
+		8E9BD10A56A84DA9AB163458 /* DartTypes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = DartTypes.cpp; path = "../../../src/cidart/DartTypes.cpp"; sourceTree = "<group>"; };
 		AA1331CBF3144773A280C5DE /* NativeCallbackApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = NativeCallbackApp.cpp; path = ../src/NativeCallbackApp.cpp; sourceTree = "<group>"; };
-		B1B32F61E55A45BF8B024B7B /* snapshot_gen.bin */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; name = snapshot_gen.bin; path = "../../../../../cinder-dev/blocks/Cinder-Dart/dart-runtime/osx/snapshot_gen.bin"; sourceTree = "<group>"; };
+		B1B32F61E55A45BF8B024B7B /* snapshot_gen.bin */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; name = snapshot_gen.bin; path = "../../../dart-runtime/osx/snapshot_gen.bin"; sourceTree = "<group>"; };
 		BE87887A274E490D8363C002 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		D5E819DE90B54E6D89B8C47E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -298,12 +298,12 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = (
 					"\"$(CINDER_PATH)/lib/libcinder_d.a\"",
-					"\"../../../../../cinder-dev/blocks/Cinder-Dart/dart-runtime/osx/libdart_builtin.a\"",
-					"\"../../../../../cinder-dev/blocks/Cinder-Dart/dart-runtime/osx/libdart_lib_withcore.a\"",
-					"\"../../../../../cinder-dev/blocks/Cinder-Dart/dart-runtime/osx/libdart_vm.a\"",
-					"\"../../../../../cinder-dev/blocks/Cinder-Dart/dart-runtime/osx/libdart_withcore.a\"",
-					"\"../../../../../cinder-dev/blocks/Cinder-Dart/dart-runtime/osx/libdouble_conversion.a\"",
-					"\"../../../../../cinder-dev/blocks/Cinder-Dart/dart-runtime/osx/libjscre.a\"",
+					"\"../../../dart-runtime/osx/libdart_builtin.a\"",
+					"\"../../../dart-runtime/osx/libdart_lib_withcore.a\"",
+					"\"../../../dart-runtime/osx/libdart_vm.a\"",
+					"\"../../../dart-runtime/osx/libdart_withcore.a\"",
+					"\"../../../dart-runtime/osx/libdouble_conversion.a\"",
+					"\"../../../dart-runtime/osx/libjscre.a\"",
 				);
 				PRODUCT_NAME = NativeCallback;
 				SYMROOT = ./build;
@@ -328,12 +328,12 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = (
 					"\"$(CINDER_PATH)/lib/libcinder.a\"",
-					"\"../../../../../cinder-dev/blocks/Cinder-Dart/dart-runtime/osx/libdart_builtin.a\"",
-					"\"../../../../../cinder-dev/blocks/Cinder-Dart/dart-runtime/osx/libdart_lib_withcore.a\"",
-					"\"../../../../../cinder-dev/blocks/Cinder-Dart/dart-runtime/osx/libdart_vm.a\"",
-					"\"../../../../../cinder-dev/blocks/Cinder-Dart/dart-runtime/osx/libdart_withcore.a\"",
-					"\"../../../../../cinder-dev/blocks/Cinder-Dart/dart-runtime/osx/libdouble_conversion.a\"",
-					"\"../../../../../cinder-dev/blocks/Cinder-Dart/dart-runtime/osx/libjscre.a\"",
+					"\"../../../dart-runtime/osx/libdart_builtin.a\"",
+					"\"../../../dart-runtime/osx/libdart_lib_withcore.a\"",
+					"\"../../../dart-runtime/osx/libdart_vm.a\"",
+					"\"../../../dart-runtime/osx/libdart_withcore.a\"",
+					"\"../../../dart-runtime/osx/libdouble_conversion.a\"",
+					"\"../../../dart-runtime/osx/libjscre.a\"",
 				);
 				PRODUCT_NAME = NativeCallback;
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -355,7 +355,7 @@
 				HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/boost\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include \"../../../../../cinder-dev/blocks/Cinder-Dart/dart-runtime\" \"../../../../../cinder-dev/blocks/Cinder-Dart/src\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include \"../../../dart-runtime\" \"../../../src\"";
 			};
 			name = Debug;
 		};
@@ -372,7 +372,7 @@
 				HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/boost\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include \"../../../../../cinder-dev/blocks/Cinder-Dart/dart-runtime\" \"../../../../../cinder-dev/blocks/Cinder-Dart/src\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include \"../../../dart-runtime\" \"../../../src\"";
 			};
 			name = Release;
 		};
