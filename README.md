@@ -10,7 +10,7 @@ Cinder is expected to be found at './cinder', I prefer to symlink my copy there.
 Binaries for OS X / i386 are included via submodule reference (warning: they are big, ~100mb just for i386 debug). To checkout everything in one go, do:
 
 ```
-git clone --recursive git://github.com/reakinator/Cinder-Dart.git $CINDER_PATH/blocks/dart
+git clone --recursive git://github.com/richardeakin/Cinder-Dart.git $CINDER_PATH/blocks/dart
 ```
 
 ### Usage

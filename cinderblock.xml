@@ -6,7 +6,7 @@
 	author="Richard Eakin"
 	license="BSD"
 	summary="Dart scripting in Cinder"
-	git="git://github.com/reakinator/Cinder-Dart.git"
+	git="git://github.com/richardeakin/Cinder-Dart.git"
 	version="0.1-alpha"
 	libraryUrl="www.dartlang.org"
 	>
