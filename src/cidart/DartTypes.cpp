@@ -5,6 +5,8 @@
 #include "cidart/DartTypes.h"
 #include "debug.h"
 
+#include "dart_mirrors_api.h"
+
 using namespace std;
 
 namespace cidart {
@@ -62,18 +64,33 @@ namespace cidart {
 		return result;
 	}
 
-	string getClassName( Dart_Handle handle ) {
-		Dart_Handle instanceClass = Dart_InstanceGetClass( handle );
-		CHECK_DART( instanceClass );
-		Dart_Handle className = Dart_ClassName( instanceClass );
+//	string getClassName( Dart_Handle handle ) {
+//		Dart_Handle instanceClass = Dart_InstanceGetClass( handle );
+//		CHECK_DART( instanceClass );
+//		Dart_Handle className = Dart_ClassName( instanceClass );
+//		CHECK_DART( className );
+//
+//		return getString( className );
+//	}
+
+	string getTypeName( Dart_Handle handle ) {
+		Dart_Handle instanceType = Dart_InstanceGetType( handle );
+		CHECK_DART( instanceType );
+		Dart_Handle className = Dart_TypeName( instanceType );
 		CHECK_DART( className );
 
 		return getString( className );
 	}
 
+
+//	bool isMap( Dart_Handle handle ) {
+//		Dart_Handle instanceClass = Dart_InstanceGetClass( handle );
+//		return hasFunction( instanceClass, "keys" ); // all map classes contain this function
+//	}
+
 	bool isMap( Dart_Handle handle ) {
-		Dart_Handle instanceClass = Dart_InstanceGetClass( handle );
-		return hasFunction( instanceClass, "keys" ); // all map classes contain this function
+		Dart_Handle instanceType = Dart_InstanceGetType( handle );
+		return hasFunction( instanceType, "keys" ); // all map classes contain this function
 	}
 
 //	bool isMap( Dart_Handle handle ) {

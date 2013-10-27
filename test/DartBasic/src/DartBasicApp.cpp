@@ -35,7 +35,7 @@ void DartBasicApp::setup()
 	mRotationRate = 2.0f;
 	mRotation = 0;
 
-	mDart.setMapReceiver( bind( &DartBasicApp::receiveMap, this, std::_1 ) );
+	mDart.setMapReceiver( bind( &DartBasicApp::receiveMap, this, placeholders::_1 ) );
 	mDart.loadScript( loadAsset( "main.dart" ) );
 
 }
@@ -44,7 +44,7 @@ void DartBasicApp::receiveMap( const cidart::DataMap& map )
 {
 	LOG_V << "huzzah" << endl;
 	for( auto &mp : map ) {
-		LOG_V << "key: " << mp.first << ", value type: " << cidart::getClassName( mp.second ) << endl;
+		LOG_V << "key: " << mp.first << ", value type: " << cidart::getTypeName( mp.second ) << endl;
 	}
 
 	auto radiusIt = map.find( "radius" );

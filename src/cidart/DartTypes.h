@@ -37,7 +37,7 @@ namespace cidart {
 
 	Dart_Handle getField( Dart_Handle container, const std::string &name );
 
-	std::string getClassName( Dart_Handle handle );
+	std::string getTypeName( Dart_Handle handle );
 
 	bool isMap( Dart_Handle handle );
 
