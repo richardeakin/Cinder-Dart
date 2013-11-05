@@ -96,25 +96,20 @@ void DartVM::loadScript( ci::DataSourceRef script )
 	CHECK_DART( source );
 	CHECK_DART_RETURN( Dart_LoadScript( url, source, 0, 0 ) );
 
+	// swap in custom _printClosure, which maps back to Log.
+	Dart_Handle cinderDartLib = Dart_LookupLibrary( Dart_NewStringFromCString( "cinder" ) );
+	CHECK_DART( cinderDartLib );
 
-	Dart_Handle library = Dart_RootLibrary();
-	CI_ASSERT( ! Dart_IsNull( library ) );
-
-	// --------------------------------------------------------
-	// FIXME: looks like is_finalized() assertion is failing again from Dart_GetField again, unless some method is called from the script to do the finalizing
-	invoke( "setup" );
-
-	// swap in our custom _printClosure, which maps back to Log
-	Dart_Handle corelib = Dart_LookupLibrary( Dart_NewStringFromCString( "dart:core" ) );
-	CHECK_DART( corelib );
-	Dart_Handle print = Dart_GetField( library, Dart_NewStringFromCString( "_printClosure" ) );
+	Dart_Handle internalLib = Dart_LookupLibrary( Dart_NewStringFromCString( "dart:_collection-dev" ) );
+	CHECK_DART( internalLib );
+	Dart_Handle print = Dart_GetField( cinderDartLib, Dart_NewStringFromCString( "_printClosure" ) );
 	CHECK_DART( print );
-	CHECK_DART( Dart_SetField( corelib, Dart_NewStringFromCString( "_printClosure" ), print ) );
+	CHECK_DART( Dart_SetField( internalLib, Dart_NewStringFromCString( "_printClosure" ), print ) );
 
+	Dart_Handle rootLib = Dart_RootLibrary();
+	CI_ASSERT( ! Dart_IsNull( rootLib ) );
 
-	// --------------------------------------------------------
-
-	CHECK_DART( Dart_SetNativeResolver( library, resolveName ) );
+	CHECK_DART( Dart_SetNativeResolver( rootLib, resolveName ) );
 
 	// I guess main needs to be manually invoked...
 	// TODO: check dartium to see how it handles this part.
@@ -235,21 +230,13 @@ Dart_Handle libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Ha
 		DataSourceRef script = app::loadResource( RES_CINDER_DART );
 		string scriptContents = loadString( script );
 
-		LOG_V << "script contents:\n\n" << scriptContents << endl;
+//		LOG_V << "script contents:\n\n" << scriptContents << endl;
 
 		Dart_Handle source = Dart_NewStringFromCString( scriptContents.c_str() );
 		CHECK_DART( source );
 
 		Dart_Handle library = Dart_LoadLibrary( urlHandle, source );
 		CHECK_DART( library );
-
-//		// swap in our custom _printClosure, which maps back to Log
-//		Dart_Handle corelib = Dart_LookupLibrary( Dart_NewStringFromCString( "dart:core" ) );
-//		CHECK_DART( corelib );
-//		Dart_Handle print = Dart_GetField( library, Dart_NewStringFromCString( "_printClosure" ) );
-//		CHECK_DART( print );
-//		CHECK_DART( Dart_SetField( corelib, Dart_NewStringFromCString( "_printClosure" ), print ) );
-
 
 		CHECK_DART( Dart_SetNativeResolver( library, resolveName ) );
 
