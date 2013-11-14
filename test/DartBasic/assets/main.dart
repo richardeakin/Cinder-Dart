@@ -6,9 +6,8 @@ void main() {
   var answer = 23 * 4 / 2;
   print( "the answer is $answer" );
 
-  // TODO: report weird printout error message..
-  //Color c = new Color( 1.0, 0.0, 0.0, 1.0 );
-  // print( "r: ${c.r}, g: ${c.g}, b: ${c.b}, a: ${c.a");
+//  Color c = new Color( 1.0, 0.0, 0.0 );
+//  print( "r: ${c.r}, g: ${c.g}, b: ${c.b}, a: ${c.a}");
 
   var m = {
     'radius' : 200.0,
