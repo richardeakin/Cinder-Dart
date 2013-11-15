@@ -31,6 +31,9 @@ public:
 	void setMapReceiver( const ReceiveMapCallback& callback )	{ mReceiveMapCallback = callback; }
 
 	void addNativeFunction( const std::string dartFuncName, Dart_NativeFunction nativeFunc )	{ mNativeFunctionMap[dartFuncName] = nativeFunc; }
+
+
+	static std::string getVersionString();
 private:
 
 	Dart_Isolate mIsolate;
