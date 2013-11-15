@@ -35,6 +35,7 @@ private:
 
 	Dart_Isolate mIsolate;
 	std::vector<std::string> mVMFlags;
+	ci::DataSourceRef		mSnapshot;
 
 	NativeFunctionMap mNativeFunctionMap;
 
@@ -42,6 +43,7 @@ private:
 
 	friend void toCinder( Dart_NativeArguments arguments );
 	friend Dart_NativeFunction resolveName( Dart_Handle handle, int argc );
+	friend Dart_Isolate createIsolateCallback( const char* script_uri, const char* main, void* data, char** error );
 };
 
 } // namespace cidart

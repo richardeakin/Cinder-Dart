@@ -73,6 +73,9 @@ void DartVM::loadScript( ci::DataSourceRef script )
 		Dart_ShutdownIsolate();
 	}
 
+	if( ! mSnapshot )
+		mSnapshot = app::loadAsset( "snapshot_gen.bin" );
+
 	const char *scriptPath = script->getFilePath().c_str();
 	char *error;
 	mIsolate = createIsolateCallback( scriptPath, "main", this, &error );
@@ -131,16 +134,20 @@ void DartVM::invoke( const string &functionName, int argc, Dart_Handle* args )
 	return;
 }
 
+std::string DartVM::getVersionString()
+{
+	return Dart_VersionString();
+}
+
 // ----------------------------------------------------------------------------------------------------
 // MARK: - Dart Callbacks
 // ----------------------------------------------------------------------------------------------------
 
-// FIXME: loadResource may not always work at app creation time, and this may be called then
-	// - anyway, this should be specified by DataSoureRef param
 Dart_Isolate createIsolateCallback( const char* script_uri, const char* main, void* data, char** error )
 {
-	DataSourceRef snapshot = app::loadAsset( "snapshot_gen.bin" );
-	const uint8_t *snapshotData = (const uint8_t *)snapshot->getBuffer().getData();
+	DartVM *dartVm = reinterpret_cast<DartVM *>( data );
+
+	const uint8_t *snapshotData = (const uint8_t *)dartVm->mSnapshot->getBuffer().getData();
 
 	LOG_V( "Creating isolate " << script_uri << ", " << main );
 	Dart_Isolate isolate = Dart_CreateIsolate( script_uri, main, snapshotData, data, error );
