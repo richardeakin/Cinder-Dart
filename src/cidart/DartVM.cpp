@@ -134,9 +134,15 @@ void DartVM::invoke( const string &functionName, int argc, Dart_Handle* args )
 	return;
 }
 
-std::string DartVM::getVersionString()
+string DartVM::getVersionString()
 {
 	return Dart_VersionString();
+}
+
+string DartVM::getCinderDartScript()
+{
+	DataSourceRef script = app::loadAsset( "cinder.dart" );
+	return loadString( script );
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -232,12 +238,13 @@ Dart_Handle libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Ha
 
 	string url = getString( urlHandle );
 	if( url == "cinder" ) {
-		DataSourceRef script = app::loadAsset( "cinder.dart" );
-		string scriptContents = loadString( script );
+		DartVM *dartVm = static_cast<DartVM *>( Dart_CurrentIsolateData() );
+
+		string script = dartVm->getCinderDartScript();
 
 //		LOG_V( "script contents:\n\n" << scriptContents );
 
-		Dart_Handle source = Dart_NewStringFromCString( scriptContents.c_str() );
+		Dart_Handle source = Dart_NewStringFromCString( script.c_str() );
 		CIDART_CHECK( source );
 
 		Dart_Handle library = Dart_LoadLibrary( urlHandle, source );
@@ -261,8 +268,8 @@ Dart_NativeFunction resolveName( Dart_Handle handle, int argc )
 
 	string name = getString( handle );
 
-	DartVM *cd = static_cast<DartVM *>( Dart_CurrentIsolateData() );
-	auto& functionMap = cd->mNativeFunctionMap;
+	DartVM *dartVm = static_cast<DartVM *>( Dart_CurrentIsolateData() );
+	auto& functionMap = dartVm->mNativeFunctionMap;
 	auto functionIt = functionMap.find( name );
 	if( functionIt != functionMap.end() )
 		return functionIt->second;

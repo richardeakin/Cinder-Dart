@@ -36,6 +36,8 @@ public:
 	static std::string getVersionString();
 private:
 
+	std::string getCinderDartScript();
+
 	Dart_Isolate mIsolate;
 	std::vector<std::string> mVMFlags;
 	ci::DataSourceRef		mSnapshot;
@@ -44,9 +46,11 @@ private:
 
 	ReceiveMapCallback mReceiveMapCallback;
 
+	// TODO: add these all as static class methods so they don't need to be friended
 	friend void toCinder( Dart_NativeArguments arguments );
 	friend Dart_NativeFunction resolveName( Dart_Handle handle, int argc );
 	friend Dart_Isolate createIsolateCallback( const char* script_uri, const char* main, void* data, char** error );
+	friend Dart_Handle libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Handle urlHandle );
 };
 
 } // namespace cidart
