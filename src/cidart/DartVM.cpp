@@ -3,10 +3,8 @@
 // BSD-style license that can be found in the LICENSE.txt file.
 
 #include "cidart/DartVM.h"
-#include "cidart/debug.h"
 #include "cidart/DartTypes.h"
-
-#include "Resources.h"
+#include "cidart/DartDebug.h"
 
 #include "cinder/app/App.h"
 #include "cinder/Utilities.h"
@@ -58,22 +56,20 @@ DartVM::DartVM()
 	};
 
 
-	LOG_V << "Setting VM Options" << endl;
+	// setting VM startup options
 	bool success = Dart_SetVMFlags( mVMFlags.size(), vmCFlags );
-	CI_ASSERT( success );
+	assert( success );
 	free( vmCFlags );
 
 	success = Dart_Initialize( createIsolateCallback, interruptIsolateCallback, unhandledExceptionCallback, shutdownIsolateCallback, openFileCallback, readFileCallback, writeFileCallback, closeFileCallback );
-	CI_ASSERT( success );
-
-	LOG_V << "Dart_Initialize complete." << endl;
+	assert( success );
 }
 
 void DartVM::loadScript( ci::DataSourceRef script )
 {
 	Dart_Isolate currentIsolate = Dart_CurrentIsolate();
 	if( currentIsolate && currentIsolate == mIsolate ) {
-		LOG_V << "isolate already loaded, shutting down first" << endl;
+		LOG_V( "isolate already loaded, shutting down first" );;
 		Dart_ShutdownIsolate();
 	}
 
@@ -81,7 +77,7 @@ void DartVM::loadScript( ci::DataSourceRef script )
 	char *error;
 	mIsolate = createIsolateCallback( scriptPath, "main", this, &error );
 	if( ! mIsolate ) {
-		LOG_E << "could not create isolate: " << error << endl;
+		 LOG_E( "could not create isolate: " << error );;
 		CI_ASSERT( false );
 	}
 
@@ -90,26 +86,26 @@ void DartVM::loadScript( ci::DataSourceRef script )
 	Dart_Handle url = newString( scriptPath );
 	string scriptContents = loadString( script );
 
-//	LOG_V << "script contents: " << scriptContents << endl;
+//	LOG_V( "script contents: " << scriptContents );;
 
 	Dart_Handle source = Dart_NewStringFromCString( scriptContents.c_str() );
-	CHECK_DART( source );
-	CHECK_DART_RETURN( Dart_LoadScript( url, source, 0, 0 ) );
+	CIDART_CHECK( source );
+	CIDART_CHECK_RETURN( Dart_LoadScript( url, source, 0, 0 ) );
 
 	// swap in custom _printClosure, which maps back to Log.
 	Dart_Handle cinderDartLib = Dart_LookupLibrary( Dart_NewStringFromCString( "cinder" ) );
-	CHECK_DART( cinderDartLib );
+	CIDART_CHECK( cinderDartLib );
 
 	Dart_Handle internalLib = Dart_LookupLibrary( Dart_NewStringFromCString( "dart:_collection-dev" ) );
-	CHECK_DART( internalLib );
+	CIDART_CHECK( internalLib );
 	Dart_Handle print = Dart_GetField( cinderDartLib, Dart_NewStringFromCString( "_printClosure" ) );
-	CHECK_DART( print );
-	CHECK_DART( Dart_SetField( internalLib, Dart_NewStringFromCString( "_printClosure" ), print ) );
+	CIDART_CHECK( print );
+	CIDART_CHECK( Dart_SetField( internalLib, Dart_NewStringFromCString( "_printClosure" ), print ) );
 
 	Dart_Handle rootLib = Dart_RootLibrary();
 	CI_ASSERT( ! Dart_IsNull( rootLib ) );
 
-	CHECK_DART( Dart_SetNativeResolver( rootLib, resolveName ) );
+	CIDART_CHECK( Dart_SetNativeResolver( rootLib, resolveName ) );
 
 	// I guess main needs to be manually invoked...
 	// TODO: check dartium to see how it handles this part.
@@ -125,12 +121,12 @@ void DartVM::invoke( const string &functionName, int argc, Dart_Handle* args )
 
 	Dart_Handle nameHandle = Dart_NewStringFromCString( functionName.c_str() );
 	Dart_Handle result = Dart_Invoke( library, nameHandle, argc, args );
-	CHECK_DART_RETURN( result );
+	CIDART_CHECK_RETURN( result );
 
 	// TODO: there was originally a note saying this probably isn't necessary.. try removing
 	// Keep handling messages until the last active receive port is closed.
 	result = Dart_RunLoop();
-	CHECK_DART( result );
+	CIDART_CHECK( result );
 
 	return;
 }
@@ -140,54 +136,55 @@ void DartVM::invoke( const string &functionName, int argc, Dart_Handle* args )
 // ----------------------------------------------------------------------------------------------------
 
 // FIXME: loadResource may not always work at app creation time, and this may be called then
+	// - anyway, this should be specified by DataSoureRef param
 Dart_Isolate createIsolateCallback( const char* script_uri, const char* main, void* data, char** error )
 {
-	DataSourceRef snapshot = app::loadResource( RES_DART_SNAPSHOT );
+	DataSourceRef snapshot = app::loadAsset( "snapshot_gen.bin" );
 	const uint8_t *snapshotData = (const uint8_t *)snapshot->getBuffer().getData();
 
-	LOG_V << "Creating isolate " << script_uri << ", " << main << endl;
+	LOG_V( "Creating isolate " << script_uri << ", " << main );
 	Dart_Isolate isolate = Dart_CreateIsolate( script_uri, main, snapshotData, data, error );
 	//	Dart_Isolate isolate = Dart_CreateIsolate( script_uri, main, NULL, data, error );
 	if ( ! isolate ) {
-		LOG_E << "Couldn't create isolate: " << *error << endl;
+		LOG_E( "Couldn't create isolate: " << *error );
 		return nullptr;
 	}
 
 	// Set up the library tag handler for this isolate.
 	DartScope enterScope;
 	Dart_Handle result = Dart_SetLibraryTagHandler( libraryTagHandler );
-	CHECK_DART( result );
+	CIDART_CHECK( result );
 
 	return isolate;
 }
 
 bool interruptIsolateCallback()
 {
-	LOG_V << "continuing.." << endl;
+	LOG_V( "continuing.." );
 	return true;
 }
 
 void unhandledExceptionCallback( Dart_Handle error )
 {
-	LOG_E << Dart_GetError( error ) << endl;
+	 LOG_E( Dart_GetError( error ) );
 }
 
 void shutdownIsolateCallback( void *callbackData )
 {
-	LOG_V << "bang" << endl;
+	LOG_V( "bang" );
 }
 
 // file callbacks have been copied verbatum from included sample... plus verbose logging. don't event know yet if we need them
 void* openFileCallback(const char* name, bool write)
 {
-	LOG_V << "name: " << name << ", write mode: " << boolalpha << write << dec << endl;
+	LOG_V( "name: " << name << ", write mode: " << boolalpha << write << dec );
 	
 	return fopen(name, write ? "w" : "r");
 }
 
 void readFileCallback(const uint8_t** data, intptr_t* fileLength, void* stream )
 {
-	LOG_V << "bang" << endl;
+	LOG_V( "bang" );
 	if (!stream) {
 		*data = 0;
 		*fileLength = 0;
@@ -207,19 +204,20 @@ void readFileCallback(const uint8_t** data, intptr_t* fileLength, void* stream )
 
 void writeFileCallback(const void* data, intptr_t length, void* file)
 {
-	LOG_V << "bang" << endl;
+	LOG_V( "bang" );
 
 	fwrite(data, 1, length, reinterpret_cast<FILE*>(file));
 }
 
 void closeFileCallback(void* file)
 {
-	LOG_V << "bang" << endl;
+	LOG_V( "bang" );
 
 	fclose(reinterpret_cast<FILE*>(file));
 }
 
 // details of this method aren't really documented yet so I just log what I can here and move on.
+// TODO: see if there is a user data param where I can pass in the cinder script, otherwise report
 Dart_Handle libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Handle urlHandle )
 {
 	if( tag == Dart_kCanonicalizeUrl )
@@ -227,18 +225,18 @@ Dart_Handle libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Ha
 
 	string url = getString( urlHandle );
 	if( url == "cinder" ) {
-		DataSourceRef script = app::loadResource( RES_CINDER_DART );
+		DataSourceRef script = app::loadAsset( "cinder.dart" );
 		string scriptContents = loadString( script );
 
-//		LOG_V << "script contents:\n\n" << scriptContents << endl;
+//		LOG_V( "script contents:\n\n" << scriptContents );
 
 		Dart_Handle source = Dart_NewStringFromCString( scriptContents.c_str() );
-		CHECK_DART( source );
+		CIDART_CHECK( source );
 
 		Dart_Handle library = Dart_LoadLibrary( urlHandle, source );
-		CHECK_DART( library );
+		CIDART_CHECK( library );
 
-		CHECK_DART( Dart_SetNativeResolver( library, resolveName ) );
+		CIDART_CHECK( Dart_SetNativeResolver( library, resolveName ) );
 
 		return library;
 	}
@@ -272,22 +270,22 @@ void toCinder( Dart_NativeArguments arguments ) {
 
 	DartVM *cd = static_cast<DartVM *>( Dart_CurrentIsolateData() );
 	if( ! cd->mReceiveMapCallback ) {
-		LOG_E << "no ReceiveMapCallback, returning." << endl;
+		 LOG_E( "no ReceiveMapCallback, returning." );
 		return;
 	}
 
 	Dart_Handle handle = Dart_GetNativeArgument( arguments, 0 );
 
 	if( ! Dart_IsInstance( handle ) ) {
-		LOG_E << "not a dart instance." << endl;
+		 LOG_E( "not a dart instance." );
 		return;
 	}
 
 	string typeName = getTypeName( handle );
-	LOG_V << "type name: " << typeName << endl;
+	LOG_V( "type name: " << typeName );
 
 	if( ! isMap( handle ) ) {
-		LOG_E << "expected object of type map" << endl;
+		 LOG_E( "expected object of type map" );
 		return;
 	}
 
@@ -296,8 +294,6 @@ void toCinder( Dart_NativeArguments arguments ) {
 	Dart_Handle length = getField( handle, "length" );
 
 	int numEntries = getInt( length );
-	LOG_V << "numEntries: " << numEntries << endl;
-
 	Dart_Handle keys = getField( handle, "keys" );
 
 	Dart_Handle lengthIter = getField( keys, "length" );

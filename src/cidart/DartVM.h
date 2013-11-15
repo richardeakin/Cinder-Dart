@@ -15,32 +15,33 @@
 
 namespace cidart {
 
-	typedef std::map<std::string, Dart_Handle> DataMap;
+typedef std::map<std::string, Dart_Handle> DataMap;
 
-	class DartVM {
-	public:
+class DartVM {
+public:
 
-		typedef std::map<std::string, Dart_NativeFunction> NativeFunctionMap;
-		typedef std::function<void( const DataMap& )>	ReceiveMapCallback;
+	typedef std::map<std::string, Dart_NativeFunction> NativeFunctionMap;
+	typedef std::function<void( const DataMap& )>	ReceiveMapCallback;
 
-		DartVM();
+	DartVM();
 
-		void loadScript( ci::DataSourceRef script );
-		void invoke( const std::string &functionName, int argc = 0, Dart_Handle *args = nullptr );
+	void loadScript( ci::DataSourceRef script );
+	void invoke( const std::string &functionName, int argc = 0, Dart_Handle *args = nullptr );
 
-		void setMapReceiver( const ReceiveMapCallback& callback )	{ mReceiveMapCallback = callback; }
+	void setMapReceiver( const ReceiveMapCallback& callback )	{ mReceiveMapCallback = callback; }
 
-		void addNativeFunction( const std::string dartFuncName, Dart_NativeFunction nativeFunc )	{ mNativeFunctionMap[dartFuncName] = nativeFunc; }
-	private:
+	void addNativeFunction( const std::string dartFuncName, Dart_NativeFunction nativeFunc )	{ mNativeFunctionMap[dartFuncName] = nativeFunc; }
+private:
 
-		Dart_Isolate mIsolate;
-		std::vector<std::string> mVMFlags;
+	Dart_Isolate mIsolate;
+	std::vector<std::string> mVMFlags;
 
-		NativeFunctionMap mNativeFunctionMap;
+	NativeFunctionMap mNativeFunctionMap;
 
-		ReceiveMapCallback mReceiveMapCallback;
+	ReceiveMapCallback mReceiveMapCallback;
 
-		friend void toCinder( Dart_NativeArguments arguments );
-		friend Dart_NativeFunction resolveName( Dart_Handle handle, int argc );
-	};
+	friend void toCinder( Dart_NativeArguments arguments );
+	friend Dart_NativeFunction resolveName( Dart_Handle handle, int argc );
+};
+
 } // namespace cidart
