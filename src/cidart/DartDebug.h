@@ -6,8 +6,16 @@
 
 #include "cinder/app/App.h"
 
-#define LOG_V( stream )			{ std::cout << __PRETTY_FUNCTION__ << " | " << stream << std::endl; }
-#define LOG_E( errorStream )	{ LOG_V( "ERROR | " << errorStream ); }
+#define CIDART_LOG_VERBOSE 0
+
+#if CIDART_LOG_VERBOSE
+	#define LOG_V( stream )			{ std::cout << __PRETTY_FUNCTION__ << " |V| " << stream << std::endl; }
+#else
+	#define LOG_V( stream )
+#endif
+
+#define LOG_I( stream )				{ std::cout << __PRETTY_FUNCTION__ << " |I| " << stream << std::endl; }
+#define LOG_E( stream )				{ std::cout << __PRETTY_FUNCTION__ << " |ERROR| " << stream << std::endl; }
 
 #include <boost/assert.hpp>
 

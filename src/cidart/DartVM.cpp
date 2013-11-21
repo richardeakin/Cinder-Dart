@@ -116,7 +116,8 @@ string DartVM::getVersionString()
 	return Dart_VersionString();
 }
 
-// TODO: make the file location user settable
+// TODO: make this load a string that user settable, so it is possible to use a modified cinder.dart
+//	- however, need to make sure that a new DataSourceRef is still created, so that the content is hot-loadable
 string DartVM::getCinderDartScript()
 {
 	DataSourceRef script = app::loadAsset( "cinder.dart" );
@@ -207,8 +208,7 @@ void DartVM::closeFileCallback(void* file)
 	fclose(reinterpret_cast<FILE*>(file));
 }
 
-// details of this method aren't really documented yet so I just log what I can here and move on.
-// TODO: see if there is a user data param where I can pass in the cinder script, otherwise report
+// loads the cinder lib if it is needed.
 Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Handle urlHandle )
 {
 	if( tag == Dart_kCanonicalizeUrl )
