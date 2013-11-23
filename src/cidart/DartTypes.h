@@ -25,7 +25,7 @@ Dart_Handle newInt( int i );
 std::string getString( Dart_Handle handle );
 
 bool isMap( Dart_Handle handle );
-bool isColor( Dart_Handle handle );
+bool isCinderClass( Dart_Handle handle, const char *className );
 
 int			getInt( Dart_Handle handle );
 float		getFloat( Dart_Handle handle );
@@ -35,6 +35,10 @@ void getValue( Dart_Handle handle, int *value );
 void getValue( Dart_Handle handle, size_t *value );
 void getValue( Dart_Handle handle, float *value );
 void getValue( Dart_Handle handle, ci::ColorA *value );
+void getValue( Dart_Handle handle, ci::Vec2i *value );
+void getValue( Dart_Handle handle, ci::Vec2f *value );
+void getValue( Dart_Handle handle, ci::Vec3i *value );
+void getValue( Dart_Handle handle, ci::Vec3f *value );
 
 bool hasFunction( Dart_Handle handle, const std::string &name );
 Dart_Handle callFunction( Dart_Handle target, const std::string &name, int numArgs = 0, Dart_Handle *args = nullptr );

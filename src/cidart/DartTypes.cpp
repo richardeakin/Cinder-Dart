@@ -83,7 +83,7 @@ void getValue( Dart_Handle handle, float *value )
 
 void getValue( Dart_Handle handle, ci::ColorA *value )
 {
-	if( ! isColor( handle ) ) {
+	if( ! isCinderClass( handle, "Color" ) ) {
 		LOG_E( "expected handle to be of type Color" );
 		return;
 	}
@@ -92,6 +92,52 @@ void getValue( Dart_Handle handle, ci::ColorA *value )
 	value->g = getFloat( getField( handle, "g" ) );
 	value->b = getFloat( getField( handle, "b" ) );
 	value->a = getFloat( getField( handle, "a" ) );
+}
+
+void getValue( Dart_Handle handle, ci::Vec2i *value )
+{
+	if( ! isCinderClass( handle, "Vec2" ) ) {
+		LOG_E( "expected handle to be of type Vec2" );
+		return;
+	}
+
+	value->x = getInt( getField( handle, "x" ) );
+	value->y = getInt( getField( handle, "y" ) );
+}
+
+void getValue( Dart_Handle handle, ci::Vec2f *value )
+{
+	if( ! isCinderClass( handle, "Vec2" ) ) {
+		LOG_E( "expected handle to be of type Vec2" );
+		return;
+	}
+
+	value->x = getFloat( getField( handle, "x" ) );
+	value->y = getFloat( getField( handle, "y" ) );
+}
+
+void getValue( Dart_Handle handle, ci::Vec3i *value )
+{
+	if( ! isCinderClass( handle, "Vec3" ) ) {
+		LOG_E( "expected handle to be of type Vec3" );
+		return;
+	}
+
+	value->x = getFloat( getField( handle, "x" ) );
+	value->y = getFloat( getField( handle, "y" ) );
+	value->z = getFloat( getField( handle, "z" ) );
+}
+
+void getValue( Dart_Handle handle, ci::Vec3f *value )
+{
+	if( ! isCinderClass( handle, "Vec3" ) ) {
+		LOG_E( "expected handle to be of type Vec3" );
+		return;
+	}
+
+	value->x = getFloat( getField( handle, "x" ) );
+	value->y = getFloat( getField( handle, "y" ) );
+	value->z = getFloat( getField( handle, "z" ) );
 }
 
 bool hasFunction( Dart_Handle handle, const string &name ) {
@@ -145,10 +191,13 @@ bool isMap( Dart_Handle handle )
 	return result;
 }
 
-bool isColor( Dart_Handle handle ) {
+// ???: rename to isCinderType?
+// - maybe shoud be using Dart_GetType as well
+bool isCinderClass( Dart_Handle handle, const char *className )
+{
 	Dart_Handle cinderLib = Dart_LookupLibrary( newString( "cinder" ) );
 	CIDART_CHECK( cinderLib );
-	Dart_Handle colorClass = Dart_GetClass( cinderLib, newString( "Color" ) );
+	Dart_Handle colorClass = Dart_GetClass( cinderLib, newString( className ) );
 	CIDART_CHECK( colorClass );
 
 	bool result;
