@@ -23,18 +23,18 @@
 
 #include "dart_api.h"
 
-#define CIDART_CHECK(result)						\
+#define CIDART_CHECK( result )						\
 {													\
-	if (Dart_IsError(result)) {						\
-		LOG_E( Dart_GetError(result) );				\
+	if( Dart_IsError( result ) ) {					\
+		LOG_E( Dart_GetError( result ) );			\
 		CI_ASSERT( 0 );								\
 	}												\
 }
 
-#define CIDART_CHECK_RETURN(result)					\
+#define CIDART_CHECK_RETURN( result )				\
 {													\
-	if (Dart_IsError(result)) {						\
-		LOG_E( Dart_GetError(result) );				\
+	if( Dart_IsError(result ) ) {					\
+		LOG_E( Dart_GetError( result ) );			\
 		return;										\
 	}												\
 }
