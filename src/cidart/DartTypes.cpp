@@ -11,6 +11,28 @@ using namespace std;
 
 namespace cidart {
 
+namespace {
+
+template<typename T>
+void getNumberValueImpl( Dart_Handle handle, T *value )
+{
+	if( Dart_IsDouble( handle ) ) {
+		double result;
+
+		CIDART_CHECK( Dart_DoubleValue( handle, &result ) );
+		*value = static_cast<T>( result );
+	}
+	else if( Dart_IsInteger( handle ) ) {
+		int64_t result;
+		CIDART_CHECK( Dart_IntegerToInt64( handle, &result ) );
+		*value = static_cast<T>( result );
+	}
+	else
+		LOG_E( "expected handle to be either of type float or int" );
+}
+	
+} // anonymous namespace
+
 void console( Dart_NativeArguments arguments )
 {
 	DartScope enterScope;
@@ -58,27 +80,19 @@ ci::ColorA getColor( Dart_Handle handle )
 	return result;
 }
 
-// TODO: if type isn't int, get it however possible and cast it to int.
-// - same for other number types
 void getValue( Dart_Handle handle, int *value )
 {
-	int64_t result;
-	CIDART_CHECK( Dart_IntegerToInt64( handle, &result ) );
-	*value = static_cast<int>( result );
+	getNumberValueImpl( handle, value );
 }
 
 void getValue( Dart_Handle handle, size_t *value )
 {
-	int64_t result;
-	CIDART_CHECK( Dart_IntegerToInt64( handle, &result ) );
-	*value = static_cast<size_t>( result );
+	getNumberValueImpl( handle, value );
 }
 
 void getValue( Dart_Handle handle, float *value )
 {
-	double result;
-	CIDART_CHECK( Dart_DoubleValue( handle, &result ) );
-	*value = static_cast<float>( result );
+	getNumberValueImpl( handle, value );
 }
 
 void getValue( Dart_Handle handle, ci::ColorA *value )
