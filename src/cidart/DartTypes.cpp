@@ -80,6 +80,17 @@ ci::ColorA getColor( Dart_Handle handle )
 	return result;
 }
 
+float getFloatForKey( Dart_Handle mapHandle, const char *key )
+{
+	CI_ASSERT( isMap( mapHandle ) );
+
+	Dart_Handle args[] = { cidart::newString( key ) };
+	Dart_Handle valueHandle = cidart::callFunction( mapHandle, "[]", 1, args );
+	CIDART_CHECK( valueHandle );
+
+	return cidart::getFloat( valueHandle );
+}
+
 void getValue( Dart_Handle handle, int *value )
 {
 	getNumberValueImpl( handle, value );

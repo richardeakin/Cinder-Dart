@@ -31,6 +31,8 @@ int			getInt( Dart_Handle handle );
 float		getFloat( Dart_Handle handle );
 ci::ColorA	getColor( Dart_Handle handle );
 
+float		getFloatForKey( Dart_Handle mapHandle, const char *key );
+
 void getValue( Dart_Handle handle, int *value );
 void getValue( Dart_Handle handle, size_t *value );
 void getValue( Dart_Handle handle, float *value );
