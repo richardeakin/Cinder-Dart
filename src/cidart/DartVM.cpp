@@ -258,14 +258,14 @@ void DartVM::toCinder( Dart_NativeArguments arguments ) {
 
 	DartVM *cd = static_cast<DartVM *>( Dart_CurrentIsolateData() );
 	if( ! cd->mReceiveMapCallback ) {
-		 LOG_E( "no ReceiveMapCallback, returning." );
+		LOG_E( "no ReceiveMapCallback, returning." );
 		return;
 	}
 
 	Dart_Handle handle = Dart_GetNativeArgument( arguments, 0 );
 
 	if( ! Dart_IsInstance( handle ) ) {
-		 LOG_E( "not a dart instance." );
+		LOG_E( "not a dart instance." );
 		return;
 	}
 
@@ -273,7 +273,7 @@ void DartVM::toCinder( Dart_NativeArguments arguments ) {
 	LOG_V( "type name: " << typeName );
 
 	if( ! isMap( handle ) ) {
-		 LOG_E( "expected object of type map" );
+		LOG_E( "expected object of type map" );
 		return;
 	}
 
