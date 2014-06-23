@@ -143,7 +143,9 @@ Dart_Isolate DartVM::createIsolateCallback( const char* script_uri, const char* 
 {
 	DartVM *dartVm = reinterpret_cast<DartVM *>( data );
 
-	const uint8_t *snapshotData = (const uint8_t *)dartVm->mSnapshot->getBuffer().getData();
+	uint8_t *snapshotData = NULL;
+	if( dartVm->mSnapshot )
+		snapshotData = (uint8_t *)dartVm->mSnapshot->getBuffer().getData();
 
 	LOG_V( "Creating isolate " << script_uri << ", " << main );
 	Dart_Isolate isolate = Dart_CreateIsolate( script_uri, main, snapshotData, data, error );
