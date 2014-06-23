@@ -4,7 +4,7 @@
 
 #include "cidart/DartVM.h"
 #include "cidart/DartTypes.h"
-#include "cidart/debug.h"
+#include "cidart/DartDebug.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -42,9 +42,9 @@ void DartBasicApp::setup()
 
 void DartBasicApp::receiveMap( const cidart::DataMap& map )
 {
-	LOG_V << "huzzah" << endl;
+	LOG_V( "huzzah" );
 	for( auto &mp : map ) {
-		LOG_V << "key: " << mp.first << ", value type: " << cidart::getTypeName( mp.second ) << endl;
+		LOG_V( "key: " << mp.first << ", value type: " << cidart::getTypeName( mp.second ) );
 	}
 
 	auto radiusIt = map.find( "radius" );
@@ -69,7 +69,7 @@ void DartBasicApp::receiveMap( const cidart::DataMap& map )
 void DartBasicApp::keyDown( KeyEvent event )
 {
 	if( event.getChar() == 'r') {
-		LOG_V << "reload." << endl;
+		LOG_V( "reload." );
 		mDart.loadScript( loadAsset( "main.dart" ) ); // TODO: add DartVM::reload
 	}
 }

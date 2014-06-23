@@ -36,6 +36,7 @@
 		00B784B10FF439BC000DE1D7 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		00B784B20FF439BC000DE1D7 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		11CD53E01957C3E700F1C962 /* DartDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DartDebug.h; sourceTree = "<group>"; };
 		11D0BED41816CC8D000908D9 /* snapshot_gen.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = snapshot_gen.bin; path = "../../../dart-runtime/lib/macosx/snapshot_gen.bin"; sourceTree = "<group>"; };
 		11D0BED71816CCBB000908D9 /* dart_api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = dart_api.h; path = "../../../dart-runtime/include/dart_api.h"; sourceTree = "<group>"; };
 		11D0BED81816CCBB000908D9 /* dart_debugger_api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = dart_debugger_api.h; path = "../../../dart-runtime/include/dart_debugger_api.h"; sourceTree = "<group>"; };
@@ -52,7 +53,6 @@
 		11D6799F175298E100E96E0D /* DartVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DartVM.h; sourceTree = "<group>"; };
 		11D679A0175298E100E96E0D /* DartTypes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DartTypes.cpp; sourceTree = "<group>"; };
 		11D679A1175298E100E96E0D /* DartTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DartTypes.h; sourceTree = "<group>"; };
-		11D679A2175298E100E96E0D /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; };
 		11D679BC1752A73400E96E0D /* main.dart */ = {isa = PBXFileReference; explicitFileType = text; name = main.dart; path = ../assets/main.dart; sourceTree = "<group>"; };
 		2730F19BCC084D6B89BBA052 /* DartBasic_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = DartBasic_Prefix.pch; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -151,7 +151,7 @@
 				11D6799F175298E100E96E0D /* DartVM.h */,
 				11D679A0175298E100E96E0D /* DartTypes.cpp */,
 				11D679A1175298E100E96E0D /* DartTypes.h */,
-				11D679A2175298E100E96E0D /* debug.h */,
+				11CD53E01957C3E700F1C962 /* DartDebug.h */,
 			);
 			name = cidart;
 			path = ../../../src/cidart;
