@@ -8,6 +8,7 @@
 
 #include "cinder/app/App.h"
 #include "cinder/Utilities.h"
+#include "cinder/CinderAssert.h"
 
 #include <map>
 
@@ -17,7 +18,7 @@ using namespace ci;
 namespace cidart {
 
 DartVM::DartVM()
-: mIsolate( nullptr )
+	: mIsolate( nullptr )
 {
 	mVMFlags.push_back( "--enable-checked-mode" );
 //	mVMFlags.push_back( "--print-flags" );
@@ -38,7 +39,16 @@ DartVM::DartVM()
 	assert( success );
 	free( vmCFlags );
 
-	success = Dart_Initialize( createIsolateCallback, interruptIsolateCallback, unhandledExceptionCallback, shutdownIsolateCallback, openFileCallback, readFileCallback, writeFileCallback, closeFileCallback );
+	success = Dart_Initialize(	createIsolateCallback,
+								interruptIsolateCallback,
+								unhandledExceptionCallback,
+								shutdownIsolateCallback,
+								openFileCallback,
+								readFileCallback,
+								writeFileCallback,
+								closeFileCallback,
+								entropySourceHandler,
+								createServiceIsolateCallback );
 	assert( success );
 }
 
@@ -51,13 +61,13 @@ void DartVM::loadScript( ci::DataSourceRef script )
 	}
 
 	if( ! mSnapshot )
-		mSnapshot = app::loadAsset( "snapshot_gen.bin" );
+		mSnapshot = app::loadResource( "snapshot_gen.bin" );
 
 	const char *scriptPath = script->getFilePath().c_str();
 	char *error;
 	mIsolate = createIsolateCallback( scriptPath, "main", this, &error );
 	if( ! mIsolate ) {
-		 LOG_E( "could not create isolate: " << error );;
+		LOG_E( "could not create isolate: " << error );;
 		CI_ASSERT( false );
 	}
 
@@ -76,7 +86,7 @@ void DartVM::loadScript( ci::DataSourceRef script )
 	Dart_Handle cinderDartLib = Dart_LookupLibrary( Dart_NewStringFromCString( "cinder" ) );
 	CIDART_CHECK( cinderDartLib );
 
-	Dart_Handle internalLib = Dart_LookupLibrary( Dart_NewStringFromCString( "dart:_collection-dev" ) );
+	Dart_Handle internalLib = Dart_LookupLibrary( Dart_NewStringFromCString( "dart:_internal" ) );
 	CIDART_CHECK( internalLib );
 	Dart_Handle print = Dart_GetField( cinderDartLib, Dart_NewStringFromCString( "_printClosure" ) );
 	CIDART_CHECK( print );
@@ -85,7 +95,7 @@ void DartVM::loadScript( ci::DataSourceRef script )
 	Dart_Handle rootLib = Dart_RootLibrary();
 	CI_ASSERT( ! Dart_IsNull( rootLib ) );
 
-	CIDART_CHECK( Dart_SetNativeResolver( rootLib, resolveName ) );
+	CIDART_CHECK( Dart_SetNativeResolver( rootLib, resolveNameHandler, NULL ) );
 
 	// I guess main needs to be manually invoked...
 	// TODO: check dartium to see how it handles this part.
@@ -120,7 +130,7 @@ string DartVM::getVersionString()
 //	- however, need to make sure that a new DataSourceRef is still created, so that the content is hot-loadable
 string DartVM::getCinderDartScript()
 {
-	DataSourceRef script = app::loadAsset( "cinder.dart" );
+	DataSourceRef script = app::loadResource( "cinder.dart" );
 	return loadString( script );
 }
 
@@ -128,6 +138,7 @@ string DartVM::getCinderDartScript()
 // MARK: - Dart Callbacks
 // ----------------------------------------------------------------------------------------------------
 
+// static
 Dart_Isolate DartVM::createIsolateCallback( const char* script_uri, const char* main, void* data, char** error )
 {
 	DartVM *dartVm = reinterpret_cast<DartVM *>( data );
@@ -150,23 +161,36 @@ Dart_Isolate DartVM::createIsolateCallback( const char* script_uri, const char* 
 	return isolate;
 }
 
+// static
+Dart_Isolate DartVM::createServiceIsolateCallback( void* data, char** error )
+{
+	CI_ASSERT( 0 && "TODO" );
+
+	Dart_Isolate isolate;
+	return isolate;
+}
+
+// static
 bool DartVM::interruptIsolateCallback()
 {
 	LOG_V( "continuing.." );
 	return true;
 }
 
+// static
 void DartVM::unhandledExceptionCallback( Dart_Handle error )
 {
 	 LOG_E( Dart_GetError( error ) );
 }
 
+// static
 void DartVM::shutdownIsolateCallback( void *callbackData )
 {
 	LOG_V( "bang" );
 }
 
 // file callbacks have been copied verbatum from included sample... plus verbose logging. don't event know yet if we need them
+// static
 void* DartVM::openFileCallback(const char* name, bool write)
 {
 	LOG_V( "name: " << name << ", write mode: " << boolalpha << write << dec );
@@ -174,6 +198,7 @@ void* DartVM::openFileCallback(const char* name, bool write)
 	return fopen(name, write ? "w" : "r");
 }
 
+// static
 void DartVM::readFileCallback(const uint8_t** data, intptr_t* fileLength, void* stream )
 {
 	LOG_V( "bang" );
@@ -194,6 +219,7 @@ void DartVM::readFileCallback(const uint8_t** data, intptr_t* fileLength, void* 
 	}
 }
 
+// static
 void DartVM::writeFileCallback(const void* data, intptr_t length, void* file)
 {
 	LOG_V( "bang" );
@@ -201,6 +227,7 @@ void DartVM::writeFileCallback(const void* data, intptr_t length, void* file)
 	fwrite(data, 1, length, reinterpret_cast<FILE*>(file));
 }
 
+// static
 void DartVM::closeFileCallback(void* file)
 {
 	LOG_V( "bang" );
@@ -209,6 +236,7 @@ void DartVM::closeFileCallback(void* file)
 }
 
 // loads the cinder lib if it is needed.
+// static
 Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Handle urlHandle )
 {
 	if( tag == Dart_kCanonicalizeUrl )
@@ -225,7 +253,7 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 		Dart_Handle library = Dart_LoadLibrary( urlHandle, source );
 		CIDART_CHECK( library );
 
-		CIDART_CHECK( Dart_SetNativeResolver( library, resolveName ) );
+		CIDART_CHECK( Dart_SetNativeResolver( library, resolveNameHandler, NULL ) );
 
 		return library;
 	}
@@ -234,13 +262,14 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 	return nullptr;
 }
 
-Dart_NativeFunction DartVM::resolveName( Dart_Handle handle, int argc )
+// static
+Dart_NativeFunction DartVM::resolveNameHandler( Dart_Handle nameHandle, int numArgs, bool *autoSetupScope )
 {
-	CI_ASSERT( Dart_IsString( handle ) );
+	CI_ASSERT( Dart_IsString( nameHandle ) );
 
 	DartScope enterScope;
 
-	string name = getString( handle );
+	string name = getString( nameHandle );
 
 	DartVM *dartVm = static_cast<DartVM *>( Dart_CurrentIsolateData() );
 	auto& functionMap = dartVm->mNativeFunctionMap;
@@ -251,7 +280,17 @@ Dart_NativeFunction DartVM::resolveName( Dart_Handle handle, int argc )
 	return nullptr;
 }
 
+// static
+bool DartVM::entropySourceHandler( uint8_t *buffer, intptr_t length )
+{
+	// TODO: find out what this is for.
+	LOG_V( "bang" );
+	return true;
+}
+
 // TODO: see if I can use Dart_ObjectIsType to ensure the class is of type Map
+// - actually it looks like there is new API for Map's - check those out too
+// static
 void DartVM::toCinder( Dart_NativeArguments arguments ) {
 
 	DartScope enterScope;

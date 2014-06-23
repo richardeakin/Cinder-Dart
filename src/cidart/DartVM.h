@@ -47,6 +47,8 @@ private:
 
 	// Dart_IsolateCreateCallback
 	static Dart_Isolate createIsolateCallback( const char* script_uri, const char* main, void* data, char** error );
+	// Dart_ServiceIsolateCreateCalback
+	static Dart_Isolate	createServiceIsolateCallback( void* data, char** error );
 	// Dart_IsolateInterruptCallback
 	static bool interruptIsolateCallback();
 	// Dart_IsolateUnhandledExceptionCallback
@@ -61,10 +63,12 @@ private:
 	static void writeFileCallback(const void* data, intptr_t length, void* file);
 	// Dart_FileCloseCallback
 	static void closeFileCallback(void* file);
+	// Dart_EntropySource
+	static bool entropySourceHandler( uint8_t *buffer, intptr_t length );
 	// Dart_LibraryTagHandler
 	static Dart_Handle libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Handle urlHandle );
 	// Dart_NativeEntryResolver
-	static Dart_NativeFunction resolveName( Dart_Handle handle, int argc );
+	static Dart_NativeFunction resolveNameHandler( Dart_Handle nameHandle, int numArgs, bool *autoSetupScope );
 	// Native callback that handles a Map of arbitrary data
 	static void toCinder( Dart_NativeArguments arguments );
 };
