@@ -36,7 +36,7 @@ DartVM::DartVM()
 
 	// setting VM startup options
 	bool success = Dart_SetVMFlags( mVMFlags.size(), vmCFlags );
-	assert( success );
+	CI_VERIFY( success );
 	free( vmCFlags );
 
 	success = Dart_Initialize(	createIsolateCallback,
@@ -49,7 +49,7 @@ DartVM::DartVM()
 								closeFileCallback,
 								entropySourceHandler,
 								createServiceIsolateCallback );
-	assert( success );
+	CI_VERIFY( success );
 }
 
 void DartVM::loadScript( ci::DataSourceRef script )

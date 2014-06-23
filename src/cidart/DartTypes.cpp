@@ -44,7 +44,7 @@ void console( Dart_NativeArguments arguments )
 
 Dart_Handle newString( const char* str )
 {
-	return Dart_NewStringFromCString(str);
+	return Dart_NewStringFromCString( str );
 }
 
 Dart_Handle newInt( int i )
