@@ -5,6 +5,7 @@
 #pragma once
 
 #include "cinder/app/App.h"
+#include "cinder/CinderAssert.h"
 
 #define CIDART_LOG_VERBOSE 0
 
@@ -16,10 +17,6 @@
 
 #define LOG_I( stream )				{ std::cout << __PRETTY_FUNCTION__ << " |I| " << stream << std::endl; }
 #define LOG_E( stream )				{ std::cout << __PRETTY_FUNCTION__ << " |ERROR| " << stream << std::endl; }
-
-#include <boost/assert.hpp>
-
-#define CI_ASSERT(expr) BOOST_ASSERT(expr)
 
 #include "dart_api.h"
 
