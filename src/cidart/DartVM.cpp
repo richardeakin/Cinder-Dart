@@ -293,7 +293,8 @@ bool DartVM::entropySourceHandler( uint8_t *buffer, intptr_t length )
 // TODO: see if I can use Dart_ObjectIsType to ensure the class is of type Map
 // - actually it looks like there is new API for Map's - check those out too
 // static
-void DartVM::toCinder( Dart_NativeArguments arguments ) {
+void DartVM::toCinder( Dart_NativeArguments arguments )
+{
 
 	DartScope enterScope;
 
