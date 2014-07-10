@@ -46,7 +46,9 @@ DartVM::DartVM()
 								openFileCallback,
 								readFileCallback,
 								writeFileCallback,
-								closeFileCallback );
+								closeFileCallback,
+								NULL,
+								NULL );
 	CI_VERIFY( success );
 }
 
@@ -84,7 +86,7 @@ void DartVM::loadScript( ci::DataSourceRef script )
 	Dart_Handle cinderDartLib = Dart_LookupLibrary( Dart_NewStringFromCString( "cinder" ) ); // TODO: import this first with Dart_LoadLibrary (right now it is imported from main.dart
 	CIDART_CHECK( cinderDartLib );
 
-	Dart_Handle internalLib = Dart_LookupLibrary( Dart_NewStringFromCString( "dart:_collection-dev" ) );
+	Dart_Handle internalLib = Dart_LookupLibrary( Dart_NewStringFromCString( "dart:_internal" ) );
 	CIDART_CHECK( internalLib );
 	Dart_Handle print = Dart_GetField( cinderDartLib, Dart_NewStringFromCString( "_printClosure" ) );
 	CIDART_CHECK( print );
@@ -93,7 +95,7 @@ void DartVM::loadScript( ci::DataSourceRef script )
 	Dart_Handle rootLib = Dart_RootLibrary();
 	CI_ASSERT( ! Dart_IsNull( rootLib ) );
 
-	CIDART_CHECK( Dart_SetNativeResolver( rootLib, resolveNameHandler ) );
+	CIDART_CHECK( Dart_SetNativeResolver( rootLib, resolveNameHandler, NULL ) );
 
 	// I guess main needs to be manually invoked...
 	// TODO: check dartium to see how it handles this part.
@@ -245,7 +247,7 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 		Dart_Handle library = Dart_LoadLibrary( urlHandle, source );
 		CIDART_CHECK( library );
 
-		CIDART_CHECK( Dart_SetNativeResolver( library, resolveNameHandler ) );
+		CIDART_CHECK( Dart_SetNativeResolver( library, resolveNameHandler, NULL ) );
 
 		return library;
 	}
@@ -255,7 +257,7 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 }
 
 // static
-Dart_NativeFunction DartVM::resolveNameHandler( Dart_Handle nameHandle, int numArgs )
+Dart_NativeFunction DartVM::resolveNameHandler( Dart_Handle nameHandle, int numArgs, bool* auto_setup_scope )
 {
 	CI_ASSERT( Dart_IsString( nameHandle ) );
 
