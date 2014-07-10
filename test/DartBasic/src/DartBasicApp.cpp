@@ -18,7 +18,7 @@ class DartBasicApp : public AppNative {
 
 	void receiveMap(  const cidart::DataMap& map );
 
-	cidart::DartVM mDart;
+	shared_ptr<cidart::DartVM> mDart;
 
 	size_t mNumCircleSegments;
 	ColorA mCircleColor;
@@ -28,6 +28,8 @@ class DartBasicApp : public AppNative {
 
 void DartBasicApp::setup()
 {
+	LOG_I( "dart runtime version: " << cidart::DartVM::getVersionString() );
+
 	// these values will be updated from main.dart:
 	mCircleRadius = 1.0f;
 	mNumCircleSegments = 3;
@@ -35,14 +37,16 @@ void DartBasicApp::setup()
 	mRotationRate = 2.0f;
 	mRotation = 0;
 
-	mDart.setMapReceiver( bind( &DartBasicApp::receiveMap, this, placeholders::_1 ) );
-	mDart.loadScript( loadAsset( "main.dart" ) );
+	mDart = make_shared<cidart::DartVM>();
+
+	mDart->setMapReceiver( bind( &DartBasicApp::receiveMap, this, placeholders::_1 ) );
+	mDart->loadScript( loadAsset( "main.dart" ) );
 
 }
 
 void DartBasicApp::receiveMap( const cidart::DataMap& map )
 {
-	LOG_V( "huzzah" );
+	LOG_I( "huzzah" );
 	for( auto &mp : map ) {
 		LOG_V( "key: " << mp.first << ", value type: " << cidart::getTypeName( mp.second ) );
 	}
@@ -70,7 +74,7 @@ void DartBasicApp::keyDown( KeyEvent event )
 {
 	if( event.getChar() == 'r') {
 		LOG_V( "reload." );
-		mDart.loadScript( loadAsset( "main.dart" ) ); // TODO: add DartVM::reload
+		mDart->loadScript( loadAsset( "main.dart" ) ); // TODO: add DartVM::reload
 	}
 }
 
