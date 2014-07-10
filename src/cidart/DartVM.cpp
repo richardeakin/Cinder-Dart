@@ -21,6 +21,7 @@ DartVM::DartVM()
 	: mIsolate( nullptr )
 {
 	mVMFlags.push_back( "--enable-checked-mode" );
+	mVMFlags.push_back( "--no-profile" ); // currently dart's profiler seems to be blocking the main thread when debugging in xcode - this disables it for now
 //	mVMFlags.push_back( "--print-flags" );
 
 	const char **vmCFlags = (const char **)malloc( mVMFlags.size() * sizeof( const char * ) );
