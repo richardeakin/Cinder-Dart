@@ -46,9 +46,7 @@ DartVM::DartVM()
 								openFileCallback,
 								readFileCallback,
 								writeFileCallback,
-								closeFileCallback,
-								entropySourceHandler,
-								createServiceIsolateCallback );
+								closeFileCallback );
 	CI_VERIFY( success );
 }
 
@@ -83,10 +81,10 @@ void DartVM::loadScript( ci::DataSourceRef script )
 	CIDART_CHECK_RETURN( Dart_LoadScript( url, source, 0, 0 ) );
 
 	// swap in custom _printClosure, which maps back to Log.
-	Dart_Handle cinderDartLib = Dart_LookupLibrary( Dart_NewStringFromCString( "cinder" ) );
+	Dart_Handle cinderDartLib = Dart_LookupLibrary( Dart_NewStringFromCString( "cinder" ) ); // TODO: import this first with Dart_LoadLibrary (right now it is imported from main.dart
 	CIDART_CHECK( cinderDartLib );
 
-	Dart_Handle internalLib = Dart_LookupLibrary( Dart_NewStringFromCString( "dart:_internal" ) );
+	Dart_Handle internalLib = Dart_LookupLibrary( Dart_NewStringFromCString( "dart:_collection-dev" ) );
 	CIDART_CHECK( internalLib );
 	Dart_Handle print = Dart_GetField( cinderDartLib, Dart_NewStringFromCString( "_printClosure" ) );
 	CIDART_CHECK( print );
@@ -95,7 +93,7 @@ void DartVM::loadScript( ci::DataSourceRef script )
 	Dart_Handle rootLib = Dart_RootLibrary();
 	CI_ASSERT( ! Dart_IsNull( rootLib ) );
 
-	CIDART_CHECK( Dart_SetNativeResolver( rootLib, resolveNameHandler, NULL ) );
+	CIDART_CHECK( Dart_SetNativeResolver( rootLib, resolveNameHandler ) );
 
 	// I guess main needs to be manually invoked...
 	// TODO: check dartium to see how it handles this part.
@@ -121,6 +119,7 @@ void DartVM::invoke( const string &functionName, int argc, Dart_Handle* args )
 	return;
 }
 
+// static
 string DartVM::getVersionString()
 {
 	return Dart_VersionString();
@@ -143,9 +142,9 @@ Dart_Isolate DartVM::createIsolateCallback( const char* script_uri, const char* 
 {
 	DartVM *dartVm = reinterpret_cast<DartVM *>( data );
 
-	uint8_t *snapshotData = NULL;
-	if( dartVm->mSnapshot )
-		snapshotData = (uint8_t *)dartVm->mSnapshot->getBuffer().getData();
+	CI_ASSERT_MSG( dartVm->mSnapshot, "cannot run without the core snapshot" );
+	
+	uint8_t *snapshotData = (uint8_t *)dartVm->mSnapshot->getBuffer().getData();
 
 	LOG_V( "Creating isolate " << script_uri << ", " << main );
 	Dart_Isolate isolate = Dart_CreateIsolate( script_uri, main, snapshotData, data, error );
@@ -160,15 +159,6 @@ Dart_Isolate DartVM::createIsolateCallback( const char* script_uri, const char* 
 	Dart_Handle result = Dart_SetLibraryTagHandler( libraryTagHandler );
 	CIDART_CHECK( result );
 
-	return isolate;
-}
-
-// static
-Dart_Isolate DartVM::createServiceIsolateCallback( void* data, char** error )
-{
-	CI_ASSERT( 0 && "TODO" );
-
-	Dart_Isolate isolate;
 	return isolate;
 }
 
@@ -255,7 +245,7 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 		Dart_Handle library = Dart_LoadLibrary( urlHandle, source );
 		CIDART_CHECK( library );
 
-		CIDART_CHECK( Dart_SetNativeResolver( library, resolveNameHandler, NULL ) );
+		CIDART_CHECK( Dart_SetNativeResolver( library, resolveNameHandler ) );
 
 		return library;
 	}
@@ -265,7 +255,7 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 }
 
 // static
-Dart_NativeFunction DartVM::resolveNameHandler( Dart_Handle nameHandle, int numArgs, bool *autoSetupScope )
+Dart_NativeFunction DartVM::resolveNameHandler( Dart_Handle nameHandle, int numArgs )
 {
 	CI_ASSERT( Dart_IsString( nameHandle ) );
 
@@ -280,14 +270,6 @@ Dart_NativeFunction DartVM::resolveNameHandler( Dart_Handle nameHandle, int numA
 		return functionIt->second;
 
 	return nullptr;
-}
-
-// static
-bool DartVM::entropySourceHandler( uint8_t *buffer, intptr_t length )
-{
-	// TODO: find out what this is for.
-	LOG_V( "bang" );
-	return true;
 }
 
 // TODO: see if I can use Dart_ObjectIsType to ensure the class is of type Map
