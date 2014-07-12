@@ -1,3 +1,3 @@
 [submodule "dart-runtime"]
 	path = dart-runtime
-	url = git://github.com/richardeakin/dart-runtime-libs.git
+	url = git@github.com:richardeakin/dart-runtime-libs.git
