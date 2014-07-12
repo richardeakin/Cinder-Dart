@@ -20,6 +20,8 @@ namespace cidart {
 DartVM::DartVM()
 	: mIsolate( nullptr )
 {
+	// TODO: pass in vm flags at construction.
+
 	mVMFlags.push_back( "--enable-checked-mode" );
 	mVMFlags.push_back( "--no-profile" ); // currently dart's profiler seems to be blocking the main thread when debugging in xcode - this disables it for now
 //	mVMFlags.push_back( "--print-flags" );

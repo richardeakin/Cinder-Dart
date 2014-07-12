@@ -18,7 +18,7 @@
 #define LOG_I( stream )				{ std::cout << __PRETTY_FUNCTION__ << " |I| " << stream << std::endl; }
 #define LOG_E( stream )				{ std::cout << __PRETTY_FUNCTION__ << " |ERROR| " << stream << std::endl; }
 
-#include "dart_api.h"
+#include "include/dart_api.h"
 
 #define CIDART_CHECK( result )						\
 {													\

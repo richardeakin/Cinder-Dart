@@ -7,7 +7,7 @@
 #include "cinder/DataSource.h"
 #include "cinder/Function.h"
 
-#include "dart_api.h"
+#include "include/dart_api.h"
 
 #include <memory>
 #include <vector>
