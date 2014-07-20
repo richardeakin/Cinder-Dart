@@ -36,11 +36,13 @@ float		getFloatForKey( Dart_Handle mapHandle, const char *key );
 void getValue( Dart_Handle handle, int *value );
 void getValue( Dart_Handle handle, size_t *value );
 void getValue( Dart_Handle handle, float *value );
+void getValue( Dart_Handle handle, ci::Color *value );
 void getValue( Dart_Handle handle, ci::ColorA *value );
 void getValue( Dart_Handle handle, ci::Vec2i *value );
 void getValue( Dart_Handle handle, ci::Vec2f *value );
 void getValue( Dart_Handle handle, ci::Vec3i *value );
 void getValue( Dart_Handle handle, ci::Vec3f *value );
+void getValue( Dart_Handle handle, std::string *value );
 
 bool hasFunction( Dart_Handle handle, const std::string &name );
 Dart_Handle callFunction( Dart_Handle target, const std::string &name, int numArgs = 0, Dart_Handle *args = nullptr );

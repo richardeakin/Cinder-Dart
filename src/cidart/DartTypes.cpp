@@ -106,6 +106,18 @@ void getValue( Dart_Handle handle, float *value )
 	getNumberValueImpl( handle, value );
 }
 
+void getValue( Dart_Handle handle, ci::Color *value )
+{
+	if( ! isCinderClass( handle, "Color" ) ) {
+		LOG_E( "expected handle to be of type Color" );
+		return;
+	}
+
+	value->r = getFloat( getField( handle, "r" ) );
+	value->g = getFloat( getField( handle, "g" ) );
+	value->b = getFloat( getField( handle, "b" ) );
+}
+
 void getValue( Dart_Handle handle, ci::ColorA *value )
 {
 	if( ! isCinderClass( handle, "Color" ) ) {
@@ -163,6 +175,16 @@ void getValue( Dart_Handle handle, ci::Vec3f *value )
 	value->x = getFloat( getField( handle, "x" ) );
 	value->y = getFloat( getField( handle, "y" ) );
 	value->z = getFloat( getField( handle, "z" ) );
+}
+
+void getValue( Dart_Handle handle, std::string *value )
+{
+	if( ! Dart_IsString( handle ) ) {
+		LOG_E( "expected handle to be of type string" );
+		return;
+	}
+
+	*value = getString( handle );
 }
 
 bool hasFunction( Dart_Handle handle, const string &name ) {
