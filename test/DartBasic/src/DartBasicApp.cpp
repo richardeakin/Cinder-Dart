@@ -18,11 +18,11 @@ class DartBasicApp : public AppNative {
 
 	void receiveMap(  const cidart::DataMap& map );
 
-	shared_ptr<cidart::DartVM> mDart;
+	cidart::DartVMRef mDart;
 
-	size_t mNumCircleSegments;
-	ColorA mCircleColor;
-	float mCircleRadius, mRotationRate;
+	size_t		mNumCircleSegments;
+	ColorA		mCircleColor;
+	float		mCircleRadius, mRotationRate;
 	Anim<float> mRotation;
 };
 
@@ -37,11 +37,10 @@ void DartBasicApp::setup()
 	mRotationRate = 2.0f;
 	mRotation = 0;
 
-	mDart = make_shared<cidart::DartVM>();
+	mDart = cidart::DartVM::create();
 
 	mDart->setMapReceiver( bind( &DartBasicApp::receiveMap, this, placeholders::_1 ) );
 	mDart->loadScript( loadAsset( "main.dart" ) );
-
 }
 
 void DartBasicApp::receiveMap( const cidart::DataMap& map )

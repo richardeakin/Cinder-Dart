@@ -16,13 +16,15 @@ class NativeCallbackApp : public AppNative {
 	void setup();
 	void draw();
 
-	cidart::DartVM mDart;
+	cidart::DartVMRef mDart;
 };
 
 void NativeCallbackApp::setup()
 {
-	mDart.addNativeFunction( "blarg", customNativeCallback );
-	mDart.loadScript( loadAsset( "main.dart" ) );
+	mDart = cidart::DartVM::create();
+
+	mDart->addNativeFunction( "blarg", customNativeCallback );
+	mDart->loadScript( loadAsset( "main.dart" ) );
 }
 
 void NativeCallbackApp::draw()

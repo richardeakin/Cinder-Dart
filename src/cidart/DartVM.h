@@ -15,15 +15,15 @@
 
 namespace cidart {
 
-typedef std::map<std::string, Dart_Handle> DataMap;
+typedef std::shared_ptr<class DartVM>		DartVMRef;
+typedef std::map<std::string, Dart_Handle>	DataMap;
 
 class DartVM {
-public:
+  public:
+	static DartVMRef create()	{ return DartVMRef( new DartVM ); }
 
 	typedef std::map<std::string, Dart_NativeFunction> NativeFunctionMap;
 	typedef std::function<void( const DataMap& )>	ReceiveMapCallback;
-
-	DartVM();
 
 	void loadScript( ci::DataSourceRef script );
 	void invoke( const std::string &functionName, int argc = 0, Dart_Handle *args = nullptr );
@@ -34,12 +34,10 @@ public:
 
 	static std::string getVersionString();
 
-private:
-	std::string getCinderDartScript();
+  protected:
+	DartVM();
 
-	Dart_Isolate mIsolate;
-	std::vector<std::string> mVMFlags;
-	ci::DataSourceRef		mSnapshot;
+  private:
 
 	std::string		getCinderDartScript();
 
