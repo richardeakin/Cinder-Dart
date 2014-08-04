@@ -32,6 +32,9 @@ class DartVM {
 
 	void addNativeFunction( const std::string dartFuncName, Dart_NativeFunction nativeFunc )	{ mNativeFunctionMap[dartFuncName] = nativeFunc; }
 
+	void setCinderDartScriptPath( const ci::fs::path &scriptPath );
+	void setCinderDartScriptResource( const ci::DataSourceRef &scriptResource );
+
 	static std::string getVersionString();
 
   protected:
@@ -43,9 +46,11 @@ class DartVM {
 
 	Dart_Isolate				mIsolate;
 	std::vector<std::string>	mVMFlags;
-	ci::DataSourceRef			mSnapshot;
 	NativeFunctionMap			mNativeFunctionMap;
 	ReceiveMapCallback			mReceiveMapCallback;
+	ci::fs::path				mCinderDartScriptPath;
+	ci::DataSourceRef			mCinderDartScriptResource; // not used by default, available for windows resources
+	ci::DataSourceRef			mSnapshot;
 
 	// Dart_IsolateCreateCallback
 	static Dart_Isolate createIsolateCallback( const char* script_uri, const char* main, void* data, char** error );

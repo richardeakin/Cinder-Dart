@@ -130,12 +130,32 @@ string DartVM::getVersionString()
 	return Dart_VersionString();
 }
 
-// TODO: make this load a string that user settable, so it is possible to use a modified cinder.dart
-//	- however, need to make sure that a new DataSourceRef is still created, so that the content is hot-loadable
+void DartVM::setCinderDartScriptPath( const fs::path &scriptPath )
+{
+	CI_ASSERT( fs::exists( scriptPath ) );
+
+	mCinderDartScriptPath = scriptPath;
+}
+
+void DartVM::setCinderDartScriptResource( const ci::DataSourceRef &scriptResource )
+{
+	mCinderDartScriptResource = scriptResource;
+}
+
 string DartVM::getCinderDartScript()
 {
-	DataSourceRef script = app::loadResource( "cinder.dart" );
-	return loadString( script );
+	if( mCinderDartScriptResource )
+		return loadString( mCinderDartScriptResource );
+
+#if defined( CINDER_COCOA )
+	if( mCinderDartScriptPath.empty() ) {
+		// attempt to load it as a resource added to the project
+		auto resource = app::loadResource( "cinder.dart" );
+		mCinderDartScriptPath = resource->getFilePath();
+	}
+#endif
+
+	return loadString( loadFile( mCinderDartScriptPath ) );
 }
 
 // ----------------------------------------------------------------------------------------------------
