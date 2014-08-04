@@ -282,7 +282,6 @@ Dart_NativeFunction DartVM::resolveNameHandler( Dart_Handle nameHandle, int numA
 // static
 void DartVM::toCinder( Dart_NativeArguments arguments )
 {
-
 	DartScope enterScope;
 
 	DartVM *cd = static_cast<DartVM *>( Dart_CurrentIsolateData() );

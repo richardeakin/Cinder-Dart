@@ -41,9 +41,13 @@ private:
 	std::vector<std::string> mVMFlags;
 	ci::DataSourceRef		mSnapshot;
 
-	NativeFunctionMap mNativeFunctionMap;
+	std::string		getCinderDartScript();
 
-	ReceiveMapCallback mReceiveMapCallback;
+	Dart_Isolate				mIsolate;
+	std::vector<std::string>	mVMFlags;
+	ci::DataSourceRef			mSnapshot;
+	NativeFunctionMap			mNativeFunctionMap;
+	ReceiveMapCallback			mReceiveMapCallback;
 
 	// Dart_IsolateCreateCallback
 	static Dart_Isolate createIsolateCallback( const char* script_uri, const char* main, void* data, char** error );

@@ -187,19 +187,22 @@ void getValue( Dart_Handle handle, std::string *value )
 	*value = getString( handle );
 }
 
-bool hasFunction( Dart_Handle handle, const string &name ) {
+bool hasFunction( Dart_Handle handle, const string &name )
+{
 	Dart_Handle result = Dart_LookupFunction( handle, newString( name.c_str() ) );
 	CIDART_CHECK( result );
 	return ! Dart_IsNull( result );
 }
 
-Dart_Handle callFunction( Dart_Handle target, const string &name, int numArgs, Dart_Handle *args ) {
+Dart_Handle callFunction( Dart_Handle target, const string &name, int numArgs, Dart_Handle *args )
+{
 	Dart_Handle result = Dart_Invoke( target, newString( name.c_str() ), numArgs, args );
 	CIDART_CHECK( result );
 	return result;
 }
 
-Dart_Handle getField( Dart_Handle container, const string &name ) {
+Dart_Handle getField( Dart_Handle container, const string &name )
+{
 	Dart_Handle result = Dart_GetField( container,  newString( name.c_str() ) );
 	CIDART_CHECK( result );
 	return result;
@@ -214,7 +217,8 @@ Dart_Handle getField( Dart_Handle container, const string &name ) {
 //		return getString( className );
 //	}
 
-string getTypeName( Dart_Handle handle ) {
+string getTypeName( Dart_Handle handle )
+{
 	Dart_Handle instanceType = Dart_InstanceGetType( handle );
 	CIDART_CHECK( instanceType );
 	Dart_Handle className = Dart_TypeName( instanceType );
@@ -223,7 +227,7 @@ string getTypeName( Dart_Handle handle ) {
 	return getString( className );
 }
 
-
+// TODO: use Dart_isMap()
 bool isMap( Dart_Handle handle )
 {
 	Dart_Handle coreLib = Dart_LookupLibrary( newString( "dart:core" ) );
@@ -244,11 +248,11 @@ bool isCinderClass( Dart_Handle handle, const char *className )
 {
 	Dart_Handle cinderLib = Dart_LookupLibrary( newString( "cinder" ) );
 	CIDART_CHECK( cinderLib );
-	Dart_Handle colorClass = Dart_GetClass( cinderLib, newString( className ) );
-	CIDART_CHECK( colorClass );
+	Dart_Handle cinderClass = Dart_GetClass( cinderLib, newString( className ) );
+	CIDART_CHECK( cinderClass );
 
 	bool result;
-	CIDART_CHECK( Dart_ObjectIsType( handle, colorClass, &result ) );
+	CIDART_CHECK( Dart_ObjectIsType( handle, cinderClass, &result ) );
 	return result;
 }
 
