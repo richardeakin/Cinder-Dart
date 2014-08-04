@@ -2,6 +2,10 @@
 #include "cinder/gl/gl.h"
 #include "cinder/Timeline.h"
 
+#if CINDER_VERSION >= 807
+	#include "cinder/app/RendererGl.h"
+#endif
+
 #include "cidart/DartVM.h"
 #include "cidart/DartTypes.h"
 #include "cidart/DartDebug.h"
