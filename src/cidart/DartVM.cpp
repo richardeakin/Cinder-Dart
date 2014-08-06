@@ -57,6 +57,8 @@ DartVM::DartVM()
 
 void DartVM::loadScript( ci::DataSourceRef script )
 {
+	mMainScriptPath = script->getFilePath();
+
 	Dart_Isolate currentIsolate = Dart_CurrentIsolate();
 	if( currentIsolate && currentIsolate == mIsolate ) {
 		LOG_V( "isolate already loaded, shutting down first" );;
@@ -86,7 +88,7 @@ void DartVM::loadScript( ci::DataSourceRef script )
 	CIDART_CHECK_RETURN( Dart_LoadScript( url, source, 0, 0 ) );
 
 	// swap in custom _printClosure, which maps back to Log.
-	Dart_Handle cinderDartLib = Dart_LookupLibrary( Dart_NewStringFromCString( "cinder" ) ); // TODO: import this first with Dart_LoadLibrary (right now it is imported from main.dart
+	Dart_Handle cinderDartLib = Dart_LookupLibrary( Dart_NewStringFromCString( "cinder" ) );
 	CIDART_CHECK( cinderDartLib );
 
 	Dart_Handle internalLib = Dart_LookupLibrary( Dart_NewStringFromCString( "dart:_internal" ) );
@@ -256,10 +258,12 @@ void DartVM::closeFileCallback(void* file)
 // static
 Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Handle urlHandle )
 {
+	string url = getString( urlHandle );
+
 	if( tag == Dart_kCanonicalizeUrl )
 		return urlHandle;
 
-	string url = getString( urlHandle );
+//	string url = getString( urlHandle );
 	if( url == "cinder" ) {
 		DartVM *dartVm = static_cast<DartVM *>( Dart_CurrentIsolateData() );
 
@@ -273,6 +277,35 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 		CIDART_CHECK( Dart_SetNativeResolver( library, resolveNameHandler, NULL ) );
 
 		return library;
+	}
+
+	auto pos = url.find( "package:" );
+	if( pos == 0 ) {
+		// search for package relative to main script root, in package folder
+
+		const size_t lenPackageString = 8;
+		string subPath = url.substr( lenPackageString, url.size() - lenPackageString );
+
+		DartVM *dartVm = static_cast<DartVM *>( Dart_CurrentIsolateData() );
+
+//		LOG_V( dartVm->mMainScriptPath.parent_path() );
+
+		auto mainAssetPath = dartVm->mMainScriptPath.parent_path();
+		auto resolvedPath = mainAssetPath / "packages" / subPath;
+
+		LOG_V( "resolvedPath: " << resolvedPath );
+
+		string libString = loadString( loadFile( resolvedPath ) );
+		Dart_Handle source = Dart_NewStringFromCString( libString.c_str() );
+		CIDART_CHECK( source );
+
+		Dart_Handle library = Dart_LoadLibrary( urlHandle, source );
+		CIDART_CHECK( library );
+
+		CIDART_CHECK( Dart_SetNativeResolver( library, resolveNameHandler, NULL ) );
+
+		return library;
+
 	}
 
 	CI_ASSERT( false && "unreachable" );

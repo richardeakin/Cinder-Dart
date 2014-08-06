@@ -48,6 +48,7 @@ class DartVM {
 	std::vector<std::string>	mVMFlags;
 	NativeFunctionMap			mNativeFunctionMap;
 	ReceiveMapCallback			mReceiveMapCallback;
+	ci::fs::path				mMainScriptPath;
 	ci::fs::path				mCinderDartScriptPath;
 	ci::DataSourceRef			mCinderDartScriptResource; // not used by default, available for windows resources
 	ci::DataSourceRef			mSnapshot;

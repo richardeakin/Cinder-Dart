@@ -1,0 +1,4 @@
+name: cidart_test_pub
+dependencies:
+  vector_math:
+    git: https://github.com/johnmccutchan/vector_math.git
