@@ -27,6 +27,7 @@ std::string getString( Dart_Handle handle );
 bool isMap( Dart_Handle handle );
 bool isCinderClass( Dart_Handle handle, const char *className );
 
+bool		getBool( Dart_Handle handle );
 int			getInt( Dart_Handle handle );
 float		getFloat( Dart_Handle handle );
 ci::ColorA	getColor( Dart_Handle handle );

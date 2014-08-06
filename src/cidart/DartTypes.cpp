@@ -59,6 +59,13 @@ string getString( Dart_Handle handle )
 	return string( result );
 }
 
+bool getBool( Dart_Handle handle )
+{
+	bool result;
+	CIDART_CHECK( Dart_BooleanValue( handle, &result ) );
+	return result;
+}
+
 int getInt( Dart_Handle handle )
 {
 	int result;
