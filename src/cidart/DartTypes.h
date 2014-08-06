@@ -11,26 +11,24 @@
 namespace cidart {
 
 struct DartScope {
-	DartScope() { Dart_EnterScope(); }
-	~DartScope() { Dart_ExitScope(); }
+	DartScope()		{ Dart_EnterScope(); }
+	~DartScope()	{ Dart_ExitScope(); }
 };
 
 // TODO: move
 void console( Dart_NativeArguments arguments );
 
 Dart_Handle newString( const char* str );
-
 Dart_Handle newInt( int i );
 
-std::string getString( Dart_Handle handle );
-
-bool isMap( Dart_Handle handle );
-bool isCinderClass( Dart_Handle handle, const char *className );
+bool		isMap( Dart_Handle handle );
+bool		isCinderClass( Dart_Handle handle, const char *className );
 
 bool		getBool( Dart_Handle handle );
 int			getInt( Dart_Handle handle );
 float		getFloat( Dart_Handle handle );
 ci::ColorA	getColor( Dart_Handle handle );
+std::string getString( Dart_Handle handle );
 
 float		getFloatForKey( Dart_Handle mapHandle, const char *key );
 

@@ -217,23 +217,14 @@ Dart_Handle getField( Dart_Handle container, const string &name )
 	return result;
 }
 
-//	string getClassName( Dart_Handle handle ) {
-//		Dart_Handle instanceClass = Dart_InstanceGetClass( handle );
-//		CIDART_CHECK( instanceClass );
-//		Dart_Handle className = Dart_ClassName( instanceClass );
-//		CIDART_CHECK( className );
-//
-//		return getString( className );
-//	}
-
 string getTypeName( Dart_Handle handle )
 {
 	Dart_Handle instanceType = Dart_InstanceGetType( handle );
 	CIDART_CHECK( instanceType );
-	Dart_Handle className = Dart_TypeName( instanceType );
-	CIDART_CHECK( className );
+	Dart_Handle typeName = Dart_TypeName( instanceType );
+	CIDART_CHECK( typeName );
 
-	return getString( className );
+	return getString( typeName );
 }
 
 // TODO: use Dart_isMap()
