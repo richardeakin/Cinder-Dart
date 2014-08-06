@@ -10,6 +10,8 @@
 #include "cinder/Utilities.h"
 #include "cinder/CinderAssert.h"
 
+#include "bin/dartutils.h"
+
 #include <map>
 
 using namespace std;
@@ -259,6 +261,8 @@ void DartVM::closeFileCallback(void* file)
 Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Handle urlHandle )
 {
 	string url = getString( urlHandle );
+
+	return dart::bin::DartUtils::LibraryTagHandler( tag, library, urlHandle );
 
 	if( tag == Dart_kCanonicalizeUrl )
 		return urlHandle;

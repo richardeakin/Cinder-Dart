@@ -12,6 +12,91 @@
 		00B784B40FF439BC000DE1D7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B00FF439BC000DE1D7 /* AudioToolbox.framework */; };
 		00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B10FF439BC000DE1D7 /* AudioUnit.framework */; };
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
+		1124E74A19924F5300C35E8E /* builtin_gen_snapshot.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6C719924F5300C35E8E /* builtin_gen_snapshot.cc */; };
+		1124E74B19924F5300C35E8E /* builtin_natives.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6C819924F5300C35E8E /* builtin_natives.cc */; };
+		1124E74C19924F5300C35E8E /* crypto.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6CA19924F5300C35E8E /* crypto.cc */; };
+		1124E74D19924F5300C35E8E /* dartutils.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6CC19924F5300C35E8E /* dartutils.cc */; };
+		1124E74E19924F5300C35E8E /* dbg_connection_android.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6CE19924F5300C35E8E /* dbg_connection_android.cc */; };
+		1124E74F19924F5300C35E8E /* dbg_message.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6D219924F5300C35E8E /* dbg_message.cc */; };
+		1124E75019924F5300C35E8E /* directory_android.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6D319924F5300C35E8E /* directory_android.cc */; };
+		1124E75119924F5300C35E8E /* directory_linux.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6D419924F5300C35E8E /* directory_linux.cc */; };
+		1124E75219924F5300C35E8E /* directory_macos.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6D519924F5300C35E8E /* directory_macos.cc */; };
+		1124E75319924F5300C35E8E /* directory_win.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6D619924F5300C35E8E /* directory_win.cc */; };
+		1124E75419924F5300C35E8E /* eventhandler_android.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6D819924F5300C35E8E /* eventhandler_android.cc */; };
+		1124E75519924F5300C35E8E /* extensions_android.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6DB19924F5300C35E8E /* extensions_android.cc */; };
+		1124E75619924F5300C35E8E /* fdutils_linux.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6DD19924F5300C35E8E /* fdutils_linux.cc */; };
+		1124E75719924F5300C35E8E /* file_android.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6DF19924F5300C35E8E /* file_android.cc */; };
+		1124E75819924F5300C35E8E /* file_linux.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6E019924F5300C35E8E /* file_linux.cc */; };
+		1124E75919924F5300C35E8E /* file_macos.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6E119924F5300C35E8E /* file_macos.cc */; };
+		1124E75A19924F5300C35E8E /* file_system_watcher_android.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6E219924F5300C35E8E /* file_system_watcher_android.cc */; };
+		1124E75B19924F5300C35E8E /* file_system_watcher_win.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6E319924F5300C35E8E /* file_system_watcher_win.cc */; };
+		1124E75D19924F5300C35E8E /* file_win.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6E619924F5300C35E8E /* file_win.cc */; };
+		1124E75E19924F5300C35E8E /* file.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6E719924F5300C35E8E /* file.cc */; };
+		1124E75F19924F5300C35E8E /* filter.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6E919924F5300C35E8E /* filter.cc */; };
+		1124E76019924F5300C35E8E /* gen_snapshot.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6EB19924F5300C35E8E /* gen_snapshot.cc */; };
+		1124E76219924F5300C35E8E /* io_service_unsupported.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6EF19924F5300C35E8E /* io_service_unsupported.cc */; };
+		1124E76419924F5300C35E8E /* log_win.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6F319924F5300C35E8E /* log_win.cc */; };
+		1124E76519924F5300C35E8E /* main.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6F519924F5300C35E8E /* main.cc */; };
+		1124E76619924F5300C35E8E /* platform_android.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6F619924F5300C35E8E /* platform_android.cc */; };
+		1124E76719924F5300C35E8E /* platform_linux.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6F719924F5300C35E8E /* platform_linux.cc */; };
+		1124E76819924F5300C35E8E /* platform_macos.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6F819924F5300C35E8E /* platform_macos.cc */; };
+		1124E76919924F5300C35E8E /* platform_win.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6F919924F5300C35E8E /* platform_win.cc */; };
+		1124E76A19924F5300C35E8E /* platform.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6FA19924F5300C35E8E /* platform.cc */; };
+		1124E76B19924F5300C35E8E /* process_test.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6FC19924F5300C35E8E /* process_test.cc */; };
+		1124E76C19924F5300C35E8E /* process_win.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6FD19924F5300C35E8E /* process_win.cc */; };
+		1124E76D19924F5300C35E8E /* process.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E6FE19924F5300C35E8E /* process.cc */; };
+		1124E76F19924F5300C35E8E /* secure_socket_unsupported.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E70119924F5300C35E8E /* secure_socket_unsupported.cc */; };
+		1124E77019924F5300C35E8E /* socket.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E70719924F5300C35E8E /* socket.cc */; };
+		1124E77119924F5300C35E8E /* stdio_android.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E70919924F5300C35E8E /* stdio_android.cc */; };
+		1124E77219924F5300C35E8E /* stdio_linux.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E70A19924F5300C35E8E /* stdio_linux.cc */; };
+		1124E77319924F5300C35E8E /* stdio_macos.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E70B19924F5300C35E8E /* stdio_macos.cc */; };
+		1124E77419924F5300C35E8E /* stdio_win.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E70C19924F5300C35E8E /* stdio_win.cc */; };
+		1124E77519924F5300C35E8E /* test_extension_dllmain_win.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E70D19924F5300C35E8E /* test_extension_dllmain_win.cc */; };
+		1124E77619924F5300C35E8E /* test_extension.c in Sources */ = {isa = PBXBuildFile; fileRef = 1124E70E19924F5300C35E8E /* test_extension.c */; };
+		1124E77719924F5300C35E8E /* utils_android.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E70F19924F5300C35E8E /* utils_android.cc */; };
+		1124E77819924F5300C35E8E /* utils_linux.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E71019924F5300C35E8E /* utils_linux.cc */; };
+		1124E77919924F5300C35E8E /* utils_macos.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E71119924F5300C35E8E /* utils_macos.cc */; };
+		1124E77A19924F5300C35E8E /* utils_win.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E71219924F5300C35E8E /* utils_win.cc */; };
+		1124E77B19924F5300C35E8E /* vmservice_impl.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E71519924F5300C35E8E /* vmservice_impl.cc */; };
+		1124E77D19924F5300C35E8E /* builtin_nolib.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E71919924F5300C35E8E /* builtin_nolib.cc */; };
+		1124E77E19924F5300C35E8E /* builtin.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E71A19924F5300C35E8E /* builtin.cc */; };
+		1124E77F19924F5300C35E8E /* crypto_android.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E71B19924F5300C35E8E /* crypto_android.cc */; };
+		1124E78019924F5300C35E8E /* crypto_linux.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E71C19924F5300C35E8E /* crypto_linux.cc */; };
+		1124E78119924F5300C35E8E /* crypto_macos.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E71D19924F5300C35E8E /* crypto_macos.cc */; };
+		1124E78219924F5300C35E8E /* crypto_win.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E71E19924F5300C35E8E /* crypto_win.cc */; };
+		1124E78319924F5300C35E8E /* dbg_connection_linux.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E71F19924F5300C35E8E /* dbg_connection_linux.cc */; };
+		1124E78419924F5300C35E8E /* dbg_connection_macos.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E72019924F5300C35E8E /* dbg_connection_macos.cc */; };
+		1124E78519924F5300C35E8E /* dbg_connection_win.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E72219924F5300C35E8E /* dbg_connection_win.cc */; };
+		1124E78619924F5300C35E8E /* dbg_connection.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E72319924F5300C35E8E /* dbg_connection.cc */; };
+		1124E78719924F5300C35E8E /* directory.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E72619924F5300C35E8E /* directory.cc */; };
+		1124E78819924F5300C35E8E /* eventhandler_linux.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E72819924F5300C35E8E /* eventhandler_linux.cc */; };
+		1124E78919924F5300C35E8E /* eventhandler_macos.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E72919924F5300C35E8E /* eventhandler_macos.cc */; };
+		1124E78A19924F5300C35E8E /* eventhandler_win.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E72B19924F5300C35E8E /* eventhandler_win.cc */; };
+		1124E78B19924F5300C35E8E /* eventhandler.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E72D19924F5300C35E8E /* eventhandler.cc */; };
+		1124E78C19924F5300C35E8E /* extensions_linux.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E72E19924F5300C35E8E /* extensions_linux.cc */; };
+		1124E78D19924F5300C35E8E /* extensions_macos.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E72F19924F5300C35E8E /* extensions_macos.cc */; };
+		1124E78E19924F5300C35E8E /* extensions_win.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E73019924F5300C35E8E /* extensions_win.cc */; };
+		1124E78F19924F5300C35E8E /* extensions.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E73119924F5300C35E8E /* extensions.cc */; };
+		1124E79019924F5300C35E8E /* fdutils_android.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E73219924F5300C35E8E /* fdutils_android.cc */; };
+		1124E79119924F5300C35E8E /* fdutils_macos.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E73319924F5300C35E8E /* fdutils_macos.cc */; };
+		1124E79219924F5300C35E8E /* file_system_watcher_linux.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E73419924F5300C35E8E /* file_system_watcher_linux.cc */; };
+		1124E79319924F5300C35E8E /* file_system_watcher_macos.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E73519924F5300C35E8E /* file_system_watcher_macos.cc */; };
+		1124E79419924F5300C35E8E /* file_system_watcher.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E73619924F5300C35E8E /* file_system_watcher.cc */; };
+		1124E79519924F5300C35E8E /* filter_unsupported.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E73719924F5300C35E8E /* filter_unsupported.cc */; };
+		1124E79619924F5300C35E8E /* io_buffer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E73819924F5300C35E8E /* io_buffer.cc */; };
+		1124E79719924F5300C35E8E /* io_natives.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E73919924F5300C35E8E /* io_natives.cc */; };
+		1124E79819924F5300C35E8E /* log_android.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E73A19924F5300C35E8E /* log_android.cc */; };
+		1124E79919924F5300C35E8E /* log_linux.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E73B19924F5300C35E8E /* log_linux.cc */; };
+		1124E79A19924F5300C35E8E /* log_macos.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E73C19924F5300C35E8E /* log_macos.cc */; };
+		1124E79B19924F5300C35E8E /* process_android.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E73D19924F5300C35E8E /* process_android.cc */; };
+		1124E79C19924F5300C35E8E /* process_linux.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E73E19924F5300C35E8E /* process_linux.cc */; };
+		1124E79D19924F5300C35E8E /* process_macos.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E73F19924F5300C35E8E /* process_macos.cc */; };
+		1124E79F19924F5300C35E8E /* snapshot_empty.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E74119924F5300C35E8E /* snapshot_empty.cc */; };
+		1124E7A119924F5300C35E8E /* socket_android.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E74319924F5300C35E8E /* socket_android.cc */; };
+		1124E7A219924F5300C35E8E /* socket_linux.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E74419924F5300C35E8E /* socket_linux.cc */; };
+		1124E7A319924F5300C35E8E /* socket_macos.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E74519924F5300C35E8E /* socket_macos.cc */; };
+		1124E7A419924F5300C35E8E /* socket_win.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E74619924F5300C35E8E /* socket_win.cc */; };
+		1124E7A519924F5300C35E8E /* stdio.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1124E74719924F5300C35E8E /* stdio.cc */; };
 		11D0BED51816CC8D000908D9 /* snapshot_gen.bin in Resources */ = {isa = PBXBuildFile; fileRef = 11D0BED41816CC8D000908D9 /* snapshot_gen.bin */; };
 		11D0BEE11816CF86000908D9 /* libdart_builtin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D0BEDB1816CF86000908D9 /* libdart_builtin.a */; };
 		11D0BEE21816CF86000908D9 /* libdart_lib_withcore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D0BEDC1816CF86000908D9 /* libdart_lib_withcore.a */; };
@@ -35,6 +120,130 @@
 		00B784B10FF439BC000DE1D7 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		00B784B20FF439BC000DE1D7 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		1124E6C719924F5300C35E8E /* builtin_gen_snapshot.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = builtin_gen_snapshot.cc; path = "../../../dart-runtime/bin/builtin_gen_snapshot.cc"; sourceTree = "<group>"; };
+		1124E6C819924F5300C35E8E /* builtin_natives.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = builtin_natives.cc; path = "../../../dart-runtime/bin/builtin_natives.cc"; sourceTree = "<group>"; };
+		1124E6C919924F5300C35E8E /* builtin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = builtin.h; path = "../../../dart-runtime/bin/builtin.h"; sourceTree = "<group>"; };
+		1124E6CA19924F5300C35E8E /* crypto.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = crypto.cc; path = "../../../dart-runtime/bin/crypto.cc"; sourceTree = "<group>"; };
+		1124E6CB19924F5300C35E8E /* crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = crypto.h; path = "../../../dart-runtime/bin/crypto.h"; sourceTree = "<group>"; };
+		1124E6CC19924F5300C35E8E /* dartutils.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dartutils.cc; path = "../../../dart-runtime/bin/dartutils.cc"; sourceTree = "<group>"; };
+		1124E6CD19924F5300C35E8E /* dartutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dartutils.h; path = "../../../dart-runtime/bin/dartutils.h"; sourceTree = "<group>"; };
+		1124E6CE19924F5300C35E8E /* dbg_connection_android.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dbg_connection_android.cc; path = "../../../dart-runtime/bin/dbg_connection_android.cc"; sourceTree = "<group>"; };
+		1124E6CF19924F5300C35E8E /* dbg_connection_android.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dbg_connection_android.h; path = "../../../dart-runtime/bin/dbg_connection_android.h"; sourceTree = "<group>"; };
+		1124E6D019924F5300C35E8E /* dbg_connection_linux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dbg_connection_linux.h; path = "../../../dart-runtime/bin/dbg_connection_linux.h"; sourceTree = "<group>"; };
+		1124E6D119924F5300C35E8E /* dbg_connection_win.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dbg_connection_win.h; path = "../../../dart-runtime/bin/dbg_connection_win.h"; sourceTree = "<group>"; };
+		1124E6D219924F5300C35E8E /* dbg_message.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dbg_message.cc; path = "../../../dart-runtime/bin/dbg_message.cc"; sourceTree = "<group>"; };
+		1124E6D319924F5300C35E8E /* directory_android.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = directory_android.cc; path = "../../../dart-runtime/bin/directory_android.cc"; sourceTree = "<group>"; };
+		1124E6D419924F5300C35E8E /* directory_linux.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = directory_linux.cc; path = "../../../dart-runtime/bin/directory_linux.cc"; sourceTree = "<group>"; };
+		1124E6D519924F5300C35E8E /* directory_macos.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = directory_macos.cc; path = "../../../dart-runtime/bin/directory_macos.cc"; sourceTree = "<group>"; };
+		1124E6D619924F5300C35E8E /* directory_win.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = directory_win.cc; path = "../../../dart-runtime/bin/directory_win.cc"; sourceTree = "<group>"; };
+		1124E6D719924F5300C35E8E /* directory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = directory.h; path = "../../../dart-runtime/bin/directory.h"; sourceTree = "<group>"; };
+		1124E6D819924F5300C35E8E /* eventhandler_android.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = eventhandler_android.cc; path = "../../../dart-runtime/bin/eventhandler_android.cc"; sourceTree = "<group>"; };
+		1124E6D919924F5300C35E8E /* eventhandler_linux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = eventhandler_linux.h; path = "../../../dart-runtime/bin/eventhandler_linux.h"; sourceTree = "<group>"; };
+		1124E6DA19924F5300C35E8E /* eventhandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = eventhandler.h; path = "../../../dart-runtime/bin/eventhandler.h"; sourceTree = "<group>"; };
+		1124E6DB19924F5300C35E8E /* extensions_android.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = extensions_android.cc; path = "../../../dart-runtime/bin/extensions_android.cc"; sourceTree = "<group>"; };
+		1124E6DC19924F5300C35E8E /* extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = extensions.h; path = "../../../dart-runtime/bin/extensions.h"; sourceTree = "<group>"; };
+		1124E6DD19924F5300C35E8E /* fdutils_linux.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fdutils_linux.cc; path = "../../../dart-runtime/bin/fdutils_linux.cc"; sourceTree = "<group>"; };
+		1124E6DE19924F5300C35E8E /* fdutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fdutils.h; path = "../../../dart-runtime/bin/fdutils.h"; sourceTree = "<group>"; };
+		1124E6DF19924F5300C35E8E /* file_android.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = file_android.cc; path = "../../../dart-runtime/bin/file_android.cc"; sourceTree = "<group>"; };
+		1124E6E019924F5300C35E8E /* file_linux.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = file_linux.cc; path = "../../../dart-runtime/bin/file_linux.cc"; sourceTree = "<group>"; };
+		1124E6E119924F5300C35E8E /* file_macos.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = file_macos.cc; path = "../../../dart-runtime/bin/file_macos.cc"; sourceTree = "<group>"; };
+		1124E6E219924F5300C35E8E /* file_system_watcher_android.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = file_system_watcher_android.cc; path = "../../../dart-runtime/bin/file_system_watcher_android.cc"; sourceTree = "<group>"; };
+		1124E6E319924F5300C35E8E /* file_system_watcher_win.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = file_system_watcher_win.cc; path = "../../../dart-runtime/bin/file_system_watcher_win.cc"; sourceTree = "<group>"; };
+		1124E6E419924F5300C35E8E /* file_system_watcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = file_system_watcher.h; path = "../../../dart-runtime/bin/file_system_watcher.h"; sourceTree = "<group>"; };
+		1124E6E619924F5300C35E8E /* file_win.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = file_win.cc; path = "../../../dart-runtime/bin/file_win.cc"; sourceTree = "<group>"; };
+		1124E6E719924F5300C35E8E /* file.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = file.cc; path = "../../../dart-runtime/bin/file.cc"; sourceTree = "<group>"; };
+		1124E6E819924F5300C35E8E /* file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = file.h; path = "../../../dart-runtime/bin/file.h"; sourceTree = "<group>"; };
+		1124E6E919924F5300C35E8E /* filter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = filter.cc; path = "../../../dart-runtime/bin/filter.cc"; sourceTree = "<group>"; };
+		1124E6EA19924F5300C35E8E /* filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = filter.h; path = "../../../dart-runtime/bin/filter.h"; sourceTree = "<group>"; };
+		1124E6EB19924F5300C35E8E /* gen_snapshot.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gen_snapshot.cc; path = "../../../dart-runtime/bin/gen_snapshot.cc"; sourceTree = "<group>"; };
+		1124E6ED19924F5300C35E8E /* io_buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = io_buffer.h; path = "../../../dart-runtime/bin/io_buffer.h"; sourceTree = "<group>"; };
+		1124E6EE19924F5300C35E8E /* io_natives.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = io_natives.h; path = "../../../dart-runtime/bin/io_natives.h"; sourceTree = "<group>"; };
+		1124E6EF19924F5300C35E8E /* io_service_unsupported.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = io_service_unsupported.cc; path = "../../../dart-runtime/bin/io_service_unsupported.cc"; sourceTree = "<group>"; };
+		1124E6F119924F5300C35E8E /* io_service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = io_service.h; path = "../../../dart-runtime/bin/io_service.h"; sourceTree = "<group>"; };
+		1124E6F219924F5300C35E8E /* isolate_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = isolate_data.h; path = "../../../dart-runtime/bin/isolate_data.h"; sourceTree = "<group>"; };
+		1124E6F319924F5300C35E8E /* log_win.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = log_win.cc; path = "../../../dart-runtime/bin/log_win.cc"; sourceTree = "<group>"; };
+		1124E6F419924F5300C35E8E /* log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = log.h; path = "../../../dart-runtime/bin/log.h"; sourceTree = "<group>"; };
+		1124E6F519924F5300C35E8E /* main.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cc; path = "../../../dart-runtime/bin/main.cc"; sourceTree = "<group>"; };
+		1124E6F619924F5300C35E8E /* platform_android.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = platform_android.cc; path = "../../../dart-runtime/bin/platform_android.cc"; sourceTree = "<group>"; };
+		1124E6F719924F5300C35E8E /* platform_linux.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = platform_linux.cc; path = "../../../dart-runtime/bin/platform_linux.cc"; sourceTree = "<group>"; };
+		1124E6F819924F5300C35E8E /* platform_macos.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = platform_macos.cc; path = "../../../dart-runtime/bin/platform_macos.cc"; sourceTree = "<group>"; };
+		1124E6F919924F5300C35E8E /* platform_win.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = platform_win.cc; path = "../../../dart-runtime/bin/platform_win.cc"; sourceTree = "<group>"; };
+		1124E6FA19924F5300C35E8E /* platform.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = platform.cc; path = "../../../dart-runtime/bin/platform.cc"; sourceTree = "<group>"; };
+		1124E6FB19924F5300C35E8E /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = platform.h; path = "../../../dart-runtime/bin/platform.h"; sourceTree = "<group>"; };
+		1124E6FC19924F5300C35E8E /* process_test.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = process_test.cc; path = "../../../dart-runtime/bin/process_test.cc"; sourceTree = "<group>"; };
+		1124E6FD19924F5300C35E8E /* process_win.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = process_win.cc; path = "../../../dart-runtime/bin/process_win.cc"; sourceTree = "<group>"; };
+		1124E6FE19924F5300C35E8E /* process.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = process.cc; path = "../../../dart-runtime/bin/process.cc"; sourceTree = "<group>"; };
+		1124E6FF19924F5300C35E8E /* process.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = process.h; path = "../../../dart-runtime/bin/process.h"; sourceTree = "<group>"; };
+		1124E70119924F5300C35E8E /* secure_socket_unsupported.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = secure_socket_unsupported.cc; path = "../../../dart-runtime/bin/secure_socket_unsupported.cc"; sourceTree = "<group>"; };
+		1124E70219924F5300C35E8E /* secure_socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = secure_socket.h; path = "../../../dart-runtime/bin/secure_socket.h"; sourceTree = "<group>"; };
+		1124E70319924F5300C35E8E /* socket_android.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = socket_android.h; path = "../../../dart-runtime/bin/socket_android.h"; sourceTree = "<group>"; };
+		1124E70419924F5300C35E8E /* socket_linux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = socket_linux.h; path = "../../../dart-runtime/bin/socket_linux.h"; sourceTree = "<group>"; };
+		1124E70519924F5300C35E8E /* socket_macos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = socket_macos.h; path = "../../../dart-runtime/bin/socket_macos.h"; sourceTree = "<group>"; };
+		1124E70619924F5300C35E8E /* socket_win.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = socket_win.h; path = "../../../dart-runtime/bin/socket_win.h"; sourceTree = "<group>"; };
+		1124E70719924F5300C35E8E /* socket.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = socket.cc; path = "../../../dart-runtime/bin/socket.cc"; sourceTree = "<group>"; };
+		1124E70819924F5300C35E8E /* socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = socket.h; path = "../../../dart-runtime/bin/socket.h"; sourceTree = "<group>"; };
+		1124E70919924F5300C35E8E /* stdio_android.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stdio_android.cc; path = "../../../dart-runtime/bin/stdio_android.cc"; sourceTree = "<group>"; };
+		1124E70A19924F5300C35E8E /* stdio_linux.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stdio_linux.cc; path = "../../../dart-runtime/bin/stdio_linux.cc"; sourceTree = "<group>"; };
+		1124E70B19924F5300C35E8E /* stdio_macos.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stdio_macos.cc; path = "../../../dart-runtime/bin/stdio_macos.cc"; sourceTree = "<group>"; };
+		1124E70C19924F5300C35E8E /* stdio_win.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stdio_win.cc; path = "../../../dart-runtime/bin/stdio_win.cc"; sourceTree = "<group>"; };
+		1124E70D19924F5300C35E8E /* test_extension_dllmain_win.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = test_extension_dllmain_win.cc; path = "../../../dart-runtime/bin/test_extension_dllmain_win.cc"; sourceTree = "<group>"; };
+		1124E70E19924F5300C35E8E /* test_extension.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = test_extension.c; path = "../../../dart-runtime/bin/test_extension.c"; sourceTree = "<group>"; };
+		1124E70F19924F5300C35E8E /* utils_android.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = utils_android.cc; path = "../../../dart-runtime/bin/utils_android.cc"; sourceTree = "<group>"; };
+		1124E71019924F5300C35E8E /* utils_linux.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = utils_linux.cc; path = "../../../dart-runtime/bin/utils_linux.cc"; sourceTree = "<group>"; };
+		1124E71119924F5300C35E8E /* utils_macos.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = utils_macos.cc; path = "../../../dart-runtime/bin/utils_macos.cc"; sourceTree = "<group>"; };
+		1124E71219924F5300C35E8E /* utils_win.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = utils_win.cc; path = "../../../dart-runtime/bin/utils_win.cc"; sourceTree = "<group>"; };
+		1124E71319924F5300C35E8E /* utils_win.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = utils_win.h; path = "../../../dart-runtime/bin/utils_win.h"; sourceTree = "<group>"; };
+		1124E71419924F5300C35E8E /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = utils.h; path = "../../../dart-runtime/bin/utils.h"; sourceTree = "<group>"; };
+		1124E71519924F5300C35E8E /* vmservice_impl.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vmservice_impl.cc; path = "../../../dart-runtime/bin/vmservice_impl.cc"; sourceTree = "<group>"; };
+		1124E71619924F5300C35E8E /* vmservice_impl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vmservice_impl.h; path = "../../../dart-runtime/bin/vmservice_impl.h"; sourceTree = "<group>"; };
+		1124E71719924F5300C35E8E /* vmservice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vmservice.h; path = "../../../dart-runtime/bin/vmservice.h"; sourceTree = "<group>"; };
+		1124E71919924F5300C35E8E /* builtin_nolib.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = builtin_nolib.cc; path = "../../../dart-runtime/bin/builtin_nolib.cc"; sourceTree = "<group>"; };
+		1124E71A19924F5300C35E8E /* builtin.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = builtin.cc; path = "../../../dart-runtime/bin/builtin.cc"; sourceTree = "<group>"; };
+		1124E71B19924F5300C35E8E /* crypto_android.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = crypto_android.cc; path = "../../../dart-runtime/bin/crypto_android.cc"; sourceTree = "<group>"; };
+		1124E71C19924F5300C35E8E /* crypto_linux.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = crypto_linux.cc; path = "../../../dart-runtime/bin/crypto_linux.cc"; sourceTree = "<group>"; };
+		1124E71D19924F5300C35E8E /* crypto_macos.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = crypto_macos.cc; path = "../../../dart-runtime/bin/crypto_macos.cc"; sourceTree = "<group>"; };
+		1124E71E19924F5300C35E8E /* crypto_win.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = crypto_win.cc; path = "../../../dart-runtime/bin/crypto_win.cc"; sourceTree = "<group>"; };
+		1124E71F19924F5300C35E8E /* dbg_connection_linux.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dbg_connection_linux.cc; path = "../../../dart-runtime/bin/dbg_connection_linux.cc"; sourceTree = "<group>"; };
+		1124E72019924F5300C35E8E /* dbg_connection_macos.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dbg_connection_macos.cc; path = "../../../dart-runtime/bin/dbg_connection_macos.cc"; sourceTree = "<group>"; };
+		1124E72119924F5300C35E8E /* dbg_connection_macos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dbg_connection_macos.h; path = "../../../dart-runtime/bin/dbg_connection_macos.h"; sourceTree = "<group>"; };
+		1124E72219924F5300C35E8E /* dbg_connection_win.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dbg_connection_win.cc; path = "../../../dart-runtime/bin/dbg_connection_win.cc"; sourceTree = "<group>"; };
+		1124E72319924F5300C35E8E /* dbg_connection.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dbg_connection.cc; path = "../../../dart-runtime/bin/dbg_connection.cc"; sourceTree = "<group>"; };
+		1124E72419924F5300C35E8E /* dbg_connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dbg_connection.h; path = "../../../dart-runtime/bin/dbg_connection.h"; sourceTree = "<group>"; };
+		1124E72519924F5300C35E8E /* dbg_message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dbg_message.h; path = "../../../dart-runtime/bin/dbg_message.h"; sourceTree = "<group>"; };
+		1124E72619924F5300C35E8E /* directory.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = directory.cc; path = "../../../dart-runtime/bin/directory.cc"; sourceTree = "<group>"; };
+		1124E72719924F5300C35E8E /* eventhandler_android.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = eventhandler_android.h; path = "../../../dart-runtime/bin/eventhandler_android.h"; sourceTree = "<group>"; };
+		1124E72819924F5300C35E8E /* eventhandler_linux.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = eventhandler_linux.cc; path = "../../../dart-runtime/bin/eventhandler_linux.cc"; sourceTree = "<group>"; };
+		1124E72919924F5300C35E8E /* eventhandler_macos.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = eventhandler_macos.cc; path = "../../../dart-runtime/bin/eventhandler_macos.cc"; sourceTree = "<group>"; };
+		1124E72A19924F5300C35E8E /* eventhandler_macos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = eventhandler_macos.h; path = "../../../dart-runtime/bin/eventhandler_macos.h"; sourceTree = "<group>"; };
+		1124E72B19924F5300C35E8E /* eventhandler_win.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = eventhandler_win.cc; path = "../../../dart-runtime/bin/eventhandler_win.cc"; sourceTree = "<group>"; };
+		1124E72C19924F5300C35E8E /* eventhandler_win.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = eventhandler_win.h; path = "../../../dart-runtime/bin/eventhandler_win.h"; sourceTree = "<group>"; };
+		1124E72D19924F5300C35E8E /* eventhandler.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = eventhandler.cc; path = "../../../dart-runtime/bin/eventhandler.cc"; sourceTree = "<group>"; };
+		1124E72E19924F5300C35E8E /* extensions_linux.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = extensions_linux.cc; path = "../../../dart-runtime/bin/extensions_linux.cc"; sourceTree = "<group>"; };
+		1124E72F19924F5300C35E8E /* extensions_macos.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = extensions_macos.cc; path = "../../../dart-runtime/bin/extensions_macos.cc"; sourceTree = "<group>"; };
+		1124E73019924F5300C35E8E /* extensions_win.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = extensions_win.cc; path = "../../../dart-runtime/bin/extensions_win.cc"; sourceTree = "<group>"; };
+		1124E73119924F5300C35E8E /* extensions.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = extensions.cc; path = "../../../dart-runtime/bin/extensions.cc"; sourceTree = "<group>"; };
+		1124E73219924F5300C35E8E /* fdutils_android.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fdutils_android.cc; path = "../../../dart-runtime/bin/fdutils_android.cc"; sourceTree = "<group>"; };
+		1124E73319924F5300C35E8E /* fdutils_macos.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fdutils_macos.cc; path = "../../../dart-runtime/bin/fdutils_macos.cc"; sourceTree = "<group>"; };
+		1124E73419924F5300C35E8E /* file_system_watcher_linux.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = file_system_watcher_linux.cc; path = "../../../dart-runtime/bin/file_system_watcher_linux.cc"; sourceTree = "<group>"; };
+		1124E73519924F5300C35E8E /* file_system_watcher_macos.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = file_system_watcher_macos.cc; path = "../../../dart-runtime/bin/file_system_watcher_macos.cc"; sourceTree = "<group>"; };
+		1124E73619924F5300C35E8E /* file_system_watcher.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = file_system_watcher.cc; path = "../../../dart-runtime/bin/file_system_watcher.cc"; sourceTree = "<group>"; };
+		1124E73719924F5300C35E8E /* filter_unsupported.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = filter_unsupported.cc; path = "../../../dart-runtime/bin/filter_unsupported.cc"; sourceTree = "<group>"; };
+		1124E73819924F5300C35E8E /* io_buffer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = io_buffer.cc; path = "../../../dart-runtime/bin/io_buffer.cc"; sourceTree = "<group>"; };
+		1124E73919924F5300C35E8E /* io_natives.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = io_natives.cc; path = "../../../dart-runtime/bin/io_natives.cc"; sourceTree = "<group>"; };
+		1124E73A19924F5300C35E8E /* log_android.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = log_android.cc; path = "../../../dart-runtime/bin/log_android.cc"; sourceTree = "<group>"; };
+		1124E73B19924F5300C35E8E /* log_linux.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = log_linux.cc; path = "../../../dart-runtime/bin/log_linux.cc"; sourceTree = "<group>"; };
+		1124E73C19924F5300C35E8E /* log_macos.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = log_macos.cc; path = "../../../dart-runtime/bin/log_macos.cc"; sourceTree = "<group>"; };
+		1124E73D19924F5300C35E8E /* process_android.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = process_android.cc; path = "../../../dart-runtime/bin/process_android.cc"; sourceTree = "<group>"; };
+		1124E73E19924F5300C35E8E /* process_linux.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = process_linux.cc; path = "../../../dart-runtime/bin/process_linux.cc"; sourceTree = "<group>"; };
+		1124E73F19924F5300C35E8E /* process_macos.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = process_macos.cc; path = "../../../dart-runtime/bin/process_macos.cc"; sourceTree = "<group>"; };
+		1124E74119924F5300C35E8E /* snapshot_empty.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = snapshot_empty.cc; path = "../../../dart-runtime/bin/snapshot_empty.cc"; sourceTree = "<group>"; };
+		1124E74319924F5300C35E8E /* socket_android.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = socket_android.cc; path = "../../../dart-runtime/bin/socket_android.cc"; sourceTree = "<group>"; };
+		1124E74419924F5300C35E8E /* socket_linux.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = socket_linux.cc; path = "../../../dart-runtime/bin/socket_linux.cc"; sourceTree = "<group>"; };
+		1124E74519924F5300C35E8E /* socket_macos.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = socket_macos.cc; path = "../../../dart-runtime/bin/socket_macos.cc"; sourceTree = "<group>"; };
+		1124E74619924F5300C35E8E /* socket_win.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = socket_win.cc; path = "../../../dart-runtime/bin/socket_win.cc"; sourceTree = "<group>"; };
+		1124E74719924F5300C35E8E /* stdio.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stdio.cc; path = "../../../dart-runtime/bin/stdio.cc"; sourceTree = "<group>"; };
+		1124E74819924F5300C35E8E /* stdio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stdio.h; path = "../../../dart-runtime/bin/stdio.h"; sourceTree = "<group>"; };
+		1124E74919924F5300C35E8E /* thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = thread.h; path = "../../../dart-runtime/bin/thread.h"; sourceTree = "<group>"; };
 		11CD53E01957C3E700F1C962 /* DartDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DartDebug.h; sourceTree = "<group>"; };
 		11D0BED41816CC8D000908D9 /* snapshot_gen.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = snapshot_gen.bin; path = "../../../dart-runtime/lib/macosx/snapshot_gen.bin"; sourceTree = "<group>"; };
 		11D0BED71816CCBB000908D9 /* dart_api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = dart_api.h; path = "../../../dart-runtime/include/dart_api.h"; sourceTree = "<group>"; };
@@ -130,6 +339,137 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
+		1124E6C019924D4500C35E8E /* bin */ = {
+			isa = PBXGroup;
+			children = (
+				1124E6C719924F5300C35E8E /* builtin_gen_snapshot.cc */,
+				1124E6C819924F5300C35E8E /* builtin_natives.cc */,
+				1124E6C919924F5300C35E8E /* builtin.h */,
+				1124E6CA19924F5300C35E8E /* crypto.cc */,
+				1124E6CB19924F5300C35E8E /* crypto.h */,
+				1124E6CC19924F5300C35E8E /* dartutils.cc */,
+				1124E6CD19924F5300C35E8E /* dartutils.h */,
+				1124E6CE19924F5300C35E8E /* dbg_connection_android.cc */,
+				1124E6CF19924F5300C35E8E /* dbg_connection_android.h */,
+				1124E6D019924F5300C35E8E /* dbg_connection_linux.h */,
+				1124E6D119924F5300C35E8E /* dbg_connection_win.h */,
+				1124E6D219924F5300C35E8E /* dbg_message.cc */,
+				1124E6D319924F5300C35E8E /* directory_android.cc */,
+				1124E6D419924F5300C35E8E /* directory_linux.cc */,
+				1124E6D519924F5300C35E8E /* directory_macos.cc */,
+				1124E6D619924F5300C35E8E /* directory_win.cc */,
+				1124E6D719924F5300C35E8E /* directory.h */,
+				1124E6D819924F5300C35E8E /* eventhandler_android.cc */,
+				1124E6D919924F5300C35E8E /* eventhandler_linux.h */,
+				1124E6DA19924F5300C35E8E /* eventhandler.h */,
+				1124E6DB19924F5300C35E8E /* extensions_android.cc */,
+				1124E6DC19924F5300C35E8E /* extensions.h */,
+				1124E6DD19924F5300C35E8E /* fdutils_linux.cc */,
+				1124E6DE19924F5300C35E8E /* fdutils.h */,
+				1124E6DF19924F5300C35E8E /* file_android.cc */,
+				1124E6E019924F5300C35E8E /* file_linux.cc */,
+				1124E6E119924F5300C35E8E /* file_macos.cc */,
+				1124E6E219924F5300C35E8E /* file_system_watcher_android.cc */,
+				1124E6E319924F5300C35E8E /* file_system_watcher_win.cc */,
+				1124E6E419924F5300C35E8E /* file_system_watcher.h */,
+				1124E6E619924F5300C35E8E /* file_win.cc */,
+				1124E6E719924F5300C35E8E /* file.cc */,
+				1124E6E819924F5300C35E8E /* file.h */,
+				1124E6E919924F5300C35E8E /* filter.cc */,
+				1124E6EA19924F5300C35E8E /* filter.h */,
+				1124E6EB19924F5300C35E8E /* gen_snapshot.cc */,
+				1124E6ED19924F5300C35E8E /* io_buffer.h */,
+				1124E6EE19924F5300C35E8E /* io_natives.h */,
+				1124E6EF19924F5300C35E8E /* io_service_unsupported.cc */,
+				1124E6F119924F5300C35E8E /* io_service.h */,
+				1124E6F219924F5300C35E8E /* isolate_data.h */,
+				1124E6F319924F5300C35E8E /* log_win.cc */,
+				1124E6F419924F5300C35E8E /* log.h */,
+				1124E6F519924F5300C35E8E /* main.cc */,
+				1124E6F619924F5300C35E8E /* platform_android.cc */,
+				1124E6F719924F5300C35E8E /* platform_linux.cc */,
+				1124E6F819924F5300C35E8E /* platform_macos.cc */,
+				1124E6F919924F5300C35E8E /* platform_win.cc */,
+				1124E6FA19924F5300C35E8E /* platform.cc */,
+				1124E6FB19924F5300C35E8E /* platform.h */,
+				1124E6FC19924F5300C35E8E /* process_test.cc */,
+				1124E6FD19924F5300C35E8E /* process_win.cc */,
+				1124E6FE19924F5300C35E8E /* process.cc */,
+				1124E6FF19924F5300C35E8E /* process.h */,
+				1124E70119924F5300C35E8E /* secure_socket_unsupported.cc */,
+				1124E70219924F5300C35E8E /* secure_socket.h */,
+				1124E70319924F5300C35E8E /* socket_android.h */,
+				1124E70419924F5300C35E8E /* socket_linux.h */,
+				1124E70519924F5300C35E8E /* socket_macos.h */,
+				1124E70619924F5300C35E8E /* socket_win.h */,
+				1124E70719924F5300C35E8E /* socket.cc */,
+				1124E70819924F5300C35E8E /* socket.h */,
+				1124E70919924F5300C35E8E /* stdio_android.cc */,
+				1124E70A19924F5300C35E8E /* stdio_linux.cc */,
+				1124E70B19924F5300C35E8E /* stdio_macos.cc */,
+				1124E70C19924F5300C35E8E /* stdio_win.cc */,
+				1124E70D19924F5300C35E8E /* test_extension_dllmain_win.cc */,
+				1124E70E19924F5300C35E8E /* test_extension.c */,
+				1124E70F19924F5300C35E8E /* utils_android.cc */,
+				1124E71019924F5300C35E8E /* utils_linux.cc */,
+				1124E71119924F5300C35E8E /* utils_macos.cc */,
+				1124E71219924F5300C35E8E /* utils_win.cc */,
+				1124E71319924F5300C35E8E /* utils_win.h */,
+				1124E71419924F5300C35E8E /* utils.h */,
+				1124E71519924F5300C35E8E /* vmservice_impl.cc */,
+				1124E71619924F5300C35E8E /* vmservice_impl.h */,
+				1124E71719924F5300C35E8E /* vmservice.h */,
+				1124E71919924F5300C35E8E /* builtin_nolib.cc */,
+				1124E71A19924F5300C35E8E /* builtin.cc */,
+				1124E71B19924F5300C35E8E /* crypto_android.cc */,
+				1124E71C19924F5300C35E8E /* crypto_linux.cc */,
+				1124E71D19924F5300C35E8E /* crypto_macos.cc */,
+				1124E71E19924F5300C35E8E /* crypto_win.cc */,
+				1124E71F19924F5300C35E8E /* dbg_connection_linux.cc */,
+				1124E72019924F5300C35E8E /* dbg_connection_macos.cc */,
+				1124E72119924F5300C35E8E /* dbg_connection_macos.h */,
+				1124E72219924F5300C35E8E /* dbg_connection_win.cc */,
+				1124E72319924F5300C35E8E /* dbg_connection.cc */,
+				1124E72419924F5300C35E8E /* dbg_connection.h */,
+				1124E72519924F5300C35E8E /* dbg_message.h */,
+				1124E72619924F5300C35E8E /* directory.cc */,
+				1124E72719924F5300C35E8E /* eventhandler_android.h */,
+				1124E72819924F5300C35E8E /* eventhandler_linux.cc */,
+				1124E72919924F5300C35E8E /* eventhandler_macos.cc */,
+				1124E72A19924F5300C35E8E /* eventhandler_macos.h */,
+				1124E72B19924F5300C35E8E /* eventhandler_win.cc */,
+				1124E72C19924F5300C35E8E /* eventhandler_win.h */,
+				1124E72D19924F5300C35E8E /* eventhandler.cc */,
+				1124E72E19924F5300C35E8E /* extensions_linux.cc */,
+				1124E72F19924F5300C35E8E /* extensions_macos.cc */,
+				1124E73019924F5300C35E8E /* extensions_win.cc */,
+				1124E73119924F5300C35E8E /* extensions.cc */,
+				1124E73219924F5300C35E8E /* fdutils_android.cc */,
+				1124E73319924F5300C35E8E /* fdutils_macos.cc */,
+				1124E73419924F5300C35E8E /* file_system_watcher_linux.cc */,
+				1124E73519924F5300C35E8E /* file_system_watcher_macos.cc */,
+				1124E73619924F5300C35E8E /* file_system_watcher.cc */,
+				1124E73719924F5300C35E8E /* filter_unsupported.cc */,
+				1124E73819924F5300C35E8E /* io_buffer.cc */,
+				1124E73919924F5300C35E8E /* io_natives.cc */,
+				1124E73A19924F5300C35E8E /* log_android.cc */,
+				1124E73B19924F5300C35E8E /* log_linux.cc */,
+				1124E73C19924F5300C35E8E /* log_macos.cc */,
+				1124E73D19924F5300C35E8E /* process_android.cc */,
+				1124E73E19924F5300C35E8E /* process_linux.cc */,
+				1124E73F19924F5300C35E8E /* process_macos.cc */,
+				1124E74119924F5300C35E8E /* snapshot_empty.cc */,
+				1124E74319924F5300C35E8E /* socket_android.cc */,
+				1124E74419924F5300C35E8E /* socket_linux.cc */,
+				1124E74519924F5300C35E8E /* socket_macos.cc */,
+				1124E74619924F5300C35E8E /* socket_win.cc */,
+				1124E74719924F5300C35E8E /* stdio.cc */,
+				1124E74819924F5300C35E8E /* stdio.h */,
+				1124E74919924F5300C35E8E /* thread.h */,
+			);
+			name = bin;
+			sourceTree = "<group>";
+		};
 		11D0BED61816CCA7000908D9 /* include */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +551,7 @@
 		88177B35441041BD98AFE4AD /* dart-runtime */ = {
 			isa = PBXGroup;
 			children = (
+				1124E6C019924D4500C35E8E /* bin */,
 				11D0BED61816CCA7000908D9 /* include */,
 				BDDBE01FED384E45B8F9F9BE /* osx */,
 			);
@@ -306,9 +647,94 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1124E77119924F5300C35E8E /* stdio_android.cc in Sources */,
+				1124E78619924F5300C35E8E /* dbg_connection.cc in Sources */,
+				1124E78E19924F5300C35E8E /* extensions_win.cc in Sources */,
+				1124E78819924F5300C35E8E /* eventhandler_linux.cc in Sources */,
+				1124E79C19924F5300C35E8E /* process_linux.cc in Sources */,
+				1124E79219924F5300C35E8E /* file_system_watcher_linux.cc in Sources */,
+				1124E77919924F5300C35E8E /* utils_macos.cc in Sources */,
+				1124E77519924F5300C35E8E /* test_extension_dllmain_win.cc in Sources */,
+				1124E75719924F5300C35E8E /* file_android.cc in Sources */,
+				1124E79A19924F5300C35E8E /* log_macos.cc in Sources */,
+				1124E79519924F5300C35E8E /* filter_unsupported.cc in Sources */,
+				1124E76519924F5300C35E8E /* main.cc in Sources */,
+				1124E74C19924F5300C35E8E /* crypto.cc in Sources */,
+				1124E78319924F5300C35E8E /* dbg_connection_linux.cc in Sources */,
+				1124E79D19924F5300C35E8E /* process_macos.cc in Sources */,
+				1124E77219924F5300C35E8E /* stdio_linux.cc in Sources */,
+				1124E79419924F5300C35E8E /* file_system_watcher.cc in Sources */,
+				1124E79F19924F5300C35E8E /* snapshot_empty.cc in Sources */,
+				1124E76D19924F5300C35E8E /* process.cc in Sources */,
+				1124E77019924F5300C35E8E /* socket.cc in Sources */,
+				1124E75819924F5300C35E8E /* file_linux.cc in Sources */,
+				1124E79019924F5300C35E8E /* fdutils_android.cc in Sources */,
+				1124E75E19924F5300C35E8E /* file.cc in Sources */,
+				1124E75219924F5300C35E8E /* directory_macos.cc in Sources */,
+				1124E77F19924F5300C35E8E /* crypto_android.cc in Sources */,
+				1124E7A219924F5300C35E8E /* socket_linux.cc in Sources */,
+				1124E76C19924F5300C35E8E /* process_win.cc in Sources */,
+				1124E78C19924F5300C35E8E /* extensions_linux.cc in Sources */,
+				1124E78219924F5300C35E8E /* crypto_win.cc in Sources */,
+				1124E75019924F5300C35E8E /* directory_android.cc in Sources */,
+				1124E77619924F5300C35E8E /* test_extension.c in Sources */,
+				1124E75F19924F5300C35E8E /* filter.cc in Sources */,
+				1124E74E19924F5300C35E8E /* dbg_connection_android.cc in Sources */,
+				1124E79819924F5300C35E8E /* log_android.cc in Sources */,
 				E11B07B22E3D4B08A4C6ED11 /* PubPackageApp.cpp in Sources */,
+				1124E75419924F5300C35E8E /* eventhandler_android.cc in Sources */,
+				1124E76619924F5300C35E8E /* platform_android.cc in Sources */,
+				1124E76719924F5300C35E8E /* platform_linux.cc in Sources */,
+				1124E77B19924F5300C35E8E /* vmservice_impl.cc in Sources */,
+				1124E78119924F5300C35E8E /* crypto_macos.cc in Sources */,
+				1124E78519924F5300C35E8E /* dbg_connection_win.cc in Sources */,
 				11D679A4175298E100E96E0D /* DartVM.cpp in Sources */,
+				1124E74B19924F5300C35E8E /* builtin_natives.cc in Sources */,
+				1124E76A19924F5300C35E8E /* platform.cc in Sources */,
+				1124E7A419924F5300C35E8E /* socket_win.cc in Sources */,
+				1124E74A19924F5300C35E8E /* builtin_gen_snapshot.cc in Sources */,
+				1124E78019924F5300C35E8E /* crypto_linux.cc in Sources */,
+				1124E78A19924F5300C35E8E /* eventhandler_win.cc in Sources */,
+				1124E77319924F5300C35E8E /* stdio_macos.cc in Sources */,
+				1124E74D19924F5300C35E8E /* dartutils.cc in Sources */,
+				1124E75319924F5300C35E8E /* directory_win.cc in Sources */,
+				1124E77419924F5300C35E8E /* stdio_win.cc in Sources */,
+				1124E78719924F5300C35E8E /* directory.cc in Sources */,
+				1124E75119924F5300C35E8E /* directory_linux.cc in Sources */,
+				1124E79619924F5300C35E8E /* io_buffer.cc in Sources */,
+				1124E79319924F5300C35E8E /* file_system_watcher_macos.cc in Sources */,
+				1124E76219924F5300C35E8E /* io_service_unsupported.cc in Sources */,
+				1124E75519924F5300C35E8E /* extensions_android.cc in Sources */,
+				1124E76B19924F5300C35E8E /* process_test.cc in Sources */,
+				1124E76819924F5300C35E8E /* platform_macos.cc in Sources */,
+				1124E76919924F5300C35E8E /* platform_win.cc in Sources */,
+				1124E78F19924F5300C35E8E /* extensions.cc in Sources */,
+				1124E78419924F5300C35E8E /* dbg_connection_macos.cc in Sources */,
+				1124E7A519924F5300C35E8E /* stdio.cc in Sources */,
+				1124E79719924F5300C35E8E /* io_natives.cc in Sources */,
 				11D679A5175298E100E96E0D /* DartTypes.cpp in Sources */,
+				1124E79919924F5300C35E8E /* log_linux.cc in Sources */,
+				1124E77A19924F5300C35E8E /* utils_win.cc in Sources */,
+				1124E75919924F5300C35E8E /* file_macos.cc in Sources */,
+				1124E77819924F5300C35E8E /* utils_linux.cc in Sources */,
+				1124E75619924F5300C35E8E /* fdutils_linux.cc in Sources */,
+				1124E75D19924F5300C35E8E /* file_win.cc in Sources */,
+				1124E75B19924F5300C35E8E /* file_system_watcher_win.cc in Sources */,
+				1124E79B19924F5300C35E8E /* process_android.cc in Sources */,
+				1124E78D19924F5300C35E8E /* extensions_macos.cc in Sources */,
+				1124E74F19924F5300C35E8E /* dbg_message.cc in Sources */,
+				1124E76019924F5300C35E8E /* gen_snapshot.cc in Sources */,
+				1124E79119924F5300C35E8E /* fdutils_macos.cc in Sources */,
+				1124E7A319924F5300C35E8E /* socket_macos.cc in Sources */,
+				1124E7A119924F5300C35E8E /* socket_android.cc in Sources */,
+				1124E76419924F5300C35E8E /* log_win.cc in Sources */,
+				1124E77719924F5300C35E8E /* utils_android.cc in Sources */,
+				1124E77D19924F5300C35E8E /* builtin_nolib.cc in Sources */,
+				1124E77E19924F5300C35E8E /* builtin.cc in Sources */,
+				1124E75A19924F5300C35E8E /* file_system_watcher_android.cc in Sources */,
+				1124E78919924F5300C35E8E /* eventhandler_macos.cc in Sources */,
+				1124E78B19924F5300C35E8E /* eventhandler.cc in Sources */,
+				1124E76F19924F5300C35E8E /* secure_socket_unsupported.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
