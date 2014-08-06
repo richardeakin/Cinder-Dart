@@ -50,4 +50,7 @@ Dart_Handle callFunction( Dart_Handle target, const std::string &name, int numAr
 Dart_Handle getField( Dart_Handle container, const std::string &name );
 std::string getTypeName( Dart_Handle handle );
 
+// Debug utils:
+std::string printNativeArgumentsToString( Dart_NativeArguments args, bool printMethodNames = false );
+
 } // namespace cidart

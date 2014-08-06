@@ -7,6 +7,8 @@
 
 #include "dart_mirrors_api.h"
 
+#include <sstream>
+
 using namespace std;
 
 namespace cidart {
@@ -261,6 +263,49 @@ bool isCinderClass( Dart_Handle handle, const char *className )
 	bool result;
 	CIDART_CHECK( Dart_ObjectIsType( handle, cinderClass, &result ) );
 	return result;
+}
+
+string printNativeArgumentsToString( Dart_NativeArguments args, bool printMethodNames )
+{
+	stringstream stream;
+
+	int argCount = Dart_GetNativeArgumentCount( args );
+	stream << "arg count: " << argCount << endl;
+
+	for( int i = 0; i < argCount; i++ ) {
+		Dart_Handle handle = Dart_GetNativeArgument( args, i );
+
+		Dart_Handle instanceType = Dart_InstanceGetType( handle );
+		CIDART_CHECK( instanceType );
+		Dart_Handle instanceNameHandle = Dart_TypeName( instanceType );
+		CIDART_CHECK( instanceNameHandle );
+		string typeName = cidart::getString( instanceNameHandle );
+
+		stream << "\t[" << i << "]: type: " << typeName << endl;
+
+		if( printMethodNames ) {
+			Dart_Handle functionNamesList = Dart_GetFunctionNames( instanceType );
+			CIDART_CHECK( functionNamesList );
+
+			CI_ASSERT( Dart_IsList( functionNamesList ) );
+
+			intptr_t length = 0;
+			CIDART_CHECK( Dart_ListLength( functionNamesList, &length ) );
+
+			stream << "\t\t funcNames: ";
+			for( intptr_t i = 0; i < length; i++ ) {
+				Dart_Handle elem = Dart_ListGetAt( functionNamesList, i );
+				CIDART_CHECK( elem );
+
+				string funcName = cidart::getString( elem );
+				stream << funcName << ", ";
+				
+			}
+			stream << endl;
+		}
+	}
+
+	return stream.str();
 }
 
 } // namespace cidart
