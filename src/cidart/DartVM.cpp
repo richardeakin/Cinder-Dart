@@ -254,61 +254,102 @@ void DartVM::closeFileCallback(void* file)
 	fclose(reinterpret_cast<FILE*>(file));
 }
 
+// TESTING ONLY - currently a no method found exception is thrown about dart resolve() method
+Dart_Handle getFilePathFromUri( Dart_Handle script_uri, Dart_Handle builtin_lib )
+{
+	const int numArgs = 1;
+	Dart_Handle dartArgs[numArgs];
+	dartArgs[0] = script_uri;
+
+	return Dart_Invoke( builtin_lib, newString( "_filePathFromUri" ), numArgs, dartArgs );
+}
+
 // loads the cinder lib if it is needed.
 // static
 Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Handle urlHandle )
 {
-	string url = getString( urlHandle );
+	string urlString = getString( urlHandle );
+
+	Dart_Handle libraryUrl = Dart_LibraryUrl( library );
+	string libraryUrlString = getString( libraryUrl );
 
 	if( tag == Dart_kCanonicalizeUrl )
 		return urlHandle;
+	else if( tag == Dart_kImportTag ) {
 
-//	string url = getString( urlHandle );
-	if( url == "cinder" ) {
-		DartVM *dartVm = static_cast<DartVM *>( Dart_CurrentIsolateData() );
+	//	Dart_Handle builtinLib = Dart_LookupLibrary( newString( "dart:_builtin" ) );
+	//	CIDART_CHECK( builtinLib );
+	//	Dart_Handle filePath = getFilePathFromUri( urlHandle, builtinLib ); // FIXME: throws a "method not found: 'resolve' error from _filePathFromPackageUri dart method
+	//	CIDART_CHECK( filePath );
+	//	string filePathString = getString( filePath );
 
-		string script = dartVm->getCinderDartScript();
-		Dart_Handle source = Dart_NewStringFromCString( script.c_str() );
-		CIDART_CHECK( source );
+		DartVM *dartVM = static_cast<DartVM *>( Dart_CurrentIsolateData() );
+//		bool libraryIsMainScript = dartVM->mMainScriptPath.string() == libraryUrlString;
 
-		Dart_Handle library = Dart_LoadLibrary( urlHandle, source );
-		CIDART_CHECK( library );
+		//	string url = getString( urlHandle );
+		if( urlString == "cinder" ) {
+			DartVM *dartVm = static_cast<DartVM *>( Dart_CurrentIsolateData() );
 
-		CIDART_CHECK( Dart_SetNativeResolver( library, resolveNameHandler, NULL ) );
+			string script = dartVm->getCinderDartScript();
+			Dart_Handle source = Dart_NewStringFromCString( script.c_str() );
+			CIDART_CHECK( source );
 
-		return library;
+			Dart_Handle cinderDartLib = Dart_LoadLibrary( urlHandle, source );
+			CIDART_CHECK( cinderDartLib );
+
+			CIDART_CHECK( Dart_SetNativeResolver( cinderDartLib, resolveNameHandler, NULL ) );
+
+			return cinderDartLib;
+		}
+
+		auto pos = urlString.find( "package:" );
+		if( pos == 0 ) {
+			// search for package relative to main script root, in package folder
+
+			const size_t lenPackageString = 8;
+			string subPath = urlString.substr( lenPackageString, urlString.size() - lenPackageString );
+
+			//		LOG_V( dartVm->mMainScriptPath.parent_path() );
+
+			auto mainAssetPath = dartVM->mMainScriptPath.parent_path();
+			auto resolvedPath = mainAssetPath / "packages" / subPath;
+
+//			LOG_V( "resolvedPath: " << resolvedPath );
+
+			dartVM->mImportedLibraries[urlString] = resolvedPath;
+
+			string libString = loadString( loadFile( resolvedPath ) );
+			Dart_Handle source = Dart_NewStringFromCString( libString.c_str() );
+			CIDART_CHECK( source );
+
+			Dart_Handle loadedLib = Dart_LoadLibrary( urlHandle, source );
+			CIDART_CHECK( loadedLib );
+
+
+			return loadedLib;
+		}
+		
+	}
+	else if( tag == Dart_kSourceTag ) {
+		DartVM *dartVM = static_cast<DartVM *>( Dart_CurrentIsolateData() );
+
+		auto pathIt = dartVM->mImportedLibraries.find( libraryUrlString );
+
+		CI_ASSERT( pathIt != dartVM->mImportedLibraries.end() );
+
+		const auto &libFolder = pathIt->second.parent_path();
+		auto resolvedPath = libFolder / urlString;
+
+		string sourceString = loadString( loadFile( resolvedPath ) );
+		Dart_Handle source = newString( sourceString.c_str() );
+
+		Dart_Handle loadedHandle = Dart_LoadSource( library, urlHandle, source );
+		CIDART_CHECK( loadedHandle );
+
+		return loadedHandle;
 	}
 
-	auto pos = url.find( "package:" );
-	if( pos == 0 ) {
-		// search for package relative to main script root, in package folder
-
-		const size_t lenPackageString = 8;
-		string subPath = url.substr( lenPackageString, url.size() - lenPackageString );
-
-		DartVM *dartVm = static_cast<DartVM *>( Dart_CurrentIsolateData() );
-
-//		LOG_V( dartVm->mMainScriptPath.parent_path() );
-
-		auto mainAssetPath = dartVm->mMainScriptPath.parent_path();
-		auto resolvedPath = mainAssetPath / "packages" / subPath;
-
-		LOG_V( "resolvedPath: " << resolvedPath );
-
-		string libString = loadString( loadFile( resolvedPath ) );
-		Dart_Handle source = Dart_NewStringFromCString( libString.c_str() );
-		CIDART_CHECK( source );
-
-		Dart_Handle library = Dart_LoadLibrary( urlHandle, source );
-		CIDART_CHECK( library );
-
-		CIDART_CHECK( Dart_SetNativeResolver( library, resolveNameHandler, NULL ) );
-
-		return library;
-
-	}
-
-	CI_ASSERT( false && "unreachable" );
+	CI_ASSERT_NOT_REACHABLE();
 	return nullptr;
 }
 

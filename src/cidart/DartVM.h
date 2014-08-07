@@ -53,6 +53,8 @@ class DartVM {
 	ci::DataSourceRef			mCinderDartScriptResource; // not used by default, available for windows resources
 	ci::DataSourceRef			mSnapshot;
 
+	std::map<std::string, ci::fs::path>		mImportedLibraries;
+
 	// Dart_IsolateCreateCallback
 	static Dart_Isolate createIsolateCallback( const char* script_uri, const char* main, void* data, char** error );
 	// Dart_IsolateInterruptCallback
