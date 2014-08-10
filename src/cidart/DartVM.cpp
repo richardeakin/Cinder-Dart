@@ -12,6 +12,12 @@
 
 #include <map>
 
+#define PROFILE_LOAD_TIME 0
+
+#if PROFILE_LOAD_TIME
+	#include "cinder/Timer.h"
+#endif
+
 using namespace std;
 using namespace ci;
 
@@ -21,7 +27,6 @@ DartVM::DartVM()
 	: mIsolate( nullptr )
 {
 	// TODO: pass in vm flags at construction.
-
 	mVMFlags.push_back( "--enable-checked-mode" );
 	mVMFlags.push_back( "--no-profile" ); // currently dart's profiler seems to be blocking the main thread when debugging in xcode - this disables it for now
 //	mVMFlags.push_back( "--print-flags" );
@@ -57,6 +62,10 @@ DartVM::DartVM()
 
 void DartVM::loadScript( ci::DataSourceRef script )
 {
+#if PROFILE_LOAD_TIME
+	Timer timer( true );
+#endif
+
 	mMainScriptPath = script->getFilePath();
 
 	Dart_Isolate currentIsolate = Dart_CurrentIsolate();
@@ -107,6 +116,10 @@ void DartVM::loadScript( ci::DataSourceRef script )
 	//	- maybe it is handled with Dart_RunLoop() ?
 
 	invoke( "main" );
+
+#if PROFILE_LOAD_TIME
+	LOG_V( "load complete. elapsed time: " << timer.getSeconds() << " seconds." );
+#endif
 }
 
 void DartVM::invoke( const string &functionName, int argc, Dart_Handle* args )
