@@ -175,7 +175,6 @@ Dart_Isolate DartVM::createIsolateCallback( const char* script_uri, const char* 
 
 	LOG_V( "Creating isolate " << script_uri << ", " << main );
 	Dart_Isolate isolate = Dart_CreateIsolate( script_uri, main, snapshotData, data, error );
-	//	Dart_Isolate isolate = Dart_CreateIsolate( script_uri, main, NULL, data, error );
 	if ( ! isolate ) {
 		LOG_E( "Couldn't create isolate: " << *error );
 		return nullptr;
@@ -254,6 +253,18 @@ void DartVM::closeFileCallback(void* file)
 	fclose(reinterpret_cast<FILE*>(file));
 }
 
+namespace {
+
+const std::string SCHEME_STRING_PACKAGE = "package:";
+
+fs::path resolvePackageImportPath( const string &packageUrlString, const fs::path &mainScriptPath )
+{
+	const size_t lenPackageString = SCHEME_STRING_PACKAGE.length();
+	string subPath = packageUrlString.substr( lenPackageString, packageUrlString.size() - lenPackageString );
+
+	return mainScriptPath.parent_path() / "packages" / subPath;
+}
+
 // TESTING ONLY - currently a no method found exception is thrown about dart resolve() method
 Dart_Handle getFilePathFromUri( Dart_Handle script_uri, Dart_Handle builtin_lib )
 {
@@ -264,30 +275,22 @@ Dart_Handle getFilePathFromUri( Dart_Handle script_uri, Dart_Handle builtin_lib 
 	return Dart_Invoke( builtin_lib, newString( "_filePathFromUri" ), numArgs, dartArgs );
 }
 
-// loads the cinder lib if it is needed.
+} // anonymous namespace
+
 // static
 Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Handle urlHandle )
 {
-	string urlString = getString( urlHandle );
-
-	Dart_Handle libraryUrl = Dart_LibraryUrl( library );
-	string libraryUrlString = getString( libraryUrl );
-
 	if( tag == Dart_kCanonicalizeUrl )
 		return urlHandle;
-	else if( tag == Dart_kImportTag ) {
 
-	//	Dart_Handle builtinLib = Dart_LookupLibrary( newString( "dart:_builtin" ) );
-	//	CIDART_CHECK( builtinLib );
-	//	Dart_Handle filePath = getFilePathFromUri( urlHandle, builtinLib ); // FIXME: throws a "method not found: 'resolve' error from _filePathFromPackageUri dart method
-	//	CIDART_CHECK( filePath );
-	//	string filePathString = getString( filePath );
+	string urlString = getString( urlHandle );
 
-		DartVM *dartVM = static_cast<DartVM *>( Dart_CurrentIsolateData() );
-//		bool libraryIsMainScript = dartVM->mMainScriptPath.string() == libraryUrlString;
+	DartVM *dartVM = static_cast<DartVM *>( Dart_CurrentIsolateData() );
 
-		//	string url = getString( urlHandle );
+	if( tag == Dart_kImportTag ) {
 		if( urlString == "cinder" ) {
+			// load the cinder lib from special location
+
 			DartVM *dartVm = static_cast<DartVM *>( Dart_CurrentIsolateData() );
 
 			string script = dartVm->getCinderDartScript();
@@ -302,20 +305,11 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 			return cinderDartLib;
 		}
 
-		auto pos = urlString.find( "package:" );
+		auto pos = urlString.find( SCHEME_STRING_PACKAGE );
 		if( pos == 0 ) {
 			// search for package relative to main script root, in package folder
 
-			const size_t lenPackageString = 8;
-			string subPath = urlString.substr( lenPackageString, urlString.size() - lenPackageString );
-
-			//		LOG_V( dartVm->mMainScriptPath.parent_path() );
-
-			auto mainAssetPath = dartVM->mMainScriptPath.parent_path();
-			auto resolvedPath = mainAssetPath / "packages" / subPath;
-
-//			LOG_V( "resolvedPath: " << resolvedPath );
-
+			auto resolvedPath = resolvePackageImportPath( urlString, dartVM->mMainScriptPath );
 			dartVM->mImportedLibraries[urlString] = resolvedPath;
 
 			string libString = loadString( loadFile( resolvedPath ) );
@@ -325,14 +319,14 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 			Dart_Handle loadedLib = Dart_LoadLibrary( urlHandle, source );
 			CIDART_CHECK( loadedLib );
 
-
 			return loadedLib;
 		}
-		
 	}
 	else if( tag == Dart_kSourceTag ) {
 		DartVM *dartVM = static_cast<DartVM *>( Dart_CurrentIsolateData() );
 
+		Dart_Handle libraryUrl = Dart_LibraryUrl( library );
+		string libraryUrlString = getString( libraryUrl );
 		auto pathIt = dartVM->mImportedLibraries.find( libraryUrlString );
 
 		CI_ASSERT( pathIt != dartVM->mImportedLibraries.end() );
