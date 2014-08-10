@@ -14,7 +14,7 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-class PubPackageApp : public AppNative {
+class ImportTestApp : public AppNative {
   public:
 	void setup();
 	void keyDown( KeyEvent event );
@@ -30,7 +30,7 @@ class PubPackageApp : public AppNative {
 	Anim<float> mRotation;
 };
 
-void PubPackageApp::setup()
+void ImportTestApp::setup()
 {
 	LOG_I( "dart runtime version: " << cidart::DartVM::getVersionString() );
 
@@ -43,11 +43,11 @@ void PubPackageApp::setup()
 
 	mDart = cidart::DartVM::create();
 
-	mDart->setMapReceiver( bind( &PubPackageApp::receiveMap, this, placeholders::_1 ) );
+	mDart->setMapReceiver( bind( &ImportTestApp::receiveMap, this, placeholders::_1 ) );
 	mDart->loadScript( loadAsset( "main.dart" ) );
 }
 
-void PubPackageApp::receiveMap( const cidart::DataMap& map )
+void ImportTestApp::receiveMap( const cidart::DataMap& map )
 {
 	LOG_I( "huzzah" );
 
@@ -70,7 +70,7 @@ void PubPackageApp::receiveMap( const cidart::DataMap& map )
 	}
 }
 
-void PubPackageApp::keyDown( KeyEvent event )
+void ImportTestApp::keyDown( KeyEvent event )
 {
 	if( event.getChar() == 'r') {
 		LOG_V( "reload." );
@@ -78,7 +78,7 @@ void PubPackageApp::keyDown( KeyEvent event )
 	}
 }
 
-void PubPackageApp::draw()
+void ImportTestApp::draw()
 {
 	gl::clear();
 
@@ -90,4 +90,4 @@ void PubPackageApp::draw()
 	gl::popMatrices();
 }
 
-CINDER_APP_NATIVE( PubPackageApp, RendererGl )
+CINDER_APP_NATIVE( ImportTestApp, RendererGl )
