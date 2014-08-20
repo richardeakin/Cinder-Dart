@@ -1,5 +1,5 @@
 // Copyright (c) 2013, Richard Eakin and the Dart project authors.
-// Use of this source code (and the Dart itself) is governed by a
+// Use of this source code (and the Dart VM) is governed by a
 // BSD-style license that can be found in the LICENSE.txt file.
 
 #include "cidart/DartVM.h"
