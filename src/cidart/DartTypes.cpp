@@ -117,73 +117,96 @@ void getValue( Dart_Handle handle, float *value )
 
 void getValue( Dart_Handle handle, ci::Color *value )
 {
-	if( ! isCinderClass( handle, "Color" ) ) {
-		LOG_E( "expected handle to be of type Color" );
+	Dart_Handle r = getField( handle, "r" );
+	Dart_Handle g = getField( handle, "g" );
+	Dart_Handle b = getField( handle, "b" );
+
+	if( Dart_IsError( r ) || Dart_IsError( g ) || Dart_IsError( b ) ) {
+		LOG_E( "expected handle to have fields 'r', 'g' and 'b'" );
 		return;
 	}
 
-	value->r = getFloat( getField( handle, "r" ) );
-	value->g = getFloat( getField( handle, "g" ) );
-	value->b = getFloat( getField( handle, "b" ) );
+	value->r = getFloat( r );
+	value->g = getFloat( g );
+	value->b = getFloat( b );
 }
 
 void getValue( Dart_Handle handle, ci::ColorA *value )
 {
-	if( ! isCinderClass( handle, "Color" ) ) {
-		LOG_E( "expected handle to be of type Color" );
+	Dart_Handle r = getField( handle, "r" );
+	Dart_Handle g = getField( handle, "g" );
+	Dart_Handle b = getField( handle, "b" );
+	Dart_Handle a = getField( handle, "a" );
+
+	if( Dart_IsError( r ) || Dart_IsError( g ) || Dart_IsError( b ) || Dart_IsError( a ) ) {
+		LOG_E( "expected handle to have fields 'r', 'g', 'b' and 'a'" );
 		return;
 	}
 
-	value->r = getFloat( getField( handle, "r" ) );
-	value->g = getFloat( getField( handle, "g" ) );
-	value->b = getFloat( getField( handle, "b" ) );
-	value->a = getFloat( getField( handle, "a" ) );
+	value->r = getFloat( r );
+	value->g = getFloat( g );
+	value->b = getFloat( b );
+	value->a = getFloat( a );
 }
 
 void getValue( Dart_Handle handle, ci::Vec2i *value )
 {
-	if( ! isCinderClass( handle, "Vec2" ) ) {
-		LOG_E( "expected handle to be of type Vec2" );
+	Dart_Handle x = getField( handle, "x" );
+	Dart_Handle y = getField( handle, "y" );
+
+	if( Dart_IsError( x ) || Dart_IsError( y ) ) {
+		LOG_E( "expected handle to have fields 'x' and 'y'" );
 		return;
 	}
 
-	value->x = getInt( getField( handle, "x" ) );
-	value->y = getInt( getField( handle, "y" ) );
+	value->x = getInt( x );
+	value->y = getInt( y );
 }
 
 void getValue( Dart_Handle handle, ci::Vec2f *value )
 {
-	if( ! isCinderClass( handle, "Vec2" ) ) {
-		LOG_E( "expected handle to be of type Vec2" );
+	Dart_Handle x = getField( handle, "x" );
+	Dart_Handle y = getField( handle, "y" );
+
+	if( Dart_IsError( x ) || Dart_IsError( y ) ) {
+		LOG_E( "expected handle to have fields 'x' and 'y'" );
 		return;
 	}
 
-	value->x = getFloat( getField( handle, "x" ) );
-	value->y = getFloat( getField( handle, "y" ) );
+	value->x = getFloat( x );
+	value->y = getFloat( y );
 }
 
 void getValue( Dart_Handle handle, ci::Vec3i *value )
 {
-	if( ! isCinderClass( handle, "Vec3" ) ) {
-		LOG_E( "expected handle to be of type Vec3" );
+	Dart_Handle x = getField( handle, "x" );
+	Dart_Handle y = getField( handle, "y" );
+	Dart_Handle z = getField( handle, "z" );
+
+	if( Dart_IsError( x ) || Dart_IsError( y ) ) {
+		LOG_E( "expected handle to have fields 'x', 'y', and 'z'" );
 		return;
 	}
 
-	value->x = getFloat( getField( handle, "x" ) );
-	value->y = getFloat( getField( handle, "y" ) );
-	value->z = getFloat( getField( handle, "z" ) );
+	value->x = getInt( x );
+	value->y = getInt( y );
+	value->z = getInt( z );
 }
 
 void getValue( Dart_Handle handle, ci::Vec3f *value )
 {
-	if( ! isCinderClass( handle, "Vec3" ) ) {
-		LOG_E( "expected handle to be of type Vec3" );
+	Dart_Handle x = getField( handle, "x" );
+	Dart_Handle y = getField( handle, "y" );
+	Dart_Handle z = getField( handle, "z" );
+
+	if( Dart_IsError( x ) || Dart_IsError( y ) ) {
+		LOG_E( "expected handle to have fields 'x', 'y', and 'z'" );
 		return;
 	}
 
-	value->x = getFloat( getField( handle, "x" ) );
-	value->y = getFloat( getField( handle, "y" ) );
-	value->z = getFloat( getField( handle, "z" ) );
+	value->x = getFloat( x );
+	value->y = getFloat( y );
+	value->z = getFloat( z );
 }
 
 void getValue( Dart_Handle handle, std::string *value )
@@ -212,9 +235,7 @@ Dart_Handle callFunction( Dart_Handle target, const string &name, int numArgs, D
 
 Dart_Handle getField( Dart_Handle container, const string &name )
 {
-	Dart_Handle result = Dart_GetField( container,  newString( name.c_str() ) );
-	CIDART_CHECK( result );
-	return result;
+	return Dart_GetField( container, newString( name.c_str() ) );
 }
 
 string getTypeName( Dart_Handle handle )
@@ -268,9 +289,7 @@ string printNativeArgumentsToString( Dart_NativeArguments args, bool printMethod
 
 		Dart_Handle instanceType = Dart_InstanceGetType( handle );
 		CIDART_CHECK( instanceType );
-		Dart_Handle instanceNameHandle = Dart_TypeName( instanceType );
-		CIDART_CHECK( instanceNameHandle );
-		string typeName = cidart::getString( instanceNameHandle );
+		string typeName = cidart::getString( Dart_TypeName( instanceType ) );
 
 		stream << "\t[" << i << "]: type: " << typeName << endl;
 

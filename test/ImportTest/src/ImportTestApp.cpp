@@ -68,6 +68,15 @@ void ImportTestApp::receiveMap( const cidart::DataMap& map )
 		mRotationRate = cidart::getFloat( rotationRateIt->second );
 		timeline().apply( &mRotation, mRotation + 360.0f, mRotationRate ).loop();
 	}
+
+	auto someVec3It = map.find( "someVec3" );
+	if( someVec3It != map.end() ) {
+		Vec3f vec;
+		Dart_Handle handle = someVec3It->second;
+
+		cidart::getValue( handle, &vec );
+		LOG_I( "someVec3: " << vec );
+	}
 }
 
 void ImportTestApp::keyDown( KeyEvent event )
