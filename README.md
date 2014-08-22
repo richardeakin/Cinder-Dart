@@ -7,7 +7,7 @@ This is an experimental cinderblock that embeds the [Dart](http://www.dartlang.o
 
 Cinder is expected to be found at './cinder', I prefer to symlink my copy there.
 
-Binaries for OS X / i386 are included via submodule reference (warning: they are big, ~100mb just for i386 debug). To checkout everything in one go, do:
+Binaries for OS X (i386 + x86_64) are included via submodule reference (warning: they are big, ~100mb). To checkout everything in one go, do:
 
 ```
 git clone --recursive git://github.com/richardeakin/Cinder-Dart.git $CINDER_PATH/blocks/dart
@@ -22,6 +22,6 @@ You currently need to get your hands dirty with the [embedder's api](http://dart
 
 Thanks for Dart, google!
 
-Richard Eakin (reakinator@gmail.com)
+Richard Eakin (rtepub@gmail.com)
 
 http://www.libcinder.org
