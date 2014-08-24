@@ -100,6 +100,11 @@ float getFloatForKey( Dart_Handle mapHandle, const char *key )
 	return cidart::getFloat( valueHandle );
 }
 
+void getValue( Dart_Handle handle, bool *value )
+{
+	CIDART_CHECK( Dart_BooleanValue( handle, value ) );
+}
+
 void getValue( Dart_Handle handle, int *value )
 {
 	getNumberValueImpl( handle, value );
