@@ -34,10 +34,10 @@ void getValue( Dart_Handle handle, size_t *value );
 void getValue( Dart_Handle handle, float *value );
 void getValue( Dart_Handle handle, ci::Color *value );
 void getValue( Dart_Handle handle, ci::ColorA *value );
-void getValue( Dart_Handle handle, ci::Vec2i *value );
-void getValue( Dart_Handle handle, ci::Vec2f *value );
-void getValue( Dart_Handle handle, ci::Vec3i *value );
-void getValue( Dart_Handle handle, ci::Vec3f *value );
+void getValue( Dart_Handle handle, ci::ivec2 *value );
+void getValue( Dart_Handle handle, ci::vec2 *value );
+void getValue( Dart_Handle handle, ci::ivec3 *value );
+void getValue( Dart_Handle handle, ci::vec3 *value );
 void getValue( Dart_Handle handle, std::string *value );
 
 bool hasFunction( Dart_Handle handle, const std::string &name );

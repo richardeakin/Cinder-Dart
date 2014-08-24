@@ -145,7 +145,7 @@ void getValue( Dart_Handle handle, ci::ColorA *value )
 	value->a = getFloat( a );
 }
 
-void getValue( Dart_Handle handle, ci::Vec2i *value )
+void getValue( Dart_Handle handle, ci::ivec2 *value )
 {
 	Dart_Handle x = getField( handle, "x" );
 	Dart_Handle y = getField( handle, "y" );
@@ -159,7 +159,7 @@ void getValue( Dart_Handle handle, ci::Vec2i *value )
 	value->y = getInt( y );
 }
 
-void getValue( Dart_Handle handle, ci::Vec2f *value )
+void getValue( Dart_Handle handle, ci::vec2 *value )
 {
 	Dart_Handle x = getField( handle, "x" );
 	Dart_Handle y = getField( handle, "y" );
@@ -173,7 +173,7 @@ void getValue( Dart_Handle handle, ci::Vec2f *value )
 	value->y = getFloat( y );
 }
 
-void getValue( Dart_Handle handle, ci::Vec3i *value )
+void getValue( Dart_Handle handle, ci::ivec3 *value )
 {
 	Dart_Handle x = getField( handle, "x" );
 	Dart_Handle y = getField( handle, "y" );
@@ -189,7 +189,7 @@ void getValue( Dart_Handle handle, ci::Vec3i *value )
 	value->z = getInt( z );
 }
 
-void getValue( Dart_Handle handle, ci::Vec3f *value )
+void getValue( Dart_Handle handle, ci::vec3 *value )
 {
 	Dart_Handle x = getField( handle, "x" );
 	Dart_Handle y = getField( handle, "y" );
