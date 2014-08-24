@@ -14,9 +14,6 @@ struct DartScope {
 	~DartScope()	{ Dart_ExitScope(); }
 };
 
-// TODO: move
-void console( Dart_NativeArguments arguments );
-
 Dart_Handle newString( const char* str );
 Dart_Handle newInt( int i );
 

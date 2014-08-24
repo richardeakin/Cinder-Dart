@@ -37,7 +37,7 @@ DartVM::DartVM()
 
 
 	mNativeFunctionMap = {
-		{ "console", console },
+		{ "printNative", printNative },
 		{ "toCinder", toCinder }
 	};
 
@@ -376,6 +376,16 @@ Dart_NativeFunction DartVM::resolveNameHandler( Dart_Handle nameHandle, int numA
 		return functionIt->second;
 
 	return nullptr;
+}
+
+// static
+void DartVM::printNative( Dart_NativeArguments arguments )
+{
+	DartScope enterScope;
+	Dart_Handle handle = Dart_GetNativeArgument( arguments, 0 );
+	CIDART_CHECK( handle );
+
+	ci::app::console() << "|dart| " << getString( handle ) << std::endl;
 }
 
 // TODO: see if I can use Dart_ObjectIsType to ensure the class is of type Map

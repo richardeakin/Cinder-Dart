@@ -75,7 +75,9 @@ class DartVM {
 	static Dart_Handle libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Handle urlHandle );
 	// Dart_NativeEntryResolver
 	static Dart_NativeFunction resolveNameHandler( Dart_Handle nameHandle, int numArgs, bool* auto_setup_scope );
-	// Native callback that handles a Map of arbitrary data
+
+	// Native callbacks
+	static void printNative( Dart_NativeArguments arguments );
 	static void toCinder( Dart_NativeArguments arguments );
 };
 

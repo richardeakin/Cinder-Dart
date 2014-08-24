@@ -35,15 +35,6 @@ void getNumberValueImpl( Dart_Handle handle, T *value )
 	
 } // anonymous namespace
 
-void console( Dart_NativeArguments arguments )
-{
-	DartScope enterScope;
-	Dart_Handle handle = Dart_GetNativeArgument( arguments, 0 );
-	CIDART_CHECK( handle );
-
-	ci::app::console() << "|dart| " << getString( handle ) << std::endl;
-}
-
 Dart_Handle newString( const char* str )
 {
 	return Dart_NewStringFromCString( str );
