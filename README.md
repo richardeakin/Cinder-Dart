@@ -1,6 +1,6 @@
 ## Cinder-Dart
 
-This is an experimental cinderblock that embeds the [Dart](http://www.dartlang.org/) virtual machine in a cinder (C++) app, providing scripting functionality in a modern web language.
+This cinderblock embeds the [Dart](http://www.dartlang.org/) virtual machine in a cinder (C++) app, providing scripting functionality in a modern web language.
 
 
 #### Installation instructions
