@@ -301,6 +301,7 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 	DartVM *dartVM = static_cast<DartVM *>( Dart_CurrentIsolateData() );
 
 	if( tag == Dart_kImportTag ) {
+
 		if( urlString == "cinder" ) {
 			// load the cinder lib from special location
 
@@ -318,6 +319,7 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 			return cinderDartLib;
 		}
 
+		// try to load a pub-style package
 		auto pos = urlString.find( SCHEME_STRING_PACKAGE );
 		if( pos == 0 ) {
 			// search for package relative to main script root, in package folder
@@ -326,13 +328,28 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 			dartVM->mImportedLibraries[urlString] = resolvedPath;
 
 			string libString = loadString( loadFile( resolvedPath ) );
-			Dart_Handle source = Dart_NewStringFromCString( libString.c_str() );
+			Dart_Handle source = newString( libString.c_str() );
 			CIDART_CHECK( source );
 
 			Dart_Handle loadedLib = Dart_LoadLibrary( urlHandle, source );
 			CIDART_CHECK( loadedLib );
 
 			return loadedLib;
+		}
+
+		// try to load file relative to main script path
+		auto fullPath = dartVM->mMainScriptPath.parent_path() / urlString;
+		if( fs::exists( fullPath ) ) {
+
+			string fileString = loadString( loadFile( fullPath ) );
+
+			Dart_Handle libString = newString( fileString.c_str() );
+			Dart_Handle loadedHandle = Dart_LoadLibrary( urlHandle, libString );
+			CIDART_CHECK( loadedHandle );
+
+			CIDART_CHECK( Dart_SetNativeResolver( loadedHandle, resolveNameHandler, NULL ) );
+
+			return loadedHandle;
 		}
 	}
 	else if( tag == Dart_kSourceTag ) {
@@ -352,7 +369,6 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 
 		Dart_Handle loadedHandle = Dart_LoadSource( library, urlHandle, source );
 		CIDART_CHECK( loadedHandle );
-
 		return loadedHandle;
 	}
 
