@@ -28,14 +28,10 @@ struct DartScope {
 Dart_Handle toDart( const char *str );
 Dart_Handle toDart( const std::string &str );
 
+std::string toString( Dart_Handle handle );
+
 bool		isMap( Dart_Handle handle );
 bool		isCinderClass( Dart_Handle handle, const char *className );
-
-bool		getBool( Dart_Handle handle );
-int			getInt( Dart_Handle handle );
-float		getFloat( Dart_Handle handle );
-ci::ColorA	getColor( Dart_Handle handle );
-std::string getString( Dart_Handle handle );
 
 float		getFloatForKey( Dart_Handle mapHandle, const char *key );
 
@@ -51,10 +47,15 @@ void getValue( Dart_Handle handle, ci::ivec3 *value );
 void getValue( Dart_Handle handle, ci::vec3 *value );
 void getValue( Dart_Handle handle, std::string *value );
 
-bool hasFunction( Dart_Handle handle, const std::string &name );
-Dart_Handle callFunction( Dart_Handle target, const std::string &name, int numArgs = 0, Dart_Handle *args = nullptr );
+template <typename T>
+T	getValue( Dart_Handle handle )
+{
+	T result;
+	getValue( handle, &result );
+	return result;
+}
 
-//! Returns a \a Dart_Handle that represents the field \a name on the \a container. If an error occurs, an error handle is returned.
+//! Returns a \a Dart_Handle that represents the field \a name on \a container. If an error occurs, an error handle is returned.
 Dart_Handle getField( Dart_Handle container, const std::string &name );
 //! Returns the value of type \a T for field \a name on the \a container. If an error occurs, the value returned is default constructed and an error message is printed to console.
 template <typename T>
@@ -64,6 +65,9 @@ T	getField( Dart_Handle container, const std::string &name )
 	getValue( getField( container, name ), &result );
 	return result;
 }
+
+bool hasFunction( Dart_Handle handle, const std::string &name );
+Dart_Handle callFunction( Dart_Handle target, const std::string &name, int numArgs = 0, Dart_Handle *args = nullptr );
 
 std::string getTypeName( Dart_Handle handle );
 

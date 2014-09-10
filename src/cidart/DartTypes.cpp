@@ -45,39 +45,11 @@ Dart_Handle toDart( const std::string &str )
 	return toDart( str.c_str() );
 }
 
-string getString( Dart_Handle handle )
+string toString( Dart_Handle handle )
 {
 	const char *result;
 	CIDART_CHECK( Dart_StringToCString( handle, &result ) );
 	return string( result );
-}
-
-bool getBool( Dart_Handle handle )
-{
-	bool result;
-	CIDART_CHECK( Dart_BooleanValue( handle, &result ) );
-	return result;
-}
-
-int getInt( Dart_Handle handle )
-{
-	int result;
-	getValue( handle, &result );
-	return result;
-}
-
-float getFloat( Dart_Handle handle )
-{
-	float result;
-	getValue( handle, &result );
-	return result;
-}
-
-ci::ColorA getColor( Dart_Handle handle )
-{
-	ci::ColorA result;
-	getValue( handle, &result );
-	return result;
 }
 
 float getFloatForKey( Dart_Handle mapHandle, const char *key )
@@ -88,7 +60,7 @@ float getFloatForKey( Dart_Handle mapHandle, const char *key )
 	Dart_Handle valueHandle = cidart::callFunction( mapHandle, "[]", 1, args );
 	CIDART_CHECK( valueHandle );
 
-	return cidart::getFloat( valueHandle );
+	return cidart::getValue<float>( valueHandle );
 }
 
 void getValue( Dart_Handle handle, bool *value )
@@ -122,9 +94,9 @@ void getValue( Dart_Handle handle, ci::Color *value )
 		return;
 	}
 
-	value->r = getFloat( r );
-	value->g = getFloat( g );
-	value->b = getFloat( b );
+	value->r = getValue<float>( r );
+	value->g = getValue<float>( g );
+	value->b = getValue<float>( b );
 }
 
 void getValue( Dart_Handle handle, ci::ColorA *value )
@@ -139,10 +111,10 @@ void getValue( Dart_Handle handle, ci::ColorA *value )
 		return;
 	}
 
-	value->r = getFloat( r );
-	value->g = getFloat( g );
-	value->b = getFloat( b );
-	value->a = getFloat( a );
+	value->r = getValue<float>( r );
+	value->g = getValue<float>( g );
+	value->b = getValue<float>( b );
+	value->a = getValue<float>( a );
 }
 
 void getValue( Dart_Handle handle, ci::ivec2 *value )
@@ -155,8 +127,8 @@ void getValue( Dart_Handle handle, ci::ivec2 *value )
 		return;
 	}
 
-	value->x = getInt( x );
-	value->y = getInt( y );
+	value->x = getValue<int>( x );
+	value->y = getValue<int>( y );
 }
 
 void getValue( Dart_Handle handle, ci::vec2 *value )
@@ -169,8 +141,8 @@ void getValue( Dart_Handle handle, ci::vec2 *value )
 		return;
 	}
 
-	value->x = getFloat( x );
-	value->y = getFloat( y );
+	value->x = getValue<float>( x );
+	value->y = getValue<float>( y );
 }
 
 void getValue( Dart_Handle handle, ci::ivec3 *value )
@@ -184,9 +156,9 @@ void getValue( Dart_Handle handle, ci::ivec3 *value )
 		return;
 	}
 
-	value->x = getInt( x );
-	value->y = getInt( y );
-	value->z = getInt( z );
+	value->x = getValue<int>( x );
+	value->y = getValue<int>( y );
+	value->z = getValue<int>( z );
 }
 
 void getValue( Dart_Handle handle, ci::vec3 *value )
@@ -200,9 +172,9 @@ void getValue( Dart_Handle handle, ci::vec3 *value )
 		return;
 	}
 
-	value->x = getFloat( x );
-	value->y = getFloat( y );
-	value->z = getFloat( z );
+	value->x = getValue<float>( x );
+	value->y = getValue<float>( y );
+	value->z = getValue<float>( z );
 }
 
 void getValue( Dart_Handle handle, std::string *value )
@@ -212,7 +184,7 @@ void getValue( Dart_Handle handle, std::string *value )
 		return;
 	}
 
-	*value = getString( handle );
+	*value = toString( handle );
 }
 
 bool hasFunction( Dart_Handle handle, const string &name )
@@ -241,7 +213,7 @@ string getTypeName( Dart_Handle handle )
 	Dart_Handle typeName = Dart_TypeName( instanceType );
 	CIDART_CHECK( typeName );
 
-	return getString( typeName );
+	return toString( typeName );
 }
 
 // TODO: use Dart_isMap()
@@ -285,7 +257,7 @@ string printNativeArgumentsToString( Dart_NativeArguments args, bool printMethod
 
 		Dart_Handle instanceType = Dart_InstanceGetType( handle );
 		CIDART_CHECK( instanceType );
-		string typeName = cidart::getString( Dart_TypeName( instanceType ) );
+		string typeName = cidart::toString( Dart_TypeName( instanceType ) );
 
 		stream << "\t[" << i << "]: type: " << typeName << endl;
 
@@ -303,7 +275,7 @@ string printNativeArgumentsToString( Dart_NativeArguments args, bool printMethod
 				Dart_Handle elem = Dart_ListGetAt( functionNamesList, i );
 				CIDART_CHECK( elem );
 
-				string funcName = cidart::getString( elem );
+				string funcName = cidart::toString( elem );
 				stream << funcName << ", ";
 				
 			}

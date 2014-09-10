@@ -53,28 +53,28 @@ void ImportTestApp::receiveMap( const cidart::DataMap& map )
 
 	auto radiusIt = map.find( "radius" );
 	if( radiusIt != map.end() )
-		mCircleRadius = cidart::getFloat( radiusIt->second );
+		mCircleRadius = cidart::getValue<float>( radiusIt->second );
 
 	auto segIt = map.find( "segments" );
 	if( segIt != map.end() )
-		mNumCircleSegments = cidart::getInt( segIt->second );
+		mNumCircleSegments = cidart::getValue<int>( segIt->second );
 
 	auto colorIt = map.find( "color" );
 	if( colorIt != map.end() )
-		mCircleColor = cidart::getColor( colorIt->second );
+		mCircleColor = cidart::getValue<ColorA>( colorIt->second );
 
 	auto rotationRateIt = map.find( "rotationRate" );
 	if( rotationRateIt != map.end() ) {
-		mRotationRate = cidart::getFloat( rotationRateIt->second );
+		mRotationRate = cidart::getValue<float>( rotationRateIt->second );
 		timeline().apply( &mRotation, mRotation + 360.0f, mRotationRate ).loop();
 	}
 
 	auto someVec3It = map.find( "someVec3" );
 	if( someVec3It != map.end() ) {
-		vec3 vec;
+		;
 		Dart_Handle handle = someVec3It->second;
 
-		cidart::getValue( handle, &vec );
+		auto vec = cidart::getValue<vec3>( handle );
 		CI_LOG_I( "someVec3: " << vec );
 	}
 }

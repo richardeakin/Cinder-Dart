@@ -296,7 +296,7 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 	if( tag == Dart_kCanonicalizeUrl )
 		return urlHandle;
 
-	string urlString = getString( urlHandle );
+	string urlString = toString( urlHandle );
 
 	DartVM *dartVM = static_cast<DartVM *>( Dart_CurrentIsolateData() );
 
@@ -356,7 +356,7 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 		DartVM *dartVM = static_cast<DartVM *>( Dart_CurrentIsolateData() );
 
 		Dart_Handle libraryUrl = Dart_LibraryUrl( library );
-		string libraryUrlString = getString( libraryUrl );
+		string libraryUrlString = toString( libraryUrl );
 		auto pathIt = dartVM->mImportedLibraries.find( libraryUrlString );
 
 		CI_ASSERT( pathIt != dartVM->mImportedLibraries.end() );
@@ -383,7 +383,7 @@ Dart_NativeFunction DartVM::resolveNameHandler( Dart_Handle nameHandle, int numA
 
 	DartScope enterScope;
 
-	string name = getString( nameHandle );
+	string name = toString( nameHandle );
 
 	DartVM *dartVm = static_cast<DartVM *>( Dart_CurrentIsolateData() );
 	auto& functionMap = dartVm->mNativeFunctionMap;
@@ -401,7 +401,7 @@ void DartVM::printNative( Dart_NativeArguments arguments )
 	Dart_Handle handle = Dart_GetNativeArgument( arguments, 0 );
 	CIDART_CHECK( handle );
 
-	ci::app::console() << "|dart| " << getString( handle ) << std::endl;
+	ci::app::console() << "|dart| " << toString( handle ) << std::endl;
 }
 
 // TODO: see if I can use Dart_ObjectIsType to ensure the class is of type Map
@@ -436,11 +436,11 @@ void DartVM::toCinder( Dart_NativeArguments arguments )
 
 	Dart_Handle length = getField( handle, "length" );
 
-	int numEntries = getInt( length );
+	int numEntries = getValue<int>( length );
 	Dart_Handle keys = getField( handle, "keys" );
 
 	Dart_Handle lengthIter = getField( keys, "length" );
-	int lenIter = getInt( lengthIter );
+	int lenIter = getValue<int>( lengthIter );
 	CI_ASSERT( numEntries == lenIter );
 
 	DataMap map;
@@ -448,7 +448,7 @@ void DartVM::toCinder( Dart_NativeArguments arguments )
 	for( size_t i = 0; i < lenIter; i++ ) {
 		Dart_Handle args[] = { Dart_NewInteger( i ) };
 		Dart_Handle key = callFunction( keys, "elementAt", 1, args );
-		string keyString = getString( key );
+		string keyString = toString( key );
 
 		args[0] = key;
 		Dart_Handle value = callFunction( handle, "[]", 1, args );
