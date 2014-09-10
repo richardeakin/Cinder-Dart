@@ -5,7 +5,18 @@
 #pragma once
 
 #include "include/dart_api.h"
+#include "cinder/Vector.h"
 #include "cinder/Color.h"
+
+#if( CINDER_VERSION < 900 )
+
+// for compatibility with 0.8.6, add typedef's for used vectypes back to old ci vectypes
+typedef ci::vec2	Vec2f;
+typedef ci::ivec2	Vec2i;
+typedef ci::vec3	Vec3f;
+typedef ci::ivec3	Vec3i;
+
+#endif
 
 namespace cidart {
 

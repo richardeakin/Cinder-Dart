@@ -70,7 +70,7 @@ void DartVM::loadScript( ci::DataSourceRef script )
 
 	Dart_Isolate currentIsolate = Dart_CurrentIsolate();
 	if( currentIsolate && currentIsolate == mIsolate ) {
-		LOG_V( "isolate already loaded, shutting down first" );;
+		CI_LOG_V( "isolate already loaded, shutting down first" );;
 		Dart_ShutdownIsolate();
 	}
 
@@ -81,7 +81,7 @@ void DartVM::loadScript( ci::DataSourceRef script )
 	char *error;
 	mIsolate = createIsolateCallback( scriptPath, "main", this, &error );
 	if( ! mIsolate ) {
-		LOG_E( "could not create isolate: " << error );;
+		CI_LOG_E( "could not create isolate: " << error );;
 		CI_ASSERT( false );
 	}
 
@@ -90,7 +90,7 @@ void DartVM::loadScript( ci::DataSourceRef script )
 	Dart_Handle url = newString( scriptPath );
 	string scriptContents = loadString( script );
 
-//	LOG_V( "script contents: " << scriptContents );;
+//	CI_LOG_V( "script contents: " << scriptContents );;
 
 	Dart_Handle source = Dart_NewStringFromCString( scriptContents.c_str() );
 	CIDART_CHECK( source );
@@ -118,7 +118,7 @@ void DartVM::loadScript( ci::DataSourceRef script )
 	invoke( "main" );
 
 #if PROFILE_LOAD_TIME
-	LOG_V( "load complete. elapsed time: " << timer.getSeconds() << " seconds." );
+	CI_LOG_V( "load complete. elapsed time: " << timer.getSeconds() << " seconds." );
 #endif
 }
 
@@ -186,10 +186,10 @@ Dart_Isolate DartVM::createIsolateCallback( const char* script_uri, const char* 
 	
 	uint8_t *snapshotData = (uint8_t *)dartVm->mSnapshot->getBuffer().getData();
 
-	LOG_V( "Creating isolate " << script_uri << ", " << main );
+	CI_LOG_V( "Creating isolate " << script_uri << ", " << main );
 	Dart_Isolate isolate = Dart_CreateIsolate( script_uri, main, snapshotData, data, error );
 	if ( ! isolate ) {
-		LOG_E( "Couldn't create isolate: " << *error );
+		CI_LOG_E( "Couldn't create isolate: " << *error );
 		return nullptr;
 	}
 
@@ -204,27 +204,27 @@ Dart_Isolate DartVM::createIsolateCallback( const char* script_uri, const char* 
 // static
 bool DartVM::interruptIsolateCallback()
 {
-	LOG_V( "continuing.." );
+	CI_LOG_V( "continuing.." );
 	return true;
 }
 
 // static
 void DartVM::unhandledExceptionCallback( Dart_Handle error )
 {
-	 LOG_E( Dart_GetError( error ) );
+	 CI_LOG_E( Dart_GetError( error ) );
 }
 
 // static
 void DartVM::shutdownIsolateCallback( void *callbackData )
 {
-	LOG_V( "bang" );
+	CI_LOG_V( "bang" );
 }
 
 // file callbacks have been copied verbatum from included sample... plus verbose logging. don't event know yet if we need them
 // static
 void* DartVM::openFileCallback(const char* name, bool write)
 {
-	LOG_V( "name: " << name << ", write mode: " << boolalpha << write << dec );
+	CI_LOG_V( "name: " << name << ", write mode: " << boolalpha << write << dec );
 	
 	return fopen(name, write ? "w" : "r");
 }
@@ -232,7 +232,7 @@ void* DartVM::openFileCallback(const char* name, bool write)
 // static
 void DartVM::readFileCallback(const uint8_t** data, intptr_t* fileLength, void* stream )
 {
-	LOG_V( "bang" );
+	CI_LOG_V( "bang" );
 	if (!stream) {
 		*data = 0;
 		*fileLength = 0;
@@ -253,7 +253,7 @@ void DartVM::readFileCallback(const uint8_t** data, intptr_t* fileLength, void* 
 // static
 void DartVM::writeFileCallback(const void* data, intptr_t length, void* file)
 {
-	LOG_V( "bang" );
+	CI_LOG_V( "bang" );
 
 	fwrite(data, 1, length, reinterpret_cast<FILE*>(file));
 }
@@ -261,7 +261,7 @@ void DartVM::writeFileCallback(const void* data, intptr_t length, void* file)
 // static
 void DartVM::closeFileCallback(void* file)
 {
-	LOG_V( "bang" );
+	CI_LOG_V( "bang" );
 
 	fclose(reinterpret_cast<FILE*>(file));
 }
@@ -413,22 +413,22 @@ void DartVM::toCinder( Dart_NativeArguments arguments )
 
 	DartVM *cd = static_cast<DartVM *>( Dart_CurrentIsolateData() );
 	if( ! cd->mReceiveMapCallback ) {
-		LOG_E( "no ReceiveMapCallback, returning." );
+		CI_LOG_E( "no ReceiveMapCallback, returning." );
 		return;
 	}
 
 	Dart_Handle handle = Dart_GetNativeArgument( arguments, 0 );
 
 	if( ! Dart_IsInstance( handle ) ) {
-		LOG_E( "not a dart instance." );
+		CI_LOG_E( "not a dart instance." );
 		return;
 	}
 
 	string typeName = getTypeName( handle );
-	LOG_V( "type name: " << typeName );
+	CI_LOG_V( "type name: " << typeName );
 
 	if( ! isMap( handle ) ) {
-		LOG_E( "expected object of type map" );
+		CI_LOG_E( "expected object of type map" );
 		return;
 	}
 

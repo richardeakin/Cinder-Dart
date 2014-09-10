@@ -30,7 +30,7 @@ void getNumberValueImpl( Dart_Handle handle, T *value )
 		*value = static_cast<T>( result );
 	}
 	else
-		LOG_E( "expected handle to be either of type float or int" );
+		CI_LOG_E( "expected handle to be either of type float or int" );
 }
 	
 } // anonymous namespace
@@ -118,7 +118,7 @@ void getValue( Dart_Handle handle, ci::Color *value )
 	Dart_Handle b = getField( handle, "b" );
 
 	if( Dart_IsError( r ) || Dart_IsError( g ) || Dart_IsError( b ) ) {
-		LOG_E( "expected handle to have fields 'r', 'g' and 'b'" );
+		CI_LOG_E( "expected handle to have fields 'r', 'g' and 'b'" );
 		return;
 	}
 
@@ -135,7 +135,7 @@ void getValue( Dart_Handle handle, ci::ColorA *value )
 	Dart_Handle a = getField( handle, "a" );
 
 	if( Dart_IsError( r ) || Dart_IsError( g ) || Dart_IsError( b ) || Dart_IsError( a ) ) {
-		LOG_E( "expected handle to have fields 'r', 'g', 'b' and 'a'" );
+		CI_LOG_E( "expected handle to have fields 'r', 'g', 'b' and 'a'" );
 		return;
 	}
 
@@ -151,7 +151,7 @@ void getValue( Dart_Handle handle, ci::ivec2 *value )
 	Dart_Handle y = getField( handle, "y" );
 
 	if( Dart_IsError( x ) || Dart_IsError( y ) ) {
-		LOG_E( "expected handle to have fields 'x' and 'y'" );
+		CI_LOG_E( "expected handle to have fields 'x' and 'y'" );
 		return;
 	}
 
@@ -165,7 +165,7 @@ void getValue( Dart_Handle handle, ci::vec2 *value )
 	Dart_Handle y = getField( handle, "y" );
 
 	if( Dart_IsError( x ) || Dart_IsError( y ) ) {
-		LOG_E( "expected handle to have fields 'x' and 'y'" );
+		CI_LOG_E( "expected handle to have fields 'x' and 'y'" );
 		return;
 	}
 
@@ -180,7 +180,7 @@ void getValue( Dart_Handle handle, ci::ivec3 *value )
 	Dart_Handle z = getField( handle, "z" );
 
 	if( Dart_IsError( x ) || Dart_IsError( y ) ) {
-		LOG_E( "expected handle to have fields 'x', 'y', and 'z'" );
+		CI_LOG_E( "expected handle to have fields 'x', 'y', and 'z'" );
 		return;
 	}
 
@@ -196,7 +196,7 @@ void getValue( Dart_Handle handle, ci::vec3 *value )
 	Dart_Handle z = getField( handle, "z" );
 
 	if( Dart_IsError( x ) || Dart_IsError( y ) ) {
-		LOG_E( "expected handle to have fields 'x', 'y', and 'z'" );
+		CI_LOG_E( "expected handle to have fields 'x', 'y', and 'z'" );
 		return;
 	}
 
@@ -208,7 +208,7 @@ void getValue( Dart_Handle handle, ci::vec3 *value )
 void getValue( Dart_Handle handle, std::string *value )
 {
 	if( ! Dart_IsString( handle ) ) {
-		LOG_E( "expected handle to be of type string" );
+		CI_LOG_E( "expected handle to be of type string" );
 		return;
 	}
 

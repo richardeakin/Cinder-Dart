@@ -32,7 +32,7 @@ class DartBasicApp : public AppNative {
 
 void DartBasicApp::setup()
 {
-	LOG_I( "dart runtime version: " << cidart::DartVM::getVersionString() );
+	CI_LOG_I( "dart runtime version: " << cidart::DartVM::getVersionString() );
 
 	// these values will be updated from main.dart:
 	mCircleRadius = 1.0f;
@@ -49,9 +49,9 @@ void DartBasicApp::setup()
 
 void DartBasicApp::receiveMap( const cidart::DataMap &map )
 {
-	LOG_I( "huzzah" );
+	CI_LOG_I( "huzzah" );
 	for( auto &mp : map ) {
-		LOG_V( "key: " << mp.first << ", value type: " << cidart::getTypeName( mp.second ) );
+		CI_LOG_V( "key: " << mp.first << ", value type: " << cidart::getTypeName( mp.second ) );
 	}
 
 	auto radiusIt = map.find( "radius" );
@@ -76,7 +76,7 @@ void DartBasicApp::receiveMap( const cidart::DataMap &map )
 void DartBasicApp::keyDown( KeyEvent event )
 {
 	if( event.getChar() == 'r' ) {
-		LOG_V( "reload." );
+		CI_LOG_V( "reload." );
 		mDart->loadScript( loadAsset( "main.dart" ) ); // TODO: add DartVM::reload
 	}
 }

@@ -7,23 +7,31 @@
 #include "cinder/app/App.h"
 #include "cinder/CinderAssert.h"
 
+#include "include/dart_api.h"
+
+#if( CINDER_VERSION >= 900 )
+	#include "cinder/Log.h"
+#else
+
+// add cinder/Log.h substitutes
+
 #define CIDART_LOG_VERBOSE 0
 
 #if CIDART_LOG_VERBOSE
-	#define LOG_V( stream )			{ std::cout << __PRETTY_FUNCTION__ << " |V| " << stream << std::endl; }
+	#define CI_LOG_V( stream )		{ std::cout << __PRETTY_FUNCTION__ << " |V| " << stream << std::endl; }
 #else
-	#define LOG_V( stream )
+	#define CI_LOG_V( stream )		( (void)0 )
 #endif
 
-#define LOG_I( stream )				{ std::cout << __PRETTY_FUNCTION__ << " |I| " << stream << std::endl; }
-#define LOG_E( stream )				{ std::cout << __PRETTY_FUNCTION__ << " |ERROR| " << stream << std::endl; }
+#define CI_CI_LOG_I( stream )				{ std::cout << __PRETTY_FUNCTION__ << " |I| " << stream << std::endl; }
+#define CI_LOG_E( stream )				{ std::cout << __PRETTY_FUNCTION__ << " |ERROR| " << stream << std::endl; }
 
-#include "include/dart_api.h"
+#endif // ( CINDER_VERSION >= 900 )
 
 #define CIDART_CHECK( result )						\
 {													\
 	if( Dart_IsError( result ) ) {					\
-		LOG_E( Dart_GetError( result ) );			\
+		CI_LOG_E( Dart_GetError( result ) );		\
 		CI_ASSERT( 0 );								\
 	}												\
 }
@@ -31,7 +39,7 @@
 #define CIDART_CHECK_RETURN( result )				\
 {													\
 	if( Dart_IsError(result ) ) {					\
-		LOG_E( Dart_GetError( result ) );			\
+		CI_LOG_E( Dart_GetError( result ) );		\
 		return;										\
 	}												\
 }

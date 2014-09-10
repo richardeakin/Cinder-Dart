@@ -32,7 +32,7 @@ class ImportTestApp : public AppNative {
 
 void ImportTestApp::setup()
 {
-	LOG_I( "dart runtime version: " << cidart::DartVM::getVersionString() );
+	CI_LOG_I( "dart runtime version: " << cidart::DartVM::getVersionString() );
 
 	// these values will be updated from main.dart:
 	mCircleRadius = 1.0f;
@@ -49,7 +49,7 @@ void ImportTestApp::setup()
 
 void ImportTestApp::receiveMap( const cidart::DataMap& map )
 {
-	LOG_I( "huzzah" );
+	CI_LOG_I( "huzzah" );
 
 	auto radiusIt = map.find( "radius" );
 	if( radiusIt != map.end() )
@@ -75,14 +75,14 @@ void ImportTestApp::receiveMap( const cidart::DataMap& map )
 		Dart_Handle handle = someVec3It->second;
 
 		cidart::getValue( handle, &vec );
-		LOG_I( "someVec3: " << vec );
+		CI_LOG_I( "someVec3: " << vec );
 	}
 }
 
 void ImportTestApp::keyDown( KeyEvent event )
 {
 	if( event.getChar() == 'r') {
-		LOG_V( "reload." );
+		CI_LOG_V( "reload." );
 		mDart->loadScript( loadAsset( "main.dart" ) ); // TODO: add DartVM::reload
 	}
 }
