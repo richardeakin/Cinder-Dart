@@ -28,8 +28,6 @@ struct DartScope {
 Dart_Handle toDart( const char *str );
 Dart_Handle toDart( const std::string &str );
 
-std::string toString( Dart_Handle handle );
-
 bool		isMap( Dart_Handle handle );
 bool		isCinderClass( Dart_Handle handle, const char *className );
 

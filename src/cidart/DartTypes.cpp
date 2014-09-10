@@ -45,13 +45,6 @@ Dart_Handle toDart( const std::string &str )
 	return toDart( str.c_str() );
 }
 
-string toString( Dart_Handle handle )
-{
-	const char *result;
-	CIDART_CHECK( Dart_StringToCString( handle, &result ) );
-	return string( result );
-}
-
 float getFloatForKey( Dart_Handle mapHandle, const char *key )
 {
 	CI_ASSERT( isMap( mapHandle ) );
@@ -184,7 +177,9 @@ void getValue( Dart_Handle handle, std::string *value )
 		return;
 	}
 
-	*value = toString( handle );
+	const char *result;
+	CIDART_CHECK( Dart_StringToCString( handle, &result ) );
+	*value = string( result );
 }
 
 bool hasFunction( Dart_Handle handle, const string &name )
@@ -213,7 +208,7 @@ string getTypeName( Dart_Handle handle )
 	Dart_Handle typeName = Dart_TypeName( instanceType );
 	CIDART_CHECK( typeName );
 
-	return toString( typeName );
+	return getValue<string>( typeName );
 }
 
 // TODO: use Dart_isMap()
@@ -257,7 +252,7 @@ string printNativeArgumentsToString( Dart_NativeArguments args, bool printMethod
 
 		Dart_Handle instanceType = Dart_InstanceGetType( handle );
 		CIDART_CHECK( instanceType );
-		string typeName = cidart::toString( Dart_TypeName( instanceType ) );
+		string typeName = cidart::getValue<string>( Dart_TypeName( instanceType ) );
 
 		stream << "\t[" << i << "]: type: " << typeName << endl;
 
@@ -275,9 +270,8 @@ string printNativeArgumentsToString( Dart_NativeArguments args, bool printMethod
 				Dart_Handle elem = Dart_ListGetAt( functionNamesList, i );
 				CIDART_CHECK( elem );
 
-				string funcName = cidart::toString( elem );
+				string funcName = cidart::getValue<string>( elem );
 				stream << funcName << ", ";
-				
 			}
 			stream << endl;
 		}
