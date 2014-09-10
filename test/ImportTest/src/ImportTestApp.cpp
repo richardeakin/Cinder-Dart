@@ -32,7 +32,7 @@ class ImportTestApp : public AppNative {
 
 void ImportTestApp::setup()
 {
-	LOG_I( "dart runtime version: " << cidart::DartVM::getVersionString() );
+	CI_LOG_I( "dart runtime version: " << cidart::DartVM::getVersionString() );
 
 	// these values will be updated from main.dart:
 	mCircleRadius = 1.0f;
@@ -49,40 +49,40 @@ void ImportTestApp::setup()
 
 void ImportTestApp::receiveMap( const cidart::DataMap& map )
 {
-	LOG_I( "huzzah" );
+	CI_LOG_I( "huzzah" );
 
 	auto radiusIt = map.find( "radius" );
 	if( radiusIt != map.end() )
-		mCircleRadius = cidart::getFloat( radiusIt->second );
+		mCircleRadius = cidart::getValue<float>( radiusIt->second );
 
 	auto segIt = map.find( "segments" );
 	if( segIt != map.end() )
-		mNumCircleSegments = cidart::getInt( segIt->second );
+		mNumCircleSegments = cidart::getValue<int>( segIt->second );
 
 	auto colorIt = map.find( "color" );
 	if( colorIt != map.end() )
-		mCircleColor = cidart::getColor( colorIt->second );
+		mCircleColor = cidart::getValue<ColorA>( colorIt->second );
 
 	auto rotationRateIt = map.find( "rotationRate" );
 	if( rotationRateIt != map.end() ) {
-		mRotationRate = cidart::getFloat( rotationRateIt->second );
+		mRotationRate = cidart::getValue<float>( rotationRateIt->second );
 		timeline().apply( &mRotation, mRotation + 360.0f, mRotationRate ).loop();
 	}
 
 	auto someVec3It = map.find( "someVec3" );
 	if( someVec3It != map.end() ) {
-		Vec3f vec;
+		;
 		Dart_Handle handle = someVec3It->second;
 
-		cidart::getValue( handle, &vec );
-		LOG_I( "someVec3: " << vec );
+		auto vec = cidart::getValue<vec3>( handle );
+		CI_LOG_I( "someVec3: " << vec );
 	}
 }
 
 void ImportTestApp::keyDown( KeyEvent event )
 {
 	if( event.getChar() == 'r') {
-		LOG_V( "reload." );
+		CI_LOG_V( "reload." );
 		mDart->loadScript( loadAsset( "main.dart" ) ); // TODO: add DartVM::reload
 	}
 }
@@ -95,7 +95,7 @@ void ImportTestApp::draw()
 		gl::translate( getWindowCenter() );
 		gl::rotate( mRotation );
 		gl::color( mCircleColor );
-		gl::drawSolidCircle( Vec2f::zero(), mCircleRadius, mNumCircleSegments );
+		gl::drawSolidCircle( vec2( 0, 0 ), mCircleRadius, mNumCircleSegments );
 	gl::popMatrices();
 }
 

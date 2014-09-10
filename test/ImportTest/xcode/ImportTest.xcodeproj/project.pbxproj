@@ -12,13 +12,9 @@
 		00B784B40FF439BC000DE1D7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B00FF439BC000DE1D7 /* AudioToolbox.framework */; };
 		00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B10FF439BC000DE1D7 /* AudioUnit.framework */; };
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
+		11397B1F19C0DAA200E3B138 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11397B1D19C0DAA200E3B138 /* AVFoundation.framework */; };
+		11397B2019C0DAA200E3B138 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11397B1E19C0DAA200E3B138 /* CoreMedia.framework */; };
 		11D0BED51816CC8D000908D9 /* snapshot_gen.bin in Resources */ = {isa = PBXBuildFile; fileRef = 11D0BED41816CC8D000908D9 /* snapshot_gen.bin */; };
-		11D0BEE11816CF86000908D9 /* libdart_builtin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D0BEDB1816CF86000908D9 /* libdart_builtin.a */; };
-		11D0BEE21816CF86000908D9 /* libdart_lib_withcore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D0BEDC1816CF86000908D9 /* libdart_lib_withcore.a */; };
-		11D0BEE31816CF86000908D9 /* libdart_vm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D0BEDD1816CF86000908D9 /* libdart_vm.a */; };
-		11D0BEE41816CF86000908D9 /* libdart_withcore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D0BEDE1816CF86000908D9 /* libdart_withcore.a */; };
-		11D0BEE51816CF86000908D9 /* libdouble_conversion.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D0BEDF1816CF86000908D9 /* libdouble_conversion.a */; };
-		11D0BEE61816CF86000908D9 /* libjscre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D0BEE01816CF86000908D9 /* libjscre.a */; };
 		11D679A3175298E100E96E0D /* cinder.dart in Resources */ = {isa = PBXBuildFile; fileRef = 11D6799D175298E100E96E0D /* cinder.dart */; };
 		11D679A4175298E100E96E0D /* DartVM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11D6799E175298E100E96E0D /* DartVM.cpp */; };
 		11D679A5175298E100E96E0D /* DartTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11D679A0175298E100E96E0D /* DartTypes.cpp */; };
@@ -35,6 +31,8 @@
 		00B784B10FF439BC000DE1D7 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		00B784B20FF439BC000DE1D7 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		11397B1D19C0DAA200E3B138 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		11397B1E19C0DAA200E3B138 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		11CD53E01957C3E700F1C962 /* DartDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DartDebug.h; sourceTree = "<group>"; };
 		11D0BED41816CC8D000908D9 /* snapshot_gen.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = snapshot_gen.bin; path = "../../../dart-runtime/lib/macosx/snapshot_gen.bin"; sourceTree = "<group>"; };
 		11D0BED71816CCBB000908D9 /* dart_api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = dart_api.h; path = "../../../dart-runtime/include/dart_api.h"; sourceTree = "<group>"; };
@@ -69,12 +67,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11D0BEE11816CF86000908D9 /* libdart_builtin.a in Frameworks */,
-				11D0BEE21816CF86000908D9 /* libdart_lib_withcore.a in Frameworks */,
-				11D0BEE31816CF86000908D9 /* libdart_vm.a in Frameworks */,
-				11D0BEE41816CF86000908D9 /* libdart_withcore.a in Frameworks */,
-				11D0BEE51816CF86000908D9 /* libdouble_conversion.a in Frameworks */,
-				11D0BEE61816CF86000908D9 /* libjscre.a in Frameworks */,
+				11397B1F19C0DAA200E3B138 /* AVFoundation.framework in Frameworks */,
+				11397B2019C0DAA200E3B138 /* CoreMedia.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				0091D8F90E81B9330029341E /* OpenGL.framework in Frameworks */,
 				5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */,
@@ -196,6 +190,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				11397B1D19C0DAA200E3B138 /* AVFoundation.framework */,
+				11397B1E19C0DAA200E3B138 /* CoreMedia.framework */,
 				11D0BEDB1816CF86000908D9 /* libdart_builtin.a */,
 				11D0BEDC1816CF86000908D9 /* libdart_lib_withcore.a */,
 				11D0BEDD1816CF86000908D9 /* libdart_vm.a */,
@@ -337,7 +333,15 @@
 					"$(inherited)",
 					"/Users/r/code/cinder/rte/Cinder-Dart/dart-runtime/lib/macosx",
 				);
-				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder_d.a\"";
+				OTHER_LDFLAGS = (
+					"\"$(CINDER_PATH)/lib/libcinder_d.a\"",
+					"\"../../../dart-runtime/lib/macosx/libdart_builtin.a\"",
+					"\"../../../dart-runtime/lib/macosx/libdart_lib_withcore.a\"",
+					"\"../../../dart-runtime/lib/macosx/libdart_vm.a\"",
+					"\"../../../dart-runtime/lib/macosx/libdart_withcore.a\"",
+					"\"../../../dart-runtime/lib/macosx/libdouble_conversion.a\"",
+					"\"../../../dart-runtime/lib/macosx/libjscre.a\"",
+				);
 				PRODUCT_NAME = ImportTest;
 				SYMROOT = ./build;
 				WRAPPER_EXTENSION = app;
@@ -363,7 +367,15 @@
 					"$(inherited)",
 					"/Users/r/code/cinder/rte/Cinder-Dart/dart-runtime/lib/macosx",
 				);
-				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder.a\"";
+				OTHER_LDFLAGS = (
+					"\"$(CINDER_PATH)/lib/libcinder.a\"",
+					"\"../../../dart-runtime/lib/macosx/libdart_builtin.a\"",
+					"\"../../../dart-runtime/lib/macosx/libdart_lib_withcore.a\"",
+					"\"../../../dart-runtime/lib/macosx/libdart_vm.a\"",
+					"\"../../../dart-runtime/lib/macosx/libdart_withcore.a\"",
+					"\"../../../dart-runtime/lib/macosx/libdouble_conversion.a\"",
+					"\"../../../dart-runtime/lib/macosx/libjscre.a\"",
+				);
 				PRODUCT_NAME = ImportTest;
 				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = ./build;
@@ -375,7 +387,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = i386;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CINDER_PATH = ../../../../cinder;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -392,7 +404,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = i386;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CINDER_PATH = ../../../../cinder;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";

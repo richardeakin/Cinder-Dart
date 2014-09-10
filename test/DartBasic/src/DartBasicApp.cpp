@@ -32,7 +32,7 @@ class DartBasicApp : public AppNative {
 
 void DartBasicApp::setup()
 {
-	LOG_I( "dart runtime version: " << cidart::DartVM::getVersionString() );
+	CI_LOG_I( "dart runtime version: " << cidart::DartVM::getVersionString() );
 
 	// these values will be updated from main.dart:
 	mCircleRadius = 1.0f;
@@ -47,36 +47,36 @@ void DartBasicApp::setup()
 	mDart->loadScript( loadAsset( "main.dart" ) );
 }
 
-void DartBasicApp::receiveMap( const cidart::DataMap& map )
+void DartBasicApp::receiveMap( const cidart::DataMap &map )
 {
-	LOG_I( "huzzah" );
+	CI_LOG_I( "huzzah" );
 	for( auto &mp : map ) {
-		LOG_V( "key: " << mp.first << ", value type: " << cidart::getTypeName( mp.second ) );
+		CI_LOG_V( "key: " << mp.first << ", value type: " << cidart::getTypeName( mp.second ) );
 	}
 
 	auto radiusIt = map.find( "radius" );
 	if( radiusIt != map.end() )
-		mCircleRadius = cidart::getFloat( radiusIt->second );
+		mCircleRadius = cidart::getValue<float>( radiusIt->second );
 
 	auto segIt = map.find( "segments" );
 	if( segIt != map.end() )
-		mNumCircleSegments = cidart::getInt( segIt->second );
+		mNumCircleSegments = cidart::getValue<int>( segIt->second );
 
 	auto colorIt = map.find( "color" );
 	if( colorIt != map.end() )
-		mCircleColor = cidart::getColor( colorIt->second );
+		mCircleColor = cidart::getValue<ColorA>( colorIt->second );
 
 	auto rotationRateIt = map.find( "rotationRate" );
 	if( rotationRateIt != map.end() ) {
-		mRotationRate = cidart::getFloat( rotationRateIt->second );
+		mRotationRate = cidart::getValue<float>( rotationRateIt->second );
 		timeline().apply( &mRotation, mRotation + 360.0f, mRotationRate ).loop();
 	}
 }
 
 void DartBasicApp::keyDown( KeyEvent event )
 {
-	if( event.getChar() == 'r') {
-		LOG_V( "reload." );
+	if( event.getChar() == 'r' ) {
+		CI_LOG_V( "reload." );
 		mDart->loadScript( loadAsset( "main.dart" ) ); // TODO: add DartVM::reload
 	}
 }
@@ -89,7 +89,7 @@ void DartBasicApp::draw()
 		gl::translate( getWindowCenter() );
 		gl::rotate( mRotation );
 		gl::color( mCircleColor );
-		gl::drawSolidCircle( Vec2f::zero(), mCircleRadius, mNumCircleSegments );
+		gl::drawSolidCircle( vec2( 0, 0 ), mCircleRadius, mNumCircleSegments );
 	gl::popMatrices();
 }
 
