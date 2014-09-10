@@ -25,8 +25,8 @@ struct DartScope {
 	~DartScope()	{ Dart_ExitScope(); }
 };
 
-Dart_Handle newString( const char* str );
-Dart_Handle newInt( int i );
+Dart_Handle toDart( const char *str );
+Dart_Handle toDart( const std::string &str );
 
 bool		isMap( Dart_Handle handle );
 bool		isCinderClass( Dart_Handle handle, const char *className );

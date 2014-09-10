@@ -35,14 +35,14 @@ void getNumberValueImpl( Dart_Handle handle, T *value )
 	
 } // anonymous namespace
 
-Dart_Handle newString( const char* str )
+Dart_Handle toDart( const char *str )
 {
 	return Dart_NewStringFromCString( str );
 }
 
-Dart_Handle newInt( int i )
+Dart_Handle toDart( const std::string &str )
 {
-	return Dart_NewInteger( i );
+	return toDart( str.c_str() );
 }
 
 string getString( Dart_Handle handle )
@@ -84,7 +84,7 @@ float getFloatForKey( Dart_Handle mapHandle, const char *key )
 {
 	CI_ASSERT( isMap( mapHandle ) );
 
-	Dart_Handle args[] = { cidart::newString( key ) };
+	Dart_Handle args[] = { cidart::toDart( key ) };
 	Dart_Handle valueHandle = cidart::callFunction( mapHandle, "[]", 1, args );
 	CIDART_CHECK( valueHandle );
 
@@ -217,21 +217,21 @@ void getValue( Dart_Handle handle, std::string *value )
 
 bool hasFunction( Dart_Handle handle, const string &name )
 {
-	Dart_Handle result = Dart_LookupFunction( handle, newString( name.c_str() ) );
+	Dart_Handle result = Dart_LookupFunction( handle, toDart( name ) );
 	CIDART_CHECK( result );
 	return ! Dart_IsNull( result );
 }
 
 Dart_Handle callFunction( Dart_Handle target, const string &name, int numArgs, Dart_Handle *args )
 {
-	Dart_Handle result = Dart_Invoke( target, newString( name.c_str() ), numArgs, args );
+	Dart_Handle result = Dart_Invoke( target, toDart( name ), numArgs, args );
 	CIDART_CHECK( result );
 	return result;
 }
 
 Dart_Handle getField( Dart_Handle container, const string &name )
 {
-	return Dart_GetField( container, newString( name.c_str() ) );
+	return Dart_GetField( container, toDart( name ) );
 }
 
 string getTypeName( Dart_Handle handle )
@@ -247,10 +247,10 @@ string getTypeName( Dart_Handle handle )
 // TODO: use Dart_isMap()
 bool isMap( Dart_Handle handle )
 {
-	Dart_Handle coreLib = Dart_LookupLibrary( newString( "dart:core" ) );
+	Dart_Handle coreLib = Dart_LookupLibrary( toDart( "dart:core" ) );
 	CIDART_CHECK( coreLib );
 
-	Dart_Handle type = Dart_GetType( coreLib, newString( "Map" ), 0, nullptr );
+	Dart_Handle type = Dart_GetType( coreLib, toDart( "Map" ), 0, nullptr );
 	CIDART_CHECK( type );
 
 	bool result;
@@ -263,9 +263,9 @@ bool isMap( Dart_Handle handle )
 // - maybe shoud be using Dart_GetType as well
 bool isCinderClass( Dart_Handle handle, const char *className )
 {
-	Dart_Handle cinderLib = Dart_LookupLibrary( newString( "cinder" ) );
+	Dart_Handle cinderLib = Dart_LookupLibrary( toDart( "cinder" ) );
 	CIDART_CHECK( cinderLib );
-	Dart_Handle cinderClass = Dart_GetClass( cinderLib, newString( className ) );
+	Dart_Handle cinderClass = Dart_GetClass( cinderLib, toDart( className ) );
 	CIDART_CHECK( cinderClass );
 
 	bool result;

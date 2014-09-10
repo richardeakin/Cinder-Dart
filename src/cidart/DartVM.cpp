@@ -87,7 +87,7 @@ void DartVM::loadScript( ci::DataSourceRef script )
 
 	DartScope enterScope;
 
-	Dart_Handle url = newString( scriptPath );
+	Dart_Handle url = toDart( scriptPath );
 	string scriptContents = loadString( script );
 
 //	CI_LOG_V( "script contents: " << scriptContents );;
@@ -285,7 +285,7 @@ Dart_Handle getFilePathFromUri( Dart_Handle script_uri, Dart_Handle builtin_lib 
 	Dart_Handle dartArgs[numArgs];
 	dartArgs[0] = script_uri;
 
-	return Dart_Invoke( builtin_lib, newString( "_filePathFromUri" ), numArgs, dartArgs );
+	return Dart_Invoke( builtin_lib, toDart( "_filePathFromUri" ), numArgs, dartArgs );
 }
 
 } // anonymous namespace
@@ -328,7 +328,7 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 			dartVM->mImportedLibraries[urlString] = resolvedPath;
 
 			string libString = loadString( loadFile( resolvedPath ) );
-			Dart_Handle source = newString( libString.c_str() );
+			Dart_Handle source = toDart( libString );
 			CIDART_CHECK( source );
 
 			Dart_Handle loadedLib = Dart_LoadLibrary( urlHandle, source );
@@ -343,7 +343,7 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 
 			string fileString = loadString( loadFile( fullPath ) );
 
-			Dart_Handle libString = newString( fileString.c_str() );
+			Dart_Handle libString = toDart( fileString );
 			Dart_Handle loadedHandle = Dart_LoadLibrary( urlHandle, libString );
 			CIDART_CHECK( loadedHandle );
 
@@ -365,7 +365,7 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 		auto resolvedPath = libFolder / urlString;
 
 		string sourceString = loadString( loadFile( resolvedPath ) );
-		Dart_Handle source = newString( sourceString.c_str() );
+		Dart_Handle source = toDart( sourceString );
 
 		Dart_Handle loadedHandle = Dart_LoadSource( library, urlHandle, source );
 		CIDART_CHECK( loadedHandle );
@@ -446,7 +446,7 @@ void DartVM::toCinder( Dart_NativeArguments arguments )
 	DataMap map;
 
 	for( size_t i = 0; i < lenIter; i++ ) {
-		Dart_Handle args[] = { newInt( i ) };
+		Dart_Handle args[] = { Dart_NewInteger( i ) };
 		Dart_Handle key = callFunction( keys, "elementAt", 1, args );
 		string keyString = getString( key );
 
