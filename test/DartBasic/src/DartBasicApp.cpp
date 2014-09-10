@@ -47,7 +47,7 @@ void DartBasicApp::setup()
 	mDart->loadScript( loadAsset( "main.dart" ) );
 }
 
-void DartBasicApp::receiveMap( const cidart::DataMap& map )
+void DartBasicApp::receiveMap( const cidart::DataMap &map )
 {
 	LOG_I( "huzzah" );
 	for( auto &mp : map ) {
@@ -75,7 +75,7 @@ void DartBasicApp::receiveMap( const cidart::DataMap& map )
 
 void DartBasicApp::keyDown( KeyEvent event )
 {
-	if( event.getChar() == 'r') {
+	if( event.getChar() == 'r' ) {
 		LOG_V( "reload." );
 		mDart->loadScript( loadAsset( "main.dart" ) ); // TODO: add DartVM::reload
 	}
@@ -89,7 +89,7 @@ void DartBasicApp::draw()
 		gl::translate( getWindowCenter() );
 		gl::rotate( mRotation );
 		gl::color( mCircleColor );
-		gl::drawSolidCircle( Vec2f::zero(), mCircleRadius, mNumCircleSegments );
+		gl::drawSolidCircle( vec2( 0, 0 ), mCircleRadius, mNumCircleSegments );
 	gl::popMatrices();
 }
 

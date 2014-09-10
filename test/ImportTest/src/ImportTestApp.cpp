@@ -71,7 +71,7 @@ void ImportTestApp::receiveMap( const cidart::DataMap& map )
 
 	auto someVec3It = map.find( "someVec3" );
 	if( someVec3It != map.end() ) {
-		Vec3f vec;
+		vec3 vec;
 		Dart_Handle handle = someVec3It->second;
 
 		cidart::getValue( handle, &vec );
@@ -95,7 +95,7 @@ void ImportTestApp::draw()
 		gl::translate( getWindowCenter() );
 		gl::rotate( mRotation );
 		gl::color( mCircleColor );
-		gl::drawSolidCircle( Vec2f::zero(), mCircleRadius, mNumCircleSegments );
+		gl::drawSolidCircle( vec2( 0, 0 ), mCircleRadius, mNumCircleSegments );
 	gl::popMatrices();
 }
 

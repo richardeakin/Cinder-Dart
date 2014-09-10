@@ -13,6 +13,8 @@
 		00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B10FF439BC000DE1D7 /* AudioUnit.framework */; };
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
 		11244746198F2FF400726514 /* snapshot_gen.bin in Resources */ = {isa = PBXBuildFile; fileRef = 11244745198F2FF400726514 /* snapshot_gen.bin */; };
+		11397B1B19C0D7A300E3B138 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11397B1919C0D7A300E3B138 /* AVFoundation.framework */; };
+		11397B1C19C0D7A300E3B138 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11397B1A19C0D7A300E3B138 /* CoreMedia.framework */; };
 		1FAD79119FB442B9B28D1F72 /* DartTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E9BD10A56A84DA9AB163458 /* DartTypes.cpp */; };
 		4A62F2E7E6C74746B955CE49 /* NativeCallbackApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA1331CBF3144773A280C5DE /* NativeCallbackApp.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
@@ -35,6 +37,8 @@
 		11244749198F301700726514 /* dart_api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = dart_api.h; path = "../../../dart-runtime/include/dart_api.h"; sourceTree = "<group>"; };
 		1124474A198F301700726514 /* dart_debugger_api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = dart_debugger_api.h; path = "../../../dart-runtime/include/dart_debugger_api.h"; sourceTree = "<group>"; };
 		1124474B198F301700726514 /* dart_native_api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = dart_native_api.h; path = "../../../dart-runtime/include/dart_native_api.h"; sourceTree = "<group>"; };
+		11397B1919C0D7A300E3B138 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		11397B1A19C0D7A300E3B138 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		11D679C11752B48800E96E0D /* main.dart */ = {isa = PBXFileReference; explicitFileType = text; name = main.dart; path = ../assets/main.dart; sourceTree = "<group>"; };
 		140BB7032E4B4AB696B4A880 /* debug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = debug.h; path = ../../../src/cidart/debug.h; sourceTree = "<group>"; };
 		1F64CF3949FB4FC4995B8F6E /* NativeCallback_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = NativeCallback_Prefix.pch; sourceTree = "<group>"; };
@@ -59,6 +63,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11397B1B19C0D7A300E3B138 /* AVFoundation.framework in Frameworks */,
+				11397B1C19C0D7A300E3B138 /* CoreMedia.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				0091D8F90E81B9330029341E /* OpenGL.framework in Frameworks */,
 				5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */,
@@ -176,6 +182,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				11397B1919C0D7A300E3B138 /* AVFoundation.framework */,
+				11397B1A19C0D7A300E3B138 /* CoreMedia.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
@@ -362,7 +370,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = i386;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CINDER_PATH = ../../../../cinder;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -379,7 +387,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = i386;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CINDER_PATH = ../../../../cinder;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
