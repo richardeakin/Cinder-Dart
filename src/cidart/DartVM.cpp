@@ -94,7 +94,7 @@ void DartVM::loadScript( ci::DataSourceRef script )
 
 //	CI_LOG_V( "script contents: " << scriptContents );;
 
-	Dart_Handle source = Dart_NewStringFromCString( scriptContents.c_str() );
+	Dart_Handle source = toDart( scriptContents );
 	CIDART_CHECK( source );
 	CIDART_CHECK_RETURN( Dart_LoadScript( url, source, 0, 0 ) );
 	CIDART_CHECK( Dart_SetNativeResolver( Dart_RootLibrary(), resolveNameHandler, NULL ) );
@@ -111,7 +111,7 @@ void DartVM::loadScript( ci::DataSourceRef script )
 void DartVM::loadCinderDartLib()
 {
 	string script = getCinderDartScript();
-	Dart_Handle source = Dart_NewStringFromCString( script.c_str() );
+	Dart_Handle source = toDart( script );
 	CIDART_CHECK( source );
 
 	Dart_Handle cinderDartLib = Dart_LoadLibrary( toDart( "cinder" ), source, 0, 0 );
@@ -122,11 +122,11 @@ void DartVM::loadCinderDartLib()
 	CIDART_CHECK( Dart_FinalizeLoading( false ) );
 
 	// swap in custom _printClosure to enable print() in dart
-	Dart_Handle internalLib = Dart_LookupLibrary( Dart_NewStringFromCString( "dart:_internal" ) );
+	Dart_Handle internalLib = Dart_LookupLibrary( toDart( "dart:_internal" ) );
 	CIDART_CHECK( internalLib );
-	Dart_Handle print = Dart_GetField( cinderDartLib, Dart_NewStringFromCString( "_printClosure" ) );
+	Dart_Handle print = Dart_GetField( cinderDartLib, toDart( "_printClosure" ) );
 	CIDART_CHECK( print );
-	CIDART_CHECK( Dart_SetField( internalLib, Dart_NewStringFromCString( "_printClosure" ), print ) );
+	CIDART_CHECK( Dart_SetField( internalLib, toDart( "_printClosure" ), print ) );
 }
 
 void DartVM::invoke( const string &functionName, int argc, Dart_Handle* args )
@@ -134,7 +134,7 @@ void DartVM::invoke( const string &functionName, int argc, Dart_Handle* args )
 	Dart_Handle library = Dart_RootLibrary();
 	CI_ASSERT( ! Dart_IsNull( library ) );
 
-	Dart_Handle nameHandle = Dart_NewStringFromCString( functionName.c_str() );
+	Dart_Handle nameHandle = toDart( functionName.c_str() );
 	Dart_Handle result = Dart_Invoke( library, nameHandle, argc, args );
 	CIDART_CHECK_RETURN( result );
 
