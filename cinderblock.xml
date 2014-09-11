@@ -7,7 +7,7 @@
 	license="BSD"
 	summary="Dart scripting in Cinder"
 	git="git://github.com/richardeakin/Cinder-Dart.git"
-	version="0.1-alpha"
+	version="0.2"
 	libraryUrl="www.dartlang.org"
 	>
 
@@ -19,14 +19,14 @@
 	<sourcePattern>src/cidart/*.cpp</sourcePattern>
 
 	<platform os="macosx">
-		<staticLibrary>dart-runtime/osx/libdart_builtin.a</staticLibrary>
-		<staticLibrary>dart-runtime/osx/libdart_lib_withcore.a</staticLibrary>
-		<staticLibrary>dart-runtime/osx/libdart_vm.a</staticLibrary>
-		<staticLibrary>dart-runtime/osx/libdart_withcore.a</staticLibrary>
-		<staticLibrary>dart-runtime/osx/libdouble_conversion.a</staticLibrary>
-		<staticLibrary>dart-runtime/osx/libjscre.a</staticLibrary>
+		<platform config="Debug">
+			<staticLibrary>dart-runtime/macosx/Debug/libdart_runtime.a</staticLibrary>
+		</platform>
+		<platform config="Release">
+			<staticLibrary>dart-runtime/macosx/Release/libdart_runtime.a</staticLibrary>
+		</platform>
 
-		<resource name="RES_DART_SNAPSHOT" type="IMAGE">dart-runtime/osx/snapshot_gen.bin</resource>
+		<resource name="RES_DART_SNAPSHOT" type="IMAGE">dart-runtime/macosx/snapshot_gen.bin</resource>
 	</platform>
 
 	<resource name="RES_CINDER_DART" type="DART">src/cidart/cinder.dart</resource>
