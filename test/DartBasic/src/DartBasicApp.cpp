@@ -51,7 +51,7 @@ void DartBasicApp::receiveMap( const cidart::DataMap &map )
 {
 	CI_LOG_I( "huzzah" );
 	for( auto &mp : map ) {
-		CI_LOG_V( "key: " << mp.first << ", value type: " << cidart::getTypeName( mp.second ) );
+		CI_LOG_I( "key: " << mp.first << ", value type: " << cidart::getTypeName( mp.second ) );
 	}
 
 	auto radiusIt = map.find( "radius" );

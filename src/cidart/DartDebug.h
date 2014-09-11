@@ -10,7 +10,9 @@
 #include "include/dart_api.h"
 
 #if( CINDER_VERSION >= 900 )
-	#include "cinder/Log.h"
+
+#include "cinder/Log.h"
+
 #else
 
 // add cinder/Log.h substitutes
@@ -18,13 +20,13 @@
 #define CIDART_LOG_VERBOSE 0
 
 #if CIDART_LOG_VERBOSE
-	#define CI_LOG_V( stream )		{ std::cout << __PRETTY_FUNCTION__ << " |V| " << stream << std::endl; }
+	#define CI_LOG_V( stream )		{ ci::app::console() << __PRETTY_FUNCTION__ << " |V| " << stream << std::endl; }
 #else
 	#define CI_LOG_V( stream )		( (void)0 )
 #endif
 
-#define CI_CI_LOG_I( stream )				{ std::cout << __PRETTY_FUNCTION__ << " |I| " << stream << std::endl; }
-#define CI_LOG_E( stream )				{ std::cout << __PRETTY_FUNCTION__ << " |ERROR| " << stream << std::endl; }
+#define CI_LOG_I( stream )			{ ci::app::console() << __PRETTY_FUNCTION__ << " |I| " << stream << std::endl; }
+#define CI_LOG_E( stream )			{ ci::app::console() << __PRETTY_FUNCTION__ << " |ERROR| " << stream << std::endl; }
 
 #endif // ( CINDER_VERSION >= 900 )
 
