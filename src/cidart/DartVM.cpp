@@ -96,6 +96,10 @@ void DartVM::loadScript( ci::DataSourceRef script )
 	CIDART_CHECK( source );
 	CIDART_CHECK_RETURN( Dart_LoadScript( url, source, 0, 0 ) );
 
+
+	// finalize any scripts loaded, needs to be done before the libs can be looked up and modified below
+	CIDART_CHECK( Dart_FinalizeLoading( false ) );
+
 	// swap in custom _printClosure, which maps back to Log.
 	Dart_Handle cinderDartLib = Dart_LookupLibrary( Dart_NewStringFromCString( "cinder" ) );
 	CIDART_CHECK( cinderDartLib );
@@ -311,7 +315,7 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 			Dart_Handle source = Dart_NewStringFromCString( script.c_str() );
 			CIDART_CHECK( source );
 
-			Dart_Handle cinderDartLib = Dart_LoadLibrary( urlHandle, source );
+			Dart_Handle cinderDartLib = Dart_LoadLibrary( urlHandle, source, 0, 0 );
 			CIDART_CHECK( cinderDartLib );
 
 			CIDART_CHECK( Dart_SetNativeResolver( cinderDartLib, resolveNameHandler, NULL ) );
@@ -331,7 +335,7 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 			Dart_Handle source = toDart( libString );
 			CIDART_CHECK( source );
 
-			Dart_Handle loadedLib = Dart_LoadLibrary( urlHandle, source );
+			Dart_Handle loadedLib = Dart_LoadLibrary( urlHandle, source, 0, 0  );
 			CIDART_CHECK( loadedLib );
 
 			return loadedLib;
@@ -344,7 +348,7 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 			string fileString = loadString( loadFile( fullPath ) );
 
 			Dart_Handle libString = toDart( fileString );
-			Dart_Handle loadedHandle = Dart_LoadLibrary( urlHandle, libString );
+			Dart_Handle loadedHandle = Dart_LoadLibrary( urlHandle, libString, 0, 0 );
 			CIDART_CHECK( loadedHandle );
 
 			CIDART_CHECK( Dart_SetNativeResolver( loadedHandle, resolveNameHandler, NULL ) );
@@ -367,7 +371,7 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 		string sourceString = loadString( loadFile( resolvedPath ) );
 		Dart_Handle source = toDart( sourceString );
 
-		Dart_Handle loadedHandle = Dart_LoadSource( library, urlHandle, source );
+		Dart_Handle loadedHandle = Dart_LoadSource( library, urlHandle, source, 0, 0 );
 		CIDART_CHECK( loadedHandle );
 		return loadedHandle;
 	}
