@@ -8,7 +8,7 @@ This cinderblock allows you to embed the [Dart](http://www.dartlang.org/) virtua
 64-bit binaries for OS X should be downloaded with the following command:
 
 ```
-./fetch_libs.sh
+./fetch_libs_mac.sh
 ```
 
 ### Usage
