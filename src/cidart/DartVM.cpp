@@ -104,7 +104,7 @@ void DartVM::loadScript( ci::DataSourceRef script )
 	invoke( "main" );
 
 #if PROFILE_LOAD_TIME
-	CI_LOG_V( "load complete. elapsed time: " << timer.getSeconds() << " seconds." );
+	CI_LOG_I( "load complete. elapsed time: " << (float)timer.getSeconds() * 1000.0f << " ms." );
 #endif
 }
 
