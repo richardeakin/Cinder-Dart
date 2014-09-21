@@ -5,23 +5,18 @@ This cinderblock allows you to embed the [Dart](http://www.dartlang.org/) virtua
 
 #### Installation instructions
 
-Cinder is expected to be found at './cinder', I prefer to symlink my copy there.
-
-Binaries for OS X are included via submodule reference (warning: they are big, ~100mb). To checkout everything in one go, do:
+64-bit binaries for OS X should be downloaded with the following command:
 
 ```
-git clone --recursive git://github.com/richardeakin/Cinder-Dart.git $CINDER_PATH/blocks/dart
+./fetch_libs_mac.sh
 ```
 
 ### Usage
 
 You currently need to get your hands dirty with the [embedder's api](http://dart.googlecode.com/svn/branches/bleeding_edge/dart/runtime/include/dart_api.h). See [DartBasic](test/DartBasic/src/DartBasicApp.cpp) for an example of how `Dart_Handle`'s are currently exposed the the app.
 
-
 ### Authors
 
-Thanks for Dart, google!
-
-Richard Eakin (rtepub@gmail.com)
-
-http://www.libcinder.org
+* The Google Dart team
+* Richard Eakin (rtepub@gmail.com)
+* http://www.libcinder.org

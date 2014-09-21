@@ -1,3 +1,6 @@
+# dart runtime binaries
+dart-runtime/lib
+
 # dart pub related
 test/PubPackage/assets/packages
 test/PubPackage/assets/pubspec.lock

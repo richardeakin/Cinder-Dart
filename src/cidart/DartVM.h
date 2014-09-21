@@ -42,6 +42,7 @@ class DartVM {
 
   private:
 
+	void			loadCinderDartLib();
 	std::string		getCinderDartScript();
 
 	Dart_Isolate				mIsolate;

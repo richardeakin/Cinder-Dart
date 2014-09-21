@@ -340,12 +340,7 @@
 				);
 				OTHER_LDFLAGS = (
 					"\"$(CINDER_PATH)/lib/libcinder_d.a\"",
-					"\"../../../dart-runtime/lib/macosx/libdart_builtin.a\"",
-					"\"../../../dart-runtime/lib/macosx/libdart_lib_withcore.a\"",
-					"\"../../../dart-runtime/lib/macosx/libdart_vm.a\"",
-					"\"../../../dart-runtime/lib/macosx/libdart_withcore.a\"",
-					"\"../../../dart-runtime/lib/macosx/libdouble_conversion.a\"",
-					"\"../../../dart-runtime/lib/macosx/libjscre.a\"",
+					"\"../../../dart-runtime/lib/macosx/Debug/libdart_runtime.a\"",
 				);
 				PRODUCT_NAME = DartBasic;
 				SYMROOT = ./build;
@@ -375,12 +370,7 @@
 				);
 				OTHER_LDFLAGS = (
 					"\"$(CINDER_PATH)/lib/libcinder.a\"",
-					"\"../../../dart-runtime/lib/macosx/libdart_builtin.a\"",
-					"\"../../../dart-runtime/lib/macosx/libdart_lib_withcore.a\"",
-					"\"../../../dart-runtime/lib/macosx/libdart_vm.a\"",
-					"\"../../../dart-runtime/lib/macosx/libdart_withcore.a\"",
-					"\"../../../dart-runtime/lib/macosx/libdouble_conversion.a\"",
-					"\"../../../dart-runtime/lib/macosx/libjscre.a\"",
+					"\"../../../dart-runtime/lib/macosx/Release/libdart_runtime.a\"",
 				);
 				PRODUCT_NAME = DartBasic;
 				STRIP_INSTALLED_PRODUCT = YES;

@@ -87,39 +87,46 @@ void DartVM::loadScript( ci::DataSourceRef script )
 
 	DartScope enterScope;
 
+	loadCinderDartLib();
+
 	Dart_Handle url = toDart( scriptPath );
 	string scriptContents = loadString( script );
 
 //	CI_LOG_V( "script contents: " << scriptContents );;
 
-	Dart_Handle source = Dart_NewStringFromCString( scriptContents.c_str() );
+	Dart_Handle source = toDart( scriptContents );
 	CIDART_CHECK( source );
 	CIDART_CHECK_RETURN( Dart_LoadScript( url, source, 0, 0 ) );
+	CIDART_CHECK( Dart_SetNativeResolver( Dart_RootLibrary(), resolveNameHandler, NULL ) );
 
-	// swap in custom _printClosure, which maps back to Log.
-	Dart_Handle cinderDartLib = Dart_LookupLibrary( Dart_NewStringFromCString( "cinder" ) );
-	CIDART_CHECK( cinderDartLib );
-
-	Dart_Handle internalLib = Dart_LookupLibrary( Dart_NewStringFromCString( "dart:_internal" ) );
-	CIDART_CHECK( internalLib );
-	Dart_Handle print = Dart_GetField( cinderDartLib, Dart_NewStringFromCString( "_printClosure" ) );
-	CIDART_CHECK( print );
-	CIDART_CHECK( Dart_SetField( internalLib, Dart_NewStringFromCString( "_printClosure" ), print ) );
-
-	Dart_Handle rootLib = Dart_RootLibrary();
-	CI_ASSERT( ! Dart_IsNull( rootLib ) );
-
-	CIDART_CHECK( Dart_SetNativeResolver( rootLib, resolveNameHandler, NULL ) );
-
-	// I guess main needs to be manually invoked...
-	// TODO: check dartium to see how it handles this part.
-	//	- maybe it is handled with Dart_RunLoop() ?
-
+	// finalize script and invoke main.
+	CIDART_CHECK( Dart_FinalizeLoading( false ) );
 	invoke( "main" );
 
 #if PROFILE_LOAD_TIME
-	CI_LOG_V( "load complete. elapsed time: " << timer.getSeconds() << " seconds." );
+	CI_LOG_I( "load complete. elapsed time: " << (float)timer.getSeconds() * 1000.0f << " ms." );
 #endif
+}
+
+void DartVM::loadCinderDartLib()
+{
+	string script = getCinderDartScript();
+	Dart_Handle source = toDart( script );
+	CIDART_CHECK( source );
+
+	Dart_Handle cinderDartLib = Dart_LoadLibrary( toDart( "cinder.dart" ), source, 0, 0 );
+	CIDART_CHECK( cinderDartLib );
+	CIDART_CHECK( Dart_SetNativeResolver( cinderDartLib, resolveNameHandler, NULL ) );
+
+	// finalize any scripts loaded, needs to be done before the libs can be looked up and modified below
+	CIDART_CHECK( Dart_FinalizeLoading( false ) );
+
+	// swap in custom _printClosure to enable print() in dart
+	Dart_Handle internalLib = Dart_LookupLibrary( toDart( "dart:_internal" ) );
+	CIDART_CHECK( internalLib );
+	Dart_Handle print = Dart_GetField( cinderDartLib, toDart( "_printClosure" ) );
+	CIDART_CHECK( print );
+	CIDART_CHECK( Dart_SetField( internalLib, toDart( "_printClosure" ), print ) );
 }
 
 void DartVM::invoke( const string &functionName, int argc, Dart_Handle* args )
@@ -127,7 +134,7 @@ void DartVM::invoke( const string &functionName, int argc, Dart_Handle* args )
 	Dart_Handle library = Dart_RootLibrary();
 	CI_ASSERT( ! Dart_IsNull( library ) );
 
-	Dart_Handle nameHandle = Dart_NewStringFromCString( functionName.c_str() );
+	Dart_Handle nameHandle = toDart( functionName.c_str() );
 	Dart_Handle result = Dart_Invoke( library, nameHandle, argc, args );
 	CIDART_CHECK_RETURN( result );
 
@@ -302,23 +309,6 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 
 	if( tag == Dart_kImportTag ) {
 
-		if( urlString == "cinder" ) {
-			// load the cinder lib from special location
-
-			DartVM *dartVm = static_cast<DartVM *>( Dart_CurrentIsolateData() );
-
-			string script = dartVm->getCinderDartScript();
-			Dart_Handle source = Dart_NewStringFromCString( script.c_str() );
-			CIDART_CHECK( source );
-
-			Dart_Handle cinderDartLib = Dart_LoadLibrary( urlHandle, source );
-			CIDART_CHECK( cinderDartLib );
-
-			CIDART_CHECK( Dart_SetNativeResolver( cinderDartLib, resolveNameHandler, NULL ) );
-
-			return cinderDartLib;
-		}
-
 		// try to load a pub-style package
 		auto pos = urlString.find( SCHEME_STRING_PACKAGE );
 		if( pos == 0 ) {
@@ -331,7 +321,7 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 			Dart_Handle source = toDart( libString );
 			CIDART_CHECK( source );
 
-			Dart_Handle loadedLib = Dart_LoadLibrary( urlHandle, source );
+			Dart_Handle loadedLib = Dart_LoadLibrary( urlHandle, source, 0, 0  );
 			CIDART_CHECK( loadedLib );
 
 			return loadedLib;
@@ -344,7 +334,7 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 			string fileString = loadString( loadFile( fullPath ) );
 
 			Dart_Handle libString = toDart( fileString );
-			Dart_Handle loadedHandle = Dart_LoadLibrary( urlHandle, libString );
+			Dart_Handle loadedHandle = Dart_LoadLibrary( urlHandle, libString, 0, 0 );
 			CIDART_CHECK( loadedHandle );
 
 			CIDART_CHECK( Dart_SetNativeResolver( loadedHandle, resolveNameHandler, NULL ) );
@@ -367,7 +357,7 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 		string sourceString = loadString( loadFile( resolvedPath ) );
 		Dart_Handle source = toDart( sourceString );
 
-		Dart_Handle loadedHandle = Dart_LoadSource( library, urlHandle, source );
+		Dart_Handle loadedHandle = Dart_LoadSource( library, urlHandle, source, 0, 0 );
 		CIDART_CHECK( loadedHandle );
 		return loadedHandle;
 	}

@@ -1,4 +1,4 @@
-import 'cinder';
+import 'cinder.dart';
 
 void main() {
   print("hello dart.");

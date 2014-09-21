@@ -1,4 +1,3 @@
-import 'cinder';
 
 void blarg() native "blarg";
 

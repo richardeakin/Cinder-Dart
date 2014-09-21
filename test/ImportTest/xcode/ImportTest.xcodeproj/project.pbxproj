@@ -329,18 +329,9 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/r/code/cinder/rte/Cinder-Dart/dart-runtime/lib/macosx",
-				);
 				OTHER_LDFLAGS = (
 					"\"$(CINDER_PATH)/lib/libcinder_d.a\"",
-					"\"../../../dart-runtime/lib/macosx/libdart_builtin.a\"",
-					"\"../../../dart-runtime/lib/macosx/libdart_lib_withcore.a\"",
-					"\"../../../dart-runtime/lib/macosx/libdart_vm.a\"",
-					"\"../../../dart-runtime/lib/macosx/libdart_withcore.a\"",
-					"\"../../../dart-runtime/lib/macosx/libdouble_conversion.a\"",
-					"\"../../../dart-runtime/lib/macosx/libjscre.a\"",
+					"\"../../../dart-runtime/lib/macosx/Debug/libdart_runtime.a\"",
 				);
 				PRODUCT_NAME = ImportTest;
 				SYMROOT = ./build;
@@ -363,18 +354,9 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/r/code/cinder/rte/Cinder-Dart/dart-runtime/lib/macosx",
-				);
 				OTHER_LDFLAGS = (
 					"\"$(CINDER_PATH)/lib/libcinder.a\"",
-					"\"../../../dart-runtime/lib/macosx/libdart_builtin.a\"",
-					"\"../../../dart-runtime/lib/macosx/libdart_lib_withcore.a\"",
-					"\"../../../dart-runtime/lib/macosx/libdart_vm.a\"",
-					"\"../../../dart-runtime/lib/macosx/libdart_withcore.a\"",
-					"\"../../../dart-runtime/lib/macosx/libdouble_conversion.a\"",
-					"\"../../../dart-runtime/lib/macosx/libjscre.a\"",
+					"\"../../../dart-runtime/lib/macosx/Release/libdart_runtime.a\"",
 				);
 				PRODUCT_NAME = ImportTest;
 				STRIP_INSTALLED_PRODUCT = YES;
