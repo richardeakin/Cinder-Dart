@@ -96,7 +96,11 @@ void DartVM::loadScript( ci::DataSourceRef script )
 
 	Dart_Handle source = toDart( scriptContents );
 	CIDART_CHECK( source );
-	CIDART_CHECK_RETURN( Dart_LoadScript( url, source, 0, 0 ) );
+
+	Dart_Handle scriptHandle = Dart_LoadScript( url, source, 0, 0 );
+	if( Dart_IsError( scriptHandle ) )
+		throw DartException( Dart_GetError( scriptHandle ) );
+
 	CIDART_CHECK( Dart_SetNativeResolver( Dart_RootLibrary(), resolveNameHandler, NULL ) );
 
 	// finalize script and invoke main.
@@ -136,7 +140,10 @@ void DartVM::invoke( const string &functionName, int argc, Dart_Handle* args )
 
 	Dart_Handle nameHandle = toDart( functionName.c_str() );
 	Dart_Handle result = Dart_Invoke( library, nameHandle, argc, args );
-	CIDART_CHECK_RETURN( result );
+
+	if( Dart_IsError( result ) )
+		throw DartException( Dart_GetError( result ) );
+
 
 	// TODO: there was originally a note saying this probably isn't necessary.. try removing
 	// Keep handling messages until the last active receive port is closed.
@@ -335,7 +342,8 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 
 			Dart_Handle libString = toDart( fileString );
 			Dart_Handle loadedHandle = Dart_LoadLibrary( urlHandle, libString, 0, 0 );
-			CIDART_CHECK( loadedHandle );
+			if( Dart_IsError( loadedHandle ) )
+				throw DartException( Dart_GetError( loadedHandle ) );
 
 			CIDART_CHECK( Dart_SetNativeResolver( loadedHandle, resolveNameHandler, NULL ) );
 
@@ -362,8 +370,8 @@ Dart_Handle DartVM::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 		return loadedHandle;
 	}
 
-	CI_ASSERT_NOT_REACHABLE();
-	return nullptr;
+	auto errorString = string( "could not resolve library with url: " ) + urlString;
+	return Dart_NewApiError( errorString.c_str() );
 }
 
 // static

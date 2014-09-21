@@ -5,6 +5,7 @@
 #pragma once
 
 #include "cinder/DataSource.h"
+#include "cinder/Exception.h"
 #include "cinder/Function.h"
 
 #include "include/dart_api.h"
@@ -81,5 +82,14 @@ class DartVM {
 	static void printNative( Dart_NativeArguments arguments );
 	static void toCinder( Dart_NativeArguments arguments );
 };
+
+class DartException : public ci::Exception {
+  public:
+	DartException( const std::string &descr ) : mDescription( descr )	{}
+	virtual const char* what() const throw()	{ return mDescription.c_str(); }
+  protected:
+	std::string mDescription;
+};
+
 
 } // namespace cidart

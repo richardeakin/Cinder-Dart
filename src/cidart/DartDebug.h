@@ -37,11 +37,3 @@
 		CI_ASSERT( 0 );								\
 	}												\
 }
-
-#define CIDART_CHECK_RETURN( result )				\
-{													\
-	if( Dart_IsError( result ) ) {					\
-		CI_LOG_E( Dart_GetError( result ) );		\
-		return;										\
-	}												\
-}
