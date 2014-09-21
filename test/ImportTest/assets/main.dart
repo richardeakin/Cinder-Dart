@@ -1,7 +1,7 @@
 
 import 'dart:math' as math;
 import 'package:vector_math/vector_math.dart';
-import 'cinder';
+import 'cinder.dart';
 
 void main() {
   print("hello dart.");

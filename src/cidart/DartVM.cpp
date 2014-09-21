@@ -114,7 +114,7 @@ void DartVM::loadCinderDartLib()
 	Dart_Handle source = toDart( script );
 	CIDART_CHECK( source );
 
-	Dart_Handle cinderDartLib = Dart_LoadLibrary( toDart( "cinder" ), source, 0, 0 );
+	Dart_Handle cinderDartLib = Dart_LoadLibrary( toDart( "cinder.dart" ), source, 0, 0 );
 	CIDART_CHECK( cinderDartLib );
 	CIDART_CHECK( Dart_SetNativeResolver( cinderDartLib, resolveNameHandler, NULL ) );
 
