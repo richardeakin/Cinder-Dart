@@ -30,7 +30,7 @@ void getNumberValueImpl( Dart_Handle handle, T *value )
 		*value = static_cast<T>( result );
 	}
 	else
-		CI_LOG_E( "expected handle to be either of type float or int" );
+		throw DartException( "expected handle to be either of type float or int" );
 }
 	
 } // anonymous namespace

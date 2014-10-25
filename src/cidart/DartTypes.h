@@ -7,6 +7,7 @@
 #include "include/dart_api.h"
 #include "cinder/Vector.h"
 #include "cinder/Color.h"
+#include "cinder/Exception.h"
 
 #if( CINDER_VERSION < 900 )
 
@@ -72,5 +73,13 @@ std::string getTypeName( Dart_Handle handle );
 
 // Debug utils:
 std::string printNativeArgumentsToString( Dart_NativeArguments args, bool printMethodNames = false );
+
+class DartException : public ci::Exception {
+  public:
+	DartException( const std::string &descr ) : mDescription( descr )	{}
+	virtual const char* what() const throw()	{ return mDescription.c_str(); }
+  protected:
+	std::string mDescription;
+};
 
 } // namespace cidart
