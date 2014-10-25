@@ -200,7 +200,6 @@ Dart_Isolate DartVM::createIsolateCallback( const char* script_uri, const char* 
 	
 	uint8_t *snapshotData = (uint8_t *)dartVm->mSnapshot->getBuffer().getData();
 
-	CI_LOG_V( "Creating isolate " << script_uri << ", " << main );
 	Dart_Isolate isolate = Dart_CreateIsolate( script_uri, main, snapshotData, data, error );
 	if ( ! isolate ) {
 		CI_LOG_E( "Couldn't create isolate: " << *error );
@@ -402,8 +401,6 @@ void DartVM::printNative( Dart_NativeArguments arguments )
 	ci::app::console() << "|dart| " << getValue<string>( handle ) << std::endl;
 }
 
-// TODO: see if I can use Dart_ObjectIsType to ensure the class is of type Map
-// - actually it looks like there is new API for Map's - check those out too
 // static
 void DartVM::toCinder( Dart_NativeArguments arguments )
 {
@@ -415,44 +412,28 @@ void DartVM::toCinder( Dart_NativeArguments arguments )
 		return;
 	}
 
-	Dart_Handle handle = Dart_GetNativeArgument( arguments, 0 );
+	Dart_Handle mapHandle = Dart_GetNativeArgument( arguments, 0 );
 
-	if( ! Dart_IsInstance( handle ) ) {
-		CI_LOG_E( "not a dart instance." );
-		return;
-	}
-
-	string typeName = getTypeName( handle );
-	CI_LOG_V( "type name: " << typeName );
-
-	if( ! isMap( handle ) ) {
+	if( ! Dart_IsMap( mapHandle ) ) {
 		CI_LOG_E( "expected object of type map" );
 		return;
 	}
 
-	// get keys:
+	// get keys and create a map of keyString to Dart_Handle's
+	Dart_Handle keysList = Dart_MapKeys( mapHandle );
+	CIDART_CHECK( keysList );
 
-	Dart_Handle length = getField( handle, "length" );
-
-	int numEntries = getValue<int>( length );
-	Dart_Handle keys = getField( handle, "keys" );
-
-	Dart_Handle lengthIter = getField( keys, "length" );
-	int lenIter = getValue<int>( lengthIter );
-	CI_ASSERT( numEntries == lenIter );
+	intptr_t numKeys;
+	CIDART_CHECK( Dart_ListLength( keysList, &numKeys ) );
 
 	DataMap map;
 
-	for( size_t i = 0; i < lenIter; i++ ) {
-		Dart_Handle args[] = { Dart_NewInteger( i ) };
-		Dart_Handle key = callFunction( keys, "elementAt", 1, args );
-		string keyString = getValue<string>( key );
+	for( intptr_t i = 0; i < numKeys; i++ ) {
+		Dart_Handle keyHandle = Dart_ListGetAt( keysList, i );
+		Dart_Handle valueHandle = Dart_MapGetAt( mapHandle, keyHandle );
 
-		args[0] = key;
-		Dart_Handle value = callFunction( handle, "[]", 1, args );
-
-		// hand user the Dart_Handle
-		map[keyString] = value;
+		string keyString = getValue<string>( keyHandle );
+		map[keyString] = valueHandle;
 	}
 
 	cd->mReceiveMapCallback( map );

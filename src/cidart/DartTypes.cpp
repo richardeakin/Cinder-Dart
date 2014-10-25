@@ -47,7 +47,7 @@ Dart_Handle toDart( const std::string &str )
 
 float getFloatForKey( Dart_Handle mapHandle, const char *key )
 {
-	CI_ASSERT( isMap( mapHandle ) );
+	CI_ASSERT( Dart_IsMap( mapHandle ) );
 
 	Dart_Handle args[] = { cidart::toDart( key ) };
 	Dart_Handle valueHandle = cidart::callFunction( mapHandle, "[]", 1, args );
@@ -209,21 +209,6 @@ string getTypeName( Dart_Handle handle )
 	CIDART_CHECK( typeName );
 
 	return getValue<string>( typeName );
-}
-
-// TODO: use Dart_isMap()
-bool isMap( Dart_Handle handle )
-{
-	Dart_Handle coreLib = Dart_LookupLibrary( toDart( "dart:core" ) );
-	CIDART_CHECK( coreLib );
-
-	Dart_Handle type = Dart_GetType( coreLib, toDart( "Map" ), 0, nullptr );
-	CIDART_CHECK( type );
-
-	bool result;
-	CIDART_CHECK( Dart_ObjectIsType( handle, type, &result ) );
-
-	return result;
 }
 
 // ???: rename to isCinderType?
