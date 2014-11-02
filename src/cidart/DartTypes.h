@@ -66,6 +66,16 @@ T	getField( Dart_Handle container, const std::string &name )
 	return result;
 }
 
+template <typename T>
+T getFieldOrDefault( Dart_Handle container, const std::string &name, const T &defaultValue )
+{
+	Dart_Handle fieldHandle = cidart::getField( container, name );
+	if( Dart_IsNull( fieldHandle ) )
+		return defaultValue;
+	else
+		return cidart::getValue<T>( fieldHandle );
+}
+
 bool hasFunction( Dart_Handle handle, const std::string &name );
 Dart_Handle callFunction( Dart_Handle target, const std::string &name, int numArgs = 0, Dart_Handle *args = nullptr );
 
