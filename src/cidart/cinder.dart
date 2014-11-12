@@ -29,3 +29,9 @@ class Vec3 {
 	
 	Vec3( this.x, this.y, this.z );
 }
+
+class Rect {
+	num x1, x2, y1, y2;
+
+	Rect( this.x1, this.x2, this.y1, this.y2 );
+}

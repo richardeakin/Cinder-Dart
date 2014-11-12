@@ -76,6 +76,11 @@ void getValue( Dart_Handle handle, float *value )
 	getNumberValueImpl( handle, value );
 }
 
+void getValue( Dart_Handle handle, double *value )
+{
+	getNumberValueImpl( handle, value );
+}
+
 void getValue( Dart_Handle handle, ci::Color *value )
 {
 	Dart_Handle r = getField( handle, "r" );
@@ -138,6 +143,20 @@ void getValue( Dart_Handle handle, ci::vec2 *value )
 	value->y = getValue<float>( y );
 }
 
+void getValue( Dart_Handle handle, ci::dvec2 *value )
+{
+	Dart_Handle x = getField( handle, "x" );
+	Dart_Handle y = getField( handle, "y" );
+
+	if( Dart_IsError( x ) || Dart_IsError( y ) ) {
+		CI_LOG_E( "expected handle to have fields 'x' and 'y'" );
+		return;
+	}
+
+	value->x = getValue<double>( x );
+	value->y = getValue<double>( y );
+}
+
 void getValue( Dart_Handle handle, ci::ivec3 *value )
 {
 	Dart_Handle x = getField( handle, "x" );
@@ -160,7 +179,7 @@ void getValue( Dart_Handle handle, ci::vec3 *value )
 	Dart_Handle y = getField( handle, "y" );
 	Dart_Handle z = getField( handle, "z" );
 
-	if( Dart_IsError( x ) || Dart_IsError( y ) ) {
+	if( Dart_IsError( x ) || Dart_IsError( y ) || Dart_IsError( z ) ) {
 		CI_LOG_E( "expected handle to have fields 'x', 'y', and 'z'" );
 		return;
 	}
@@ -168,6 +187,40 @@ void getValue( Dart_Handle handle, ci::vec3 *value )
 	value->x = getValue<float>( x );
 	value->y = getValue<float>( y );
 	value->z = getValue<float>( z );
+}
+
+void getValue( Dart_Handle handle, ci::dvec3 *value )
+{
+	Dart_Handle x = getField( handle, "x" );
+	Dart_Handle y = getField( handle, "y" );
+	Dart_Handle z = getField( handle, "z" );
+
+	if( Dart_IsError( x ) || Dart_IsError( y ) || Dart_IsError( z ) ) {
+		CI_LOG_E( "expected handle to have fields 'x', 'y', and 'z'" );
+		return;
+	}
+
+	value->x = getValue<double>( x );
+	value->y = getValue<double>( y );
+	value->z = getValue<double>( z );
+}
+
+void getValue( Dart_Handle handle, ci::Rectf *value )
+{
+	Dart_Handle x1 = getField( handle, "x1" );
+	Dart_Handle x2 = getField( handle, "x2" );
+	Dart_Handle y1 = getField( handle, "y1" );
+	Dart_Handle y2 = getField( handle, "y2" );
+
+	if( Dart_IsError( x1 ) || Dart_IsError( x2 ) || Dart_IsError( y1 ) || Dart_IsError( y2 ) ) {
+		CI_LOG_E( "expected handle to have fields 'x1', 'x2', 'y1' and 'y2'" );
+		return;
+	}
+
+	value->x1 = getValue<float>( x1 );
+	value->x2 = getValue<float>( x2 );
+	value->y1 = getValue<float>( y1 );
+	value->y2 = getValue<float>( y2 );
 }
 
 void getValue( Dart_Handle handle, std::string *value )

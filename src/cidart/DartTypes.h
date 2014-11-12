@@ -7,6 +7,7 @@
 #include "include/dart_api.h"
 #include "cinder/Vector.h"
 #include "cinder/Color.h"
+#include "cinder/Rect.h"
 #include "cinder/Exception.h"
 
 #if( CINDER_VERSION < 900 )
@@ -15,8 +16,10 @@
 namespace cinder {
 	typedef Vec2f	vec2;
 	typedef Vec2i	ivec2;
+	typedef Vec2d	dvec2;
 	typedef Vec3f	vec3;
 	typedef Vec3i	ivec3;
+	typedef Vec3d	dvec3;
 }
 
 #endif
@@ -39,12 +42,16 @@ void getValue( Dart_Handle handle, bool *value );
 void getValue( Dart_Handle handle, int *value );
 void getValue( Dart_Handle handle, size_t *value );
 void getValue( Dart_Handle handle, float *value );
+void getValue( Dart_Handle handle, double *value );
 void getValue( Dart_Handle handle, ci::Color *value );
 void getValue( Dart_Handle handle, ci::ColorA *value );
 void getValue( Dart_Handle handle, ci::ivec2 *value );
 void getValue( Dart_Handle handle, ci::vec2 *value );
+void getValue( Dart_Handle handle, ci::dvec2 *value );
 void getValue( Dart_Handle handle, ci::ivec3 *value );
 void getValue( Dart_Handle handle, ci::vec3 *value );
+void getValue( Dart_Handle handle, ci::dvec3 *value );
+void getValue( Dart_Handle handle, ci::Rectf *value );
 void getValue( Dart_Handle handle, std::string *value );
 
 template <typename T>
