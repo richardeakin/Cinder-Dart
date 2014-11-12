@@ -20,7 +20,6 @@ void getNumberValueImpl( Dart_Handle handle, T *value )
 {
 	if( Dart_IsDouble( handle ) ) {
 		double result;
-
 		CIDART_CHECK( Dart_DoubleValue( handle, &result ) );
 		*value = static_cast<T>( result );
 	}
@@ -29,8 +28,9 @@ void getNumberValueImpl( Dart_Handle handle, T *value )
 		CIDART_CHECK( Dart_IntegerToInt64( handle, &result ) );
 		*value = static_cast<T>( result );
 	}
-	else
-		throw DartException( "expected handle to be either of type float or int" );
+	else {
+		throw DartException( "cannot make number from handle of type: " + getTypeName( handle ) );
+	}
 }
 	
 } // anonymous namespace
