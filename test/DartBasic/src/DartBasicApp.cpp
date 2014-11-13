@@ -92,7 +92,11 @@ void DartBasicApp::draw()
 
 	gl::pushMatrices();
 		gl::translate( getWindowCenter() );
+#if CINDER_VERSION >= 807
+		gl::rotate( toRadians( mRotation() ) );
+#else
 		gl::rotate( mRotation );
+#endif
 		gl::color( mCircleColor );
 		gl::drawSolidCircle( vec2( 0, 0 ), mCircleRadius, mNumCircleSegments );
 	gl::popMatrices();
