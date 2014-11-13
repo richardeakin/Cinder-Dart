@@ -11,10 +11,6 @@
 
 #define PROFILE_LOAD_TIME 0
 
-#if PROFILE_LOAD_TIME
-	#include "cinder/Timer.h"
-#endif
-
 using namespace ci;
 using namespace std;
 
@@ -23,10 +19,6 @@ namespace cidart {
 Script::Script( const DataSourceRef &source, const Options &options )
 	: mIsolate( nullptr ), mNativeFunctionMap( options.getNativeFunctionMap() ), mReceiveMapCallback( options.getReceiveMapCallback() )
 {
-#if PROFILE_LOAD_TIME
-		Timer timer( true );
-#endif
-
 	mNativeFunctionMap["printNative"] = printNative;
 	mNativeFunctionMap["toCinder"] = toCinder;
 
@@ -43,11 +35,9 @@ Script::Script( const DataSourceRef &source, const Options &options )
 	DartVM::instance()->loadCinderDartLib();
 
 	Dart_Handle url = toDart( sourcePath );
-	string scriptContents = loadString( source );
+	string sourceStr = loadString( source );
 
-	//	CI_LOG_V( "script contents: " << scriptContents );;
-
-	Dart_Handle sourceHandle = toDart( scriptContents );
+	Dart_Handle sourceHandle = toDart( sourceStr );
 	CIDART_CHECK( sourceHandle );
 
 	Dart_Handle scriptHandle = Dart_LoadScript( url, sourceHandle, 0, 0 );
@@ -59,10 +49,6 @@ Script::Script( const DataSourceRef &source, const Options &options )
 	// finalize script and invoke main.
 	CIDART_CHECK( Dart_FinalizeLoading( false ) );
 	invoke( "main" );
-
-#if PROFILE_LOAD_TIME
-	CI_LOG_I( "load complete. elapsed time: " << (float)timer.getSeconds() * 1000.0f << " ms." );
-#endif
 }
 
 void Script::invoke( const string &functionName, int argc, Dart_Handle *args )

@@ -37,10 +37,6 @@ class Script {
 
 	static ScriptRef	create( const ci::DataSourceRef &source, const Options &options = Options() )	{ return ScriptRef( new Script( source, options ) ); }
 
-	// TODO: these will have to be added during create
-//	void setMapReceiver( const ReceiveMapCallback &callback )	{ mReceiveMapCallback = callback; }
-//	void addNativeFunction( const std::string dartFuncName, Dart_NativeFunction nativeFunc )	{ mNativeFunctionMap[dartFuncName] = nativeFunc; }
-
 	void invoke( const std::string &functionName, int argc = 0, Dart_Handle *args = nullptr );
 
   private:
