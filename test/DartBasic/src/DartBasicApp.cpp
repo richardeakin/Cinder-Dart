@@ -7,6 +7,7 @@
 #endif
 
 #include "cidart/DartVM.h"
+#include "cidart/Script.h"
 #include "cidart/DartTypes.h"
 #include "cidart/DartDebug.h"
 
@@ -20,9 +21,10 @@ class DartBasicApp : public AppNative {
 	void keyDown( KeyEvent event );
 	void draw();
 
+	void loadScript();
 	void receiveMap(  const cidart::DataMap& map );
 
-	cidart::DartVMRef mDart;
+	cidart::ScriptRef mScript;
 
 	size_t		mNumCircleSegments;
 	ColorA		mCircleColor;
@@ -41,10 +43,13 @@ void DartBasicApp::setup()
 	mRotationRate = 2.0f;
 	mRotation = 0;
 
-	mDart = cidart::DartVM::create();
+	loadScript();
+}
 
-	mDart->setMapReceiver( bind( &DartBasicApp::receiveMap, this, placeholders::_1 ) );
-	mDart->loadScript( loadAsset( "main.dart" ) );
+void DartBasicApp::loadScript()
+{
+	auto opts = cidart::Script::Options().mapReceiver( bind( &DartBasicApp::receiveMap, this, placeholders::_1 ) );
+	mScript = cidart::Script::create( loadAsset( "main.dart" ), opts );
 }
 
 void DartBasicApp::receiveMap( const cidart::DataMap &map )
@@ -77,7 +82,7 @@ void DartBasicApp::keyDown( KeyEvent event )
 {
 	if( event.getChar() == 'r' ) {
 		CI_LOG_V( "reload." );
-		mDart->loadScript( loadAsset( "main.dart" ) ); // TODO: add DartVM::reload
+		loadScript();
 	}
 }
 
@@ -87,7 +92,11 @@ void DartBasicApp::draw()
 
 	gl::pushMatrices();
 		gl::translate( getWindowCenter() );
+#if CINDER_VERSION >= 807
+		gl::rotate( toRadians( mRotation() ) );
+#else
 		gl::rotate( mRotation );
+#endif
 		gl::color( mCircleColor );
 		gl::drawSolidCircle( vec2( 0, 0 ), mCircleRadius, mNumCircleSegments );
 	gl::popMatrices();
