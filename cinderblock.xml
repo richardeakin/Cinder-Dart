@@ -7,7 +7,7 @@
 	license="BSD"
 	summary="Dart scripting in Cinder"
 	git="git://github.com/richardeakin/Cinder-Dart.git"
-	version="0.2"
+	version="0.3"
 	libraryUrl="www.dartlang.org"
 	>
 
