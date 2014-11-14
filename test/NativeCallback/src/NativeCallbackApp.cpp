@@ -5,7 +5,7 @@
 	#include "cinder/app/RendererGl.h"
 #endif
 
-#include "cidart/DartVM.h"
+#include "cidart/Script.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -21,15 +21,13 @@ class NativeCallbackApp : public AppNative {
 	void setup();
 	void draw();
 
-	cidart::DartVMRef mDart;
+	cidart::ScriptRef mScript;
 };
 
 void NativeCallbackApp::setup()
 {
-	mDart = cidart::DartVM::create();
-
-	mDart->addNativeFunction( "blarg", customNativeCallback );
-	mDart->loadScript( loadAsset( "main.dart" ) );
+	auto opts = cidart::Script::Options().native( "blarg", customNativeCallback );
+	mScript = cidart::Script::create( loadAsset( "main.dart" ), opts );
 }
 
 void NativeCallbackApp::draw()

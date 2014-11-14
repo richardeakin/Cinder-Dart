@@ -15,12 +15,13 @@
 		11244746198F2FF400726514 /* snapshot_gen.bin in Resources */ = {isa = PBXBuildFile; fileRef = 11244745198F2FF400726514 /* snapshot_gen.bin */; };
 		11397B1B19C0D7A300E3B138 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11397B1919C0D7A300E3B138 /* AVFoundation.framework */; };
 		11397B1C19C0D7A300E3B138 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11397B1A19C0D7A300E3B138 /* CoreMedia.framework */; };
-		1FAD79119FB442B9B28D1F72 /* DartTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E9BD10A56A84DA9AB163458 /* DartTypes.cpp */; };
+		114E91461A1699F500364AD8 /* Script.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 114E91441A1699F500364AD8 /* Script.cpp */; };
+		1FAD79119FB442B9B28D1F72 /* Types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E9BD10A56A84DA9AB163458 /* Types.cpp */; };
 		4A62F2E7E6C74746B955CE49 /* NativeCallbackApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA1331CBF3144773A280C5DE /* NativeCallbackApp.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
 		58AFD76B462D437DAC521BC3 /* cinder.dart in Resources */ = {isa = PBXBuildFile; fileRef = 87AF580E0A6F466487ECDC68 /* cinder.dart */; };
-		7897B463CF34453EA26D0807 /* DartVM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57ADD1EBB51945CD8999A032 /* DartVM.cpp */; };
+		7897B463CF34453EA26D0807 /* VM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57ADD1EBB51945CD8999A032 /* VM.cpp */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		F2943A6EC0A44CB082737AE6 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 20BB2EC14DEF43CD89E048FF /* CinderApp.icns */; };
 /* End PBXBuildFile section */
@@ -39,6 +40,8 @@
 		1124474B198F301700726514 /* dart_native_api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = dart_native_api.h; path = "../../../dart-runtime/include/dart_native_api.h"; sourceTree = "<group>"; };
 		11397B1919C0D7A300E3B138 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		11397B1A19C0D7A300E3B138 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		114E91441A1699F500364AD8 /* Script.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Script.cpp; path = ../../../src/cidart/Script.cpp; sourceTree = "<group>"; };
+		114E91451A1699F500364AD8 /* Script.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Script.h; path = ../../../src/cidart/Script.h; sourceTree = "<group>"; };
 		11D679C11752B48800E96E0D /* main.dart */ = {isa = PBXFileReference; explicitFileType = text; name = main.dart; path = ../assets/main.dart; sourceTree = "<group>"; };
 		140BB7032E4B4AB696B4A880 /* debug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = debug.h; path = ../../../src/cidart/debug.h; sourceTree = "<group>"; };
 		1F64CF3949FB4FC4995B8F6E /* NativeCallback_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = NativeCallback_Prefix.pch; sourceTree = "<group>"; };
@@ -47,12 +50,12 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		5323E6B50EAFCA7E003A9687 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
-		57ADD1EBB51945CD8999A032 /* DartVM.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = DartVM.cpp; path = ../../../src/cidart/DartVM.cpp; sourceTree = "<group>"; };
-		5A8C5DDAA70E4D578E3BF912 /* DartVM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DartVM.h; path = ../../../src/cidart/DartVM.h; sourceTree = "<group>"; };
-		869F564EF30A41729773BD9D /* DartTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DartTypes.h; path = ../../../src/cidart/DartTypes.h; sourceTree = "<group>"; };
+		57ADD1EBB51945CD8999A032 /* VM.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = VM.cpp; path = ../../../src/cidart/VM.cpp; sourceTree = "<group>"; };
+		5A8C5DDAA70E4D578E3BF912 /* VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VM.h; path = ../../../src/cidart/VM.h; sourceTree = "<group>"; };
+		869F564EF30A41729773BD9D /* Types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Types.h; path = ../../../src/cidart/Types.h; sourceTree = "<group>"; };
 		87AF580E0A6F466487ECDC68 /* cinder.dart */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; name = cinder.dart; path = ../../../src/cidart/cinder.dart; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* NativeCallback.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativeCallback.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8E9BD10A56A84DA9AB163458 /* DartTypes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = DartTypes.cpp; path = ../../../src/cidart/DartTypes.cpp; sourceTree = "<group>"; };
+		8E9BD10A56A84DA9AB163458 /* Types.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = Types.cpp; path = ../../../src/cidart/Types.cpp; sourceTree = "<group>"; };
 		AA1331CBF3144773A280C5DE /* NativeCallbackApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = NativeCallbackApp.cpp; path = ../src/NativeCallbackApp.cpp; sourceTree = "<group>"; };
 		BE87887A274E490D8363C002 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		D5E819DE90B54E6D89B8C47E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -201,12 +204,14 @@
 		9703F1DFA26C41A490D6A2D3 /* cidart */ = {
 			isa = PBXGroup;
 			children = (
-				869F564EF30A41729773BD9D /* DartTypes.h */,
-				5A8C5DDAA70E4D578E3BF912 /* DartVM.h */,
-				140BB7032E4B4AB696B4A880 /* debug.h */,
-				8E9BD10A56A84DA9AB163458 /* DartTypes.cpp */,
-				57ADD1EBB51945CD8999A032 /* DartVM.cpp */,
 				87AF580E0A6F466487ECDC68 /* cinder.dart */,
+				140BB7032E4B4AB696B4A880 /* debug.h */,
+				114E91441A1699F500364AD8 /* Script.cpp */,
+				114E91451A1699F500364AD8 /* Script.h */,
+				8E9BD10A56A84DA9AB163458 /* Types.cpp */,
+				869F564EF30A41729773BD9D /* Types.h */,
+				57ADD1EBB51945CD8999A032 /* VM.cpp */,
+				5A8C5DDAA70E4D578E3BF912 /* VM.h */,
 			);
 			name = cidart;
 			sourceTree = "<group>";
@@ -293,9 +298,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				114E91461A1699F500364AD8 /* Script.cpp in Sources */,
 				4A62F2E7E6C74746B955CE49 /* NativeCallbackApp.cpp in Sources */,
-				1FAD79119FB442B9B28D1F72 /* DartTypes.cpp in Sources */,
-				7897B463CF34453EA26D0807 /* DartVM.cpp in Sources */,
+				1FAD79119FB442B9B28D1F72 /* Types.cpp in Sources */,
+				7897B463CF34453EA26D0807 /* VM.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

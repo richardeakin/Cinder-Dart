@@ -6,9 +6,10 @@
 	#include "cinder/app/RendererGl.h"
 #endif
 
-#include "cidart/DartVM.h"
-#include "cidart/DartTypes.h"
-#include "cidart/DartDebug.h"
+#include "cidart/VM.h"
+#include "cidart/Script.h"
+#include "cidart/Types.h"
+#include "cidart/Debug.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -20,9 +21,10 @@ class ImportTestApp : public AppNative {
 	void keyDown( KeyEvent event );
 	void draw();
 
+	void loadScript();
 	void receiveMap(  const cidart::DataMap& map );
 
-	cidart::DartVMRef mDart;
+	cidart::ScriptRef mScript;
 
 	size_t		mNumCircleSegments;
 	ColorA		mCircleColor;
@@ -32,7 +34,7 @@ class ImportTestApp : public AppNative {
 
 void ImportTestApp::setup()
 {
-	CI_LOG_I( "dart runtime version: " << cidart::DartVM::getVersionString() );
+	CI_LOG_I( "dart runtime version: " << cidart::VM::getVersionString() );
 
 	// these values will be updated from main.dart:
 	mCircleRadius = 1.0f;
@@ -41,10 +43,13 @@ void ImportTestApp::setup()
 	mRotationRate = 2.0f;
 	mRotation = 0;
 
-	mDart = cidart::DartVM::create();
+	loadScript();
+}
 
-	mDart->setMapReceiver( bind( &ImportTestApp::receiveMap, this, placeholders::_1 ) );
-	mDart->loadScript( loadAsset( "main.dart" ) );
+void ImportTestApp::loadScript()
+{
+	auto opts = cidart::Script::Options().mapReceiver( bind( &ImportTestApp::receiveMap, this, placeholders::_1 ) );
+	mScript = cidart::Script::create( loadAsset( "main.dart" ), opts );
 }
 
 void ImportTestApp::receiveMap( const cidart::DataMap& map )
@@ -83,7 +88,7 @@ void ImportTestApp::keyDown( KeyEvent event )
 {
 	if( event.getChar() == 'r') {
 		CI_LOG_V( "reload." );
-		mDart->loadScript( loadAsset( "main.dart" ) ); // TODO: add DartVM::reload
+		loadScript();
 	}
 }
 
@@ -93,7 +98,11 @@ void ImportTestApp::draw()
 
 	gl::pushMatrices();
 		gl::translate( getWindowCenter() );
+#if CINDER_VERSION >= 807
+		gl::rotate( toRadians( mRotation() ) );
+#else
 		gl::rotate( mRotation );
+#endif
 		gl::color( mCircleColor );
 		gl::drawSolidCircle( vec2( 0, 0 ), mCircleRadius, mNumCircleSegments );
 	gl::popMatrices();

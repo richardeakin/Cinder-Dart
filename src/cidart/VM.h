@@ -15,9 +15,9 @@
 
 namespace cidart {
 
-class DartVM {
+class VM {
   public:
-	static DartVM* instance();
+	static VM* instance();
 
 	void setCinderDartScriptPath( const ci::fs::path &scriptPath );
 	void setCinderDartScriptResource( const ci::DataSourceRef &scriptResource );
@@ -25,7 +25,7 @@ class DartVM {
 	static std::string getVersionString();
 
   private:
-	DartVM();
+	VM();
 
 	void			loadCinderDartLib();
 	std::string		getCinderDartScript();

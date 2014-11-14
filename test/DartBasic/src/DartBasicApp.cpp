@@ -6,10 +6,10 @@
 	#include "cinder/app/RendererGl.h"
 #endif
 
-#include "cidart/DartVM.h"
+#include "cidart/VM.h"
 #include "cidart/Script.h"
-#include "cidart/DartTypes.h"
-#include "cidart/DartDebug.h"
+#include "cidart/Types.h"
+#include "cidart/Debug.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -34,7 +34,7 @@ class DartBasicApp : public AppNative {
 
 void DartBasicApp::setup()
 {
-	CI_LOG_I( "dart runtime version: " << cidart::DartVM::getVersionString() );
+	CI_LOG_I( "dart runtime version: " << cidart::VM::getVersionString() );
 
 	// these values will be updated from main.dart:
 	mCircleRadius = 1.0f;

@@ -60,7 +60,7 @@ class Script {
 
 	std::map<std::string, ci::fs::path>		mImportedLibraries;
 
-	friend class DartVM;
+	friend class VM;
 };
 
 } // namespace ciadart
