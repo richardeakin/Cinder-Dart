@@ -15,19 +15,20 @@ namespace cidart {
 typedef std::shared_ptr<class Script>		ScriptRef;
 typedef std::map<std::string, Dart_Handle>	DataMap;
 
+typedef std::map<std::string, Dart_NativeFunction> NativeFunctionMap;
+typedef std::function<void( const DataMap& )>	ReceiveMapCallback;
+
 // TODO: consider whether to name this Isolate or Script
 // - is it at all useful to create an Isolate that doesn't spawn a new script?
 // - need to read up more on how Isolates are created in plain dart, and their uses
 class Script {
   public:
-	typedef std::map<std::string, Dart_NativeFunction> NativeFunctionMap;
-	typedef std::function<void( const DataMap& )>	ReceiveMapCallback;
-
 	struct Options {
 		Options& native( const std::string &dartFuncName, Dart_NativeFunction nativeFunc ) { mNativeFunctionMap[dartFuncName] = nativeFunc; return *this; }
 		Options& mapReceiver( const ReceiveMapCallback &callback )	{ mReceiveMapCallback = callback; return *this; }
 
 		const NativeFunctionMap&	getNativeFunctionMap() const	{ return mNativeFunctionMap; }
+		NativeFunctionMap&			getNativeFunctionMap()			{ return mNativeFunctionMap; }
 		const ReceiveMapCallback&	getReceiveMapCallback() const	{ return mReceiveMapCallback; }
 
 	  private:
