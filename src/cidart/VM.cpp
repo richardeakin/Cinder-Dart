@@ -2,10 +2,10 @@
 // Use of this source code (and the Dart VM) is governed by a
 // BSD-style license that can be found in the LICENSE.txt file.
 
-#include "cidart/DartVM.h"
+#include "cidart/VM.h"
 #include "cidart/Script.h"
-#include "cidart/DartTypes.h"
-#include "cidart/DartDebug.h"
+#include "cidart/Types.h"
+#include "cidart/Debug.h"
 
 #include "cinder/app/App.h"
 #include "cinder/Utilities.h"
@@ -25,16 +25,16 @@ using namespace ci;
 namespace cidart {
 
 // static
-DartVM* DartVM::instance()
+VM* VM::instance()
 {
-	static std::unique_ptr<DartVM>	sInstance;
+	static std::unique_ptr<VM>	sInstance;
 	if( ! sInstance )
-		sInstance.reset( new DartVM );
+		sInstance.reset( new VM );
 
 	return sInstance.get();
 }
 
-DartVM::DartVM()
+VM::VM()
 {
 	// TODO: pass in vm flags at construction.
 	mVMFlags.push_back( "--checked" );
@@ -63,7 +63,7 @@ DartVM::DartVM()
 	CI_VERIFY( success );
 }
 
-void DartVM::loadCinderDartLib()
+void VM::loadCinderDartLib()
 {
 	string script = getCinderDartScript();
 	Dart_Handle source = toDart( script );
@@ -85,24 +85,24 @@ void DartVM::loadCinderDartLib()
 }
 
 // static
-string DartVM::getVersionString()
+string VM::getVersionString()
 {
 	return Dart_VersionString();
 }
 
-void DartVM::setCinderDartScriptPath( const fs::path &scriptPath )
+void VM::setCinderDartScriptPath( const fs::path &scriptPath )
 {
 	CI_ASSERT( fs::exists( scriptPath ) );
 
 	mCinderDartScriptPath = scriptPath;
 }
 
-void DartVM::setCinderDartScriptResource( const ci::DataSourceRef &scriptResource )
+void VM::setCinderDartScriptResource( const ci::DataSourceRef &scriptResource )
 {
 	mCinderDartScriptResource = scriptResource;
 }
 
-string DartVM::getCinderDartScript()
+string VM::getCinderDartScript()
 {
 	if( mCinderDartScriptResource )
 		return loadString( mCinderDartScriptResource );
@@ -118,7 +118,7 @@ string DartVM::getCinderDartScript()
 	return loadString( loadFile( mCinderDartScriptPath ) );
 }
 
-const DataSourceRef& DartVM::getSnapShot()
+const DataSourceRef& VM::getSnapShot()
 {
 	if( ! mSnapshot )
 		mSnapshot = app::loadResource( "snapshot_gen.bin" );
@@ -131,27 +131,27 @@ const DataSourceRef& DartVM::getSnapShot()
 //// ----------------------------------------------------------------------------------------------------
 
 // static
-bool DartVM::interruptIsolateCallback()
+bool VM::interruptIsolateCallback()
 {
 	CI_LOG_V( "continuing.." );
 	return true;
 }
 
 // static
-void DartVM::unhandledExceptionCallback( Dart_Handle error )
+void VM::unhandledExceptionCallback( Dart_Handle error )
 {
 	 CI_LOG_E( Dart_GetError( error ) );
 }
 
 // static
-void DartVM::shutdownIsolateCallback( void *callbackData )
+void VM::shutdownIsolateCallback( void *callbackData )
 {
 	CI_LOG_V( "bang" );
 }
 
 // file callbacks have been copied verbatum from included sample... plus verbose logging. don't event know yet if we need them
 // static
-void* DartVM::openFileCallback(const char* name, bool write)
+void* VM::openFileCallback(const char* name, bool write)
 {
 	CI_LOG_V( "name: " << name << ", write mode: " << boolalpha << write << dec );
 	
@@ -159,7 +159,7 @@ void* DartVM::openFileCallback(const char* name, bool write)
 }
 
 // static
-void DartVM::readFileCallback(const uint8_t** data, intptr_t* fileLength, void* stream )
+void VM::readFileCallback(const uint8_t** data, intptr_t* fileLength, void* stream )
 {
 	CI_LOG_V( "bang" );
 	if (!stream) {
@@ -180,7 +180,7 @@ void DartVM::readFileCallback(const uint8_t** data, intptr_t* fileLength, void* 
 }
 
 // static
-void DartVM::writeFileCallback(const void* data, intptr_t length, void* file)
+void VM::writeFileCallback(const void* data, intptr_t length, void* file)
 {
 	CI_LOG_V( "bang" );
 
@@ -188,7 +188,7 @@ void DartVM::writeFileCallback(const void* data, intptr_t length, void* file)
 }
 
 // static
-void DartVM::closeFileCallback(void* file)
+void VM::closeFileCallback(void* file)
 {
 	CI_LOG_V( "bang" );
 

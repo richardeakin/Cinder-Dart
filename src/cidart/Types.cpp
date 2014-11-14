@@ -2,8 +2,8 @@
 // Use of this source code (and the Dart VM) is governed by a
 // BSD-style license that can be found in the LICENSE.txt file.
 
-#include "cidart/DartTypes.h"
-#include "cidart/DartDebug.h"
+#include "cidart/Types.h"
+#include "cidart/Debug.h"
 
 #include "dart_mirrors_api.h"
 

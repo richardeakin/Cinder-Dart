@@ -3,9 +3,9 @@
 // BSD-style license that can be found in the LICENSE.txt file.
 
 #include "cidart/Script.h"
-#include "cidart/DartVM.h"
-#include "cidart/DartTypes.h"
-#include "cidart/DartDebug.h"
+#include "cidart/VM.h"
+#include "cidart/Types.h"
+#include "cidart/Debug.h"
 
 #include "cinder/Utilities.h"
 
@@ -32,7 +32,7 @@ Script::Script( const DataSourceRef &source, const Options &options )
 
 	DartScope enterScope;
 
-	DartVM::instance()->loadCinderDartLib();
+	VM::instance()->loadCinderDartLib();
 
 	Dart_Handle url = toDart( sourcePath );
 	string sourceStr = loadString( source );
@@ -78,10 +78,9 @@ void Script::invoke( const string &functionName, int argc, Dart_Handle *args )
 // static
 Dart_Isolate Script::createIsolateCallback( const char *scriptUri, const char *main, void *callbackData, char **error )
 {
-	//	DartVM *dartVm = reinterpret_cast<DartVM *>( data );
-	DartVM *dartVm = DartVM::instance();
+	VM *vm = VM::instance();
 
-	uint8_t *snapshotData = (uint8_t *)dartVm->getSnapShot()->getBuffer().getData();
+	uint8_t *snapshotData = (uint8_t *)vm->getSnapShot()->getBuffer().getData();
 
 	Dart_Isolate isolate = Dart_CreateIsolate( scriptUri, main, snapshotData, callbackData, error );
 	if ( ! isolate ) {
