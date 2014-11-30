@@ -29,7 +29,10 @@ void getNumberValueImpl( Dart_Handle handle, T *value )
 		*value = static_cast<T>( result );
 	}
 	else {
-		throw DartException( "cannot make number from handle of type: " + getTypeName( handle ) );
+		if( Dart_IsError( handle ) )
+			throw DartException( string( "handle error: " ) + Dart_GetError( handle ) );
+		else
+			throw DartException( "cannot make number from handle of type: " + getTypeName( handle ) );
 	}
 }
 	
