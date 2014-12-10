@@ -5,7 +5,7 @@
 #include "cidart/Types.h"
 #include "cidart/Debug.h"
 
-#include "dart_mirrors_api.h"
+#include "include/dart_mirrors_api.h"
 
 #include <sstream>
 
