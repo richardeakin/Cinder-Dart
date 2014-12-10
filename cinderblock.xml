@@ -20,13 +20,13 @@
 
 	<platform os="macosx">
 		<platform config="Debug">
-			<staticLibrary>dart-runtime/macosx/Debug/libdart_runtime.a</staticLibrary>
+			<staticLibrary>dart-runtime/lib/macosx/Debug/libdart_runtime.a</staticLibrary>
 		</platform>
 		<platform config="Release">
-			<staticLibrary>dart-runtime/macosx/Release/libdart_runtime.a</staticLibrary>
+			<staticLibrary>dart-runtime/lib/macosx/Release/libdart_runtime.a</staticLibrary>
 		</platform>
 
-		<resource name="RES_DART_SNAPSHOT" type="IMAGE">dart-runtime/macosx/snapshot_gen.bin</resource>
+		<resource name="RES_DART_SNAPSHOT" type="IMAGE">dart-runtime/lib/macosx/snapshot_gen.bin</resource>
 	</platform>
 
 	<resource name="RES_CINDER_DART" type="DART">src/cidart/cinder.dart</resource>
