@@ -33,5 +33,5 @@ class Vec3 {
 class Rect {
 	num x1, x2, y1, y2;
 
-	Rect( this.x1, this.x2, this.y1, this.y2 );
+	Rect( this.x1, this.y1, this.x2, this.y2 );
 }
