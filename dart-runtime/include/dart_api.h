@@ -720,6 +720,9 @@ DART_EXPORT const char* Dart_VersionString();
  *   eventually run.  This is provided for advisory purposes only to
  *   improve debugging messages.  The main function is not invoked by
  *   this function.
+ * \param package_root The package root path for this isolate to resolve
+ *   package imports against. If this parameter is NULL, the package root path
+ *   of the parent isolate should be used.
  * \param callback_data The callback data which was passed to the
  *   parent isolate when it was created by calling Dart_CreateIsolate().
  * \param error A structure into which the embedder can place a
@@ -730,6 +733,7 @@ DART_EXPORT const char* Dart_VersionString();
  */
 typedef Dart_Isolate (*Dart_IsolateCreateCallback)(const char* script_uri,
                                                    const char* main,
+                                                   const char* package_root,
                                                    void* callback_data,
                                                    char** error);
 
@@ -1129,6 +1133,13 @@ DART_EXPORT Dart_Handle Dart_HandleMessage();
 DART_EXPORT bool Dart_HandleServiceMessages();
 
 /**
+ * Does the current isolate have pending service messages?
+ *
+ * \return true if the isolate has pending service messages, false otherwise.
+ */
+DART_EXPORT bool Dart_HasServiceMessages();
+
+/**
  * Processes any incoming messages for the current isolate.
  *
  * This function may only be used when the embedder has not provided
@@ -1325,6 +1336,7 @@ DART_EXPORT bool Dart_IsTypeVariable(Dart_Handle handle);
 DART_EXPORT bool Dart_IsClosure(Dart_Handle object);
 DART_EXPORT bool Dart_IsTypedData(Dart_Handle object);
 DART_EXPORT bool Dart_IsByteBuffer(Dart_Handle object);
+DART_EXPORT bool Dart_IsFuture(Dart_Handle object);
 
 
 /*

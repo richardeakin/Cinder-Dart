@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-PACKAGE_FILENAME="dart_runtime_libs_1.6.1_macosx_x64.zip"
+PACKAGE_FILENAME="dart_runtime_libs_1.8.5_macosx_x64.zip"
 PACKAGE_URL="https://dl.dropboxusercontent.com/u/3905723/cinder/dart-runtime-packages/"${PACKAGE_FILENAME}
 PACKAGE_DEST="dart-runtime/lib"
 

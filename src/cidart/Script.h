@@ -44,7 +44,7 @@ class Script {
 	Script( const ci::DataSourceRef &source, const Options &options );
 
 	// Dart_IsolateCreateCallback
-	static Dart_Isolate createIsolateCallback( const char* script_uri, const char* main, void* callbackData, char** error );
+	static Dart_Isolate createIsolateCallback( const char* script_uri, const char* main, const char *packageRoot, void* callbackData, char** error );
 	// Dart_LibraryTagHandler
 	static Dart_Handle libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Handle urlHandle );
 	// Dart_NativeEntryResolver

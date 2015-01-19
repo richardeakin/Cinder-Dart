@@ -26,7 +26,7 @@ Script::Script( const DataSourceRef &source, const Options &options )
 
 	const char *sourcePath = mMainScriptPath.c_str();
 	char *error;
-	mIsolate = Script::createIsolateCallback( sourcePath, "main", this, &error );
+	mIsolate = Script::createIsolateCallback( sourcePath, "main", NULL, this, &error );
 	if( ! mIsolate )
 		throw DartException( "could not create isolate, error: " + string( error ) );
 
@@ -76,7 +76,7 @@ void Script::invoke( const string &functionName, int argc, Dart_Handle *args )
 // ----------------------------------------------------------------------------------------------------
 
 // static
-Dart_Isolate Script::createIsolateCallback( const char *scriptUri, const char *main, void *callbackData, char **error )
+Dart_Isolate Script::createIsolateCallback( const char *scriptUri, const char *main, const char *packageRoot, void *callbackData, char **error )
 {
 	VM *vm = VM::instance();
 
