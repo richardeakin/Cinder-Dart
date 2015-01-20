@@ -1,6 +1,6 @@
 ### Dart runtime libs
 
-This folder contains binaries and header files needed to embed the [dart][dartlang] runtime in a C / C++ app. It is meant to be used with [Cinder-Dart](https://github.com/richardeakin/Cinder-Dart). Currently only OS X binaries built with libc++ / 64bit are included.
+This folder contains binaries and header files needed to embed the [dart][dartlang] runtime in a C / C++ app. It is meant to be used with [Cinder-Dart](https://github.com/richardeakin/Cinder-Dart). Below are instructions for how to rebuild binaries for OS X and Windows Desktop.
 
 Here are google's [checkout][checkout] and [build][build] instructions.
 
