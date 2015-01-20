@@ -5,6 +5,9 @@
 	#include "cinder/app/RendererGl.h"
 #endif
 
+#include "Resources.h"
+
+#include "cidart/VM.h"
 #include "cidart/Script.h"
 
 using namespace ci;
@@ -26,6 +29,9 @@ class NativeCallbackApp : public AppNative {
 
 void NativeCallbackApp::setup()
 {
+	cidart::VM::setCinderDartScriptDataSource( loadResource( CIDART_RES_CINDER_DART ) );
+	cidart::VM::setSnapshotBinDataSource( loadResource( CIDART_RES_SNAPSHOT_BIN ) );
+
 	auto opts = cidart::Script::Options().native( "blarg", customNativeCallback );
 	mScript = cidart::Script::create( loadAsset( "main.dart" ), opts );
 }
