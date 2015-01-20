@@ -26,10 +26,28 @@
 			<staticLibrary>dart-runtime/lib/macosx/Release/libdart_runtime.a</staticLibrary>
 		</platform>
 
-		<resource name="RES_DART_SNAPSHOT" type="IMAGE">dart-runtime/lib/macosx/snapshot_gen.bin</resource>
+	</platform>
+	<platform os="msw">
+		<platform config="Debug">
+			<staticLibrary>dart-runtime/lib/msw/x64/Debug/libdart_builtin.lib</staticLibrary>
+			<staticLibrary>dart-runtime/lib/msw/x64/Debug/libdart_lib_withcore.lib</staticLibrary>
+			<staticLibrary>dart-runtime/lib/msw/x64/Debug/libdart_vm.lib</staticLibrary>
+			<staticLibrary>dart-runtime/lib/msw/x64/Debug/libdart_withcore.lib</staticLibrary>
+			<staticLibrary>dart-runtime/lib/msw/x64/Debug/libdouble_conversion.lib</staticLibrary>
+			<staticLibrary>dart-runtime/lib/msw/x64/Debug/libjscre.lib</staticLibrary>
+		</platform>
+		<platform config="Release">
+			<staticLibrary>dart-runtime/lib/msw/x64/Release/libdart_builtin.lib</staticLibrary>
+			<staticLibrary>dart-runtime/lib/msw/x64/Release/libdart_lib_withcore.lib</staticLibrary>
+			<staticLibrary>dart-runtime/lib/msw/x64/Release/libdart_vm.lib</staticLibrary>
+			<staticLibrary>dart-runtime/lib/msw/x64/Release/libdart_withcore.lib</staticLibrary>
+			<staticLibrary>dart-runtime/lib/msw/x64/Release/libdouble_conversion.lib</staticLibrary>
+			<staticLibrary>dart-runtime/lib/msw/x64/Release/libjscre.lib</staticLibrary>
+		</platform>
 	</platform>
 
-	<resource name="RES_CINDER_DART" type="DART">src/cidart/cinder.dart</resource>
+	<resource name="CIDART_RES_SNAPSHOT_BIN" type="IMAGE">dart-runtime/snapshot_gen.bin</resource>
+	<resource name="CIDART_RES_CINDER_DART" type="DART">src/cidart/cinder.dart</resource>
 
 </block>
 </cinder>

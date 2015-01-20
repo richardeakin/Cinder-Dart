@@ -7,7 +7,7 @@ Here are google's [checkout][checkout] and [build][build] instructions.
 ### Steps to rebuild dart static binaries for cinder
 
 
-##### Mac OS X (62-bit):
+##### Mac OS X (64-bit):
 
 *this is my personal experience when following the [official instructions][checkout]*
 
@@ -63,6 +63,21 @@ Run the followinng from xcodebuild/Debug:
 ./gen_snapshot --snapshot=snapshot_gen.bin
 ```
 
+##### Windows (64-bit):
+
+https://code.google.com/p/dart/wiki/PreparingYourMachine#Windows
+
+Then install python, also [python windows extensions](http://sourceforge.net/projects/pywin32/files/)
+
+Checkout the dart source following [official directions](https://code.google.com/p/dart/wiki/GettingTheSource). The only thing different I do is I don't checkout 'bleeding_edge' branch, I checkout a specific tagged branch (ex. 1.8)
+
+After checkout, open dart/runtime/dart-runtime.sln and upgrade all projects to vs2013. Close solution, go back to bash terminal and run:
+
+./tools/build.py -m debug -a x64 create_sdk
+./tools/build.py -m release -a x64 create_sdk
+
+TODO: figure out how to run the following:
+LIB.EXE /OUT:libdart_runtime.lib libdart_builtin.lib libdart_lib_withcore.lib libdart_vm.lib libdart_withcore.lib libdouble_conversion.lib libjscre.lib
 
 [dartlang]: http://www.dartlang.org/
 [checkout]: https://code.google.com/p/dart/wiki/GettingTheSource

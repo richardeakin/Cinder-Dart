@@ -19,8 +19,10 @@ class VM {
   public:
 	static VM* instance();
 
-	void setCinderDartScriptPath( const ci::fs::path &scriptPath );
-	void setCinderDartScriptResource( const ci::DataSourceRef &scriptResource );
+	static void setCinderDartScriptPath( const ci::fs::path &scriptPath )			{ instance()->mCinderDartScriptPath = scriptPath; }
+	static void setCinderDartScriptDataSource( const ci::DataSourceRef &script )	{ instance()->mCinderDartScriptDataSource = script; }
+	static void setSnapshotBinPath( const ci::fs::path &snapshotPath )				{ instance()->mSnapshotPath = snapshotPath; }
+	static void setSnapshotBinDataSource( const ci::DataSourceRef &snapshot )		{ instance()->mSnapshot = snapshot; }
 
 	static std::string getVersionString();
 
@@ -29,11 +31,12 @@ class VM {
 
 	void			loadCinderDartLib();
 	std::string		getCinderDartScript();
+
 	const ci::DataSourceRef& getSnapShot();
 
 	std::vector<std::string>	mVMFlags;
-	ci::fs::path				mCinderDartScriptPath;
-	ci::DataSourceRef			mCinderDartScriptResource; // not used by default, available for windows resources
+	ci::fs::path				mCinderDartScriptPath, mSnapshotPath;
+	ci::DataSourceRef			mCinderDartScriptDataSource; // not used by default, available for windows resources
 	ci::DataSourceRef			mSnapshot;
 
 	// Dart_IsolateInterruptCallback

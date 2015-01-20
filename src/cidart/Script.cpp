@@ -22,9 +22,10 @@ Script::Script( const DataSourceRef &source, const Options &options )
 	mNativeFunctionMap["printNative"] = printNative;
 	mNativeFunctionMap["toCinder"] = toCinder;
 
-	mMainScriptPath = source->getFilePath();
+	mMainScriptPath = source->getFilePath(); // TODO: pass in full path
 
-	const char *sourcePath = mMainScriptPath.c_str();
+	const char *sourcePath = mMainScriptPath.string().c_str();
+
 	char *error;
 	mIsolate = Script::createIsolateCallback( sourcePath, "main", NULL, this, &error );
 	if( ! mIsolate )
