@@ -13,16 +13,16 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
     <Filter Include="Blocks">
-      <UniqueIdentifier>{61582157-1986-4CAD-8BF3-08E86B21F146}</UniqueIdentifier>
+      <UniqueIdentifier>{1F6F395F-D769-4636-B1FF-4B4C36FEC24C}</UniqueIdentifier>
     </Filter>
     <Filter Include="Blocks\Dart">
-      <UniqueIdentifier>{64B4BA16-D3ED-4D13-B027-11E5E4AD5BC2}</UniqueIdentifier>
+      <UniqueIdentifier>{B88F84E4-FED8-4979-853E-BA6C311844B7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Blocks\Dart\src">
-      <UniqueIdentifier>{9DA61344-1EAF-4048-A679-BF96BFCB051A}</UniqueIdentifier>
+      <UniqueIdentifier>{EA9FDB5C-D643-441C-BCFD-DE427D2618AD}</UniqueIdentifier>
     </Filter>
     <Filter Include="Blocks\Dart\src\cidart">
-      <UniqueIdentifier>{7FA9A527-E8C0-4ED1-AFD6-3A09A0D12C74}</UniqueIdentifier>
+      <UniqueIdentifier>{B125F55A-2AEE-40CE-A564-EF495054B1BB}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

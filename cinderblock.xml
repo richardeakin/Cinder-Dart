@@ -29,20 +29,10 @@
 	</platform>
 	<platform os="msw">
 		<platform config="Debug">
-			<staticLibrary>dart-runtime/lib/msw/x64/Debug/libdart_builtin.lib</staticLibrary>
-			<staticLibrary>dart-runtime/lib/msw/x64/Debug/libdart_lib_withcore.lib</staticLibrary>
-			<staticLibrary>dart-runtime/lib/msw/x64/Debug/libdart_vm.lib</staticLibrary>
-			<staticLibrary>dart-runtime/lib/msw/x64/Debug/libdart_withcore.lib</staticLibrary>
-			<staticLibrary>dart-runtime/lib/msw/x64/Debug/libdouble_conversion.lib</staticLibrary>
-			<staticLibrary>dart-runtime/lib/msw/x64/Debug/libjscre.lib</staticLibrary>
+			<staticLibrary>dart-runtime/lib/msw/x64/Debug/libdart_runtime.lib</staticLibrary>
 		</platform>
 		<platform config="Release">
-			<staticLibrary>dart-runtime/lib/msw/x64/Release/libdart_builtin.lib</staticLibrary>
-			<staticLibrary>dart-runtime/lib/msw/x64/Release/libdart_lib_withcore.lib</staticLibrary>
-			<staticLibrary>dart-runtime/lib/msw/x64/Release/libdart_vm.lib</staticLibrary>
-			<staticLibrary>dart-runtime/lib/msw/x64/Release/libdart_withcore.lib</staticLibrary>
-			<staticLibrary>dart-runtime/lib/msw/x64/Release/libdouble_conversion.lib</staticLibrary>
-			<staticLibrary>dart-runtime/lib/msw/x64/Release/libjscre.lib</staticLibrary>
+			<staticLibrary>dart-runtime/lib/msw/x64/Release/libdart_runtime.lib</staticLibrary>
 		</platform>
 	</platform>
 

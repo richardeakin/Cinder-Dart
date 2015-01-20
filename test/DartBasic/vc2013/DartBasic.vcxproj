@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{4D3CEE7B-F171-455C-B35B-2AC1A0B74033}</ProjectGuid>
+    <ProjectGuid>{06E32240-0B4D-4DAE-BB40-331776774298}</ProjectGuid>
     <RootNamespace>DartBasic</RootNamespace>
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
@@ -60,7 +60,7 @@
       <AdditionalIncludeDirectories>"..\..\..\..\..\\include";..\include</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>cinder-$(PlatformToolset)_d.lib;%(AdditionalDependencies);..\..\..\dart-runtime\lib\msw\x64\Debug\libdart_builtin.lib;..\..\..\dart-runtime\lib\msw\x64\Debug\libdart_lib_withcore.lib;..\..\..\dart-runtime\lib\msw\x64\Debug\libdart_vm.lib;..\..\..\dart-runtime\lib\msw\x64\Debug\libdart_withcore.lib;..\..\..\dart-runtime\lib\msw\x64\Debug\libdouble_conversion.lib;..\..\..\dart-runtime\lib\msw\x64\Debug\libjscre.lib</AdditionalDependencies>
+      <AdditionalDependencies>cinder-$(PlatformToolset)_d.lib;%(AdditionalDependencies);..\..\..\dart-runtime\lib\msw\x64\Debug\libdart_runtime.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>"..\..\..\..\..\\lib\msw\$(PlatformTarget)"</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -88,7 +88,7 @@
       <AdditionalIncludeDirectories>"..\..\..\..\..\\include";..\include</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>cinder-$(PlatformToolset).lib;%(AdditionalDependencies);..\..\..\dart-runtime\lib\msw\x64\Release\libdart_builtin.lib;..\..\..\dart-runtime\lib\msw\x64\Release\libdart_lib_withcore.lib;..\..\..\dart-runtime\lib\msw\x64\Release\libdart_vm.lib;..\..\..\dart-runtime\lib\msw\x64\Release\libdart_withcore.lib;..\..\..\dart-runtime\lib\msw\x64\Release\libdouble_conversion.lib;..\..\..\dart-runtime\lib\msw\x64\Release\libjscre.lib</AdditionalDependencies>
+      <AdditionalDependencies>cinder-$(PlatformToolset).lib;%(AdditionalDependencies);..\..\..\dart-runtime\lib\msw\x64\Release\libdart_runtime.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>"..\..\..\..\..\\lib\msw\$(PlatformTarget)"</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <GenerateMapFile>true</GenerateMapFile>

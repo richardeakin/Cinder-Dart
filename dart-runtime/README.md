@@ -76,8 +76,21 @@ After checkout, open dart/runtime/dart-runtime.sln and upgrade all projects to v
 ./tools/build.py -m debug -a x64 create_sdk
 ./tools/build.py -m release -a x64 create_sdk
 
-TODO: figure out how to run the following:
+###### Packaging binaries with LIB.EXE:
+
+First, you need to get LIB.EXE in your PATH. For me, it was at:
+
+```
+C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin
+```
+
+Then, run the following from the dart build directories (`${DART_PATH/build/{$BUILD_TARGET}/lib`):
+
+```
 LIB.EXE /OUT:libdart_runtime.lib libdart_builtin.lib libdart_lib_withcore.lib libdart_vm.lib libdart_withcore.lib libdouble_conversion.lib libjscre.lib
+```
+
+Then copy libdart_runtime.lib to the respective folder (either msw/x64/Release or msw/x64/Debug).
 
 [dartlang]: http://www.dartlang.org/
 [checkout]: https://code.google.com/p/dart/wiki/GettingTheSource
