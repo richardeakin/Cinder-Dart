@@ -73,8 +73,10 @@ Checkout the dart source following [official directions](https://code.google.com
 
 After checkout, open dart/runtime/dart-runtime.sln and upgrade all projects to vs2013. Close solution, go back to bash terminal and run:
 
+```
 ./tools/build.py -m debug -a x64 create_sdk
 ./tools/build.py -m release -a x64 create_sdk
+```
 
 ###### Packaging binaries with LIB.EXE:
 
