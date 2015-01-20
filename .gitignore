@@ -1,5 +1,6 @@
 # dart runtime binaries
 dart-runtime/lib
+dart-runtime/snapshot_gen.bin
 
 # dart pub related
 test/PubPackage/assets/packages
