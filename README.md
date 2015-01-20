@@ -5,10 +5,32 @@ This cinderblock allows you to embed the [Dart](http://www.dartlang.org/) virtua
 
 #### Installation instructions
 
-64-bit binaries for OS X should be downloaded with the following command:
+Only 64-bit binaries are supplied (you'll have to build for 32-bit if needed).
+
+##### Mac OS X
+run the following command:
 
 ```
 ./fetch_libs_mac.sh
+```
+
+##### Windows Desktop
+
+Download the compiled static libraries from [this link](https://dl.dropboxusercontent.com/u/3905723/cinder/dart-runtime-packages/dart_runtime_libs_1.8.5_msw_x64.zip)
+
+Unpack the contents to the dart_runtime folder. You should end up with the following structure:
+
+```
+dart-runtime
+  include
+  lib
+    msw
+      x64
+        Debug
+          libdart_runtime.lib
+        Release
+          libdart_runtime.lib
+  snapshot_gen.bin
 ```
 
 ### Usage
