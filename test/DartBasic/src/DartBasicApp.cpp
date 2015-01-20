@@ -53,8 +53,13 @@ void DartBasicApp::setup()
 
 void DartBasicApp::loadScript()
 {
-	auto opts = cidart::Script::Options().mapReceiver( bind( &DartBasicApp::receiveMap, this, placeholders::_1 ) );
-	mScript = cidart::Script::create( loadAsset( "main.dart" ), opts );
+	try {
+		auto opts = cidart::Script::Options().mapReceiver( bind( &DartBasicApp::receiveMap, this, placeholders::_1 ) );
+		mScript = cidart::Script::create( loadAsset( "main.dart" ), opts );
+	}
+	catch( cidart::DartException &exc ) {
+		CI_LOG_E( "caught dart exception, what: " << exc.what() );
+	}
 }
 
 void DartBasicApp::receiveMap( const cidart::DataMap &map )
