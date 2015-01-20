@@ -103,7 +103,10 @@ string VM::getCinderDartScript()
 	}
 #endif
 
-	return loadString( loadFile( mCinderDartScriptPath ) );
+	if( ! mCinderDartScriptPath.empty() )
+		return loadString( loadFile( mCinderDartScriptPath ) );
+
+	throw DartException( "no provided cinder.dart script file" );
 }
 
 const DataSourceRef& VM::getSnapShot()
