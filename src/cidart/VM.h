@@ -24,7 +24,7 @@ class VM {
 	static void setSnapshotBinPath( const ci::fs::path &snapshotPath )				{ instance()->mSnapshotPath = snapshotPath; }
 	static void setSnapshotBinDataSource( const ci::DataSourceRef &snapshot )		{ instance()->mSnapshot = snapshot; }
 
-	static std::string getVersionString();
+	static const char* getVersionString();
 
   private:
 	VM();

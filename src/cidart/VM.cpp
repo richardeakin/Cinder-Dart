@@ -85,7 +85,7 @@ void VM::loadCinderDartLib()
 }
 
 // static
-string VM::getVersionString()
+const char* VM::getVersionString()
 {
 	return Dart_VersionString();
 }
