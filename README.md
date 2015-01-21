@@ -7,19 +7,28 @@ This cinderblock allows you to embed the [Dart](http://www.dartlang.org/) virtua
 
 Only 64-bit binaries are supplied (you'll have to build for 32-bit if needed).
 
-##### Mac OS X
 run the following command:
 
 ```
-./fetch_libs_mac.sh
+./fetch_libs.sh
 ```
 
-##### Windows Desktop
+In any event, or if fmy ghetto script doesn't work, ensure the dart_runtime folder layout is as such (if needed, you can manually download the lib binaries by looking at the package url output from the script):
 
-Download the compiled static libraries from [this link](https://dl.dropboxusercontent.com/u/3905723/cinder/dart-runtime-packages/dart_runtime_libs_1.8.5_msw_x64.zip)
+Mac:
+```
+dart-runtime
+  include
+  lib
+    macosx
+      Debug
+        libdart_runtime.a
+      Release
+        libdart_runtime.a
+    snapshot_gen.bin
+```
 
-Unpack the contents to the dart_runtime folder. You should end up with the following structure:
-
+Windows:
 ```
 dart-runtime
   include
@@ -30,12 +39,14 @@ dart-runtime
           libdart_runtime.lib
         Release
           libdart_runtime.lib
-  snapshot_gen.bin
+    snapshot_gen.bin
 ```
 
 ### Usage
 
-You currently need to get your hands dirty with the [embedder's api](http://dart.googlecode.com/svn/branches/bleeding_edge/dart/runtime/include/dart_api.h). See [DartBasic](test/DartBasic/src/DartBasicApp.cpp) for an example of how `Dart_Handle`'s are currently exposed the the app.
+You currently need to get your hands dirty with the [embedder's api](http://dart.googlecode.com/svn/branches/bleeding_edge/dart/runtime/include/dart_api.h). See [DartBasic](test/DartBasic/src/DartBasicApp.cpp) for an example of how `Dart_Handle`'s are currently exposed to the app.
+
+TODO: improve these docs, there are now cidart::getValue<T>( Dart_Handle ) methods for most types.
 
 ### Authors
 
