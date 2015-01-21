@@ -1,8 +1,7 @@
 
-void blarg() native "blarg";
+void customCallback( String message ) native "customCallback";
 
 void main()
 {
-	print( "NativeCallback test." );
-	blarg();
+	customCallback( "A string message from the script." );
 }
