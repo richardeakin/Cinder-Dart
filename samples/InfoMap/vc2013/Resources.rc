@@ -1,0 +1,5 @@
+#include "../include/Resources.h"
+
+1	ICON	"..\\..\\common\\cinder_app_icon.ico"
+CIDART_RES_SNAPSHOT_BIN
+CIDART_RES_CINDER_DART
