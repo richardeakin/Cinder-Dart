@@ -36,7 +36,7 @@ Script::Script( const DataSourceRef &source, const Options &options )
 	VM::instance()->loadCinderDartLib();
 
 	Dart_Handle url = toDart( sourcePath );
-	string sourceStr = loadString( source );
+	string sourceStr = loadSourceImpl( source );
 
 	Dart_Handle sourceHandle = toDart( sourceStr );
 	CIDART_CHECK( sourceHandle );
@@ -70,6 +70,29 @@ void Script::invoke( const string &functionName, int argc, Dart_Handle *args )
 	CIDART_CHECK( result );
 
 	return;
+}
+
+string Script::loadSourceImpl( const fs::path &sourcePath )
+{
+	try {
+		return loadString( loadFile( sourcePath ) );
+	}
+	catch( ci::StreamExc &exc ) {
+		throw DartException( "failed to load source path (StreamExc caught): " + sourcePath.string() );
+	}
+}
+
+string  Script::loadSourceImpl( const DataSourceRef &dataSource )
+{
+	try {
+		return loadString( dataSource );
+	}
+	catch( ci::StreamExc &exc ) {
+		string descr = "failed to load DataSource (StreamExc caught).";
+		if( dataSource->isFilePath() )
+			descr += " file path: " + dataSource->getFilePath().string();
+		throw DartException( descr );
+	}
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -144,7 +167,7 @@ Dart_Handle Script::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 			auto resolvedPath = resolvePackageImportPath( urlString, script->mMainScriptPath );
 			script->mImportedLibraries[urlString] = resolvedPath;
 
-			string libString = loadString( loadFile( resolvedPath ) );
+			string libString = script->loadSourceImpl( resolvedPath );
 			Dart_Handle source = toDart( libString );
 			CIDART_CHECK( source );
 
@@ -157,8 +180,7 @@ Dart_Handle Script::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 		// try to load file relative to main script path
 		auto fullPath = script->mMainScriptPath.parent_path() / urlString;
 		if( fs::exists( fullPath ) ) {
-
-			string fileString = loadString( loadFile( fullPath ) );
+			string fileString = script->loadSourceImpl( fullPath );
 
 			Dart_Handle libString = toDart( fileString );
 			Dart_Handle loadedHandle = Dart_LoadLibrary( urlHandle, libString, 0, 0 );
@@ -182,7 +204,7 @@ Dart_Handle Script::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 		const auto &libFolder = pathIt->second.parent_path();
 		auto resolvedPath = libFolder / urlString;
 
-		string sourceString = loadString( loadFile( resolvedPath ) );
+		string sourceString = script->loadSourceImpl( resolvedPath );
 		Dart_Handle source = toDart( sourceString );
 
 		Dart_Handle loadedHandle = Dart_LoadSource( library, urlHandle, source, 0, 0 );

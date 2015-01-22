@@ -53,6 +53,9 @@ class Script {
 	static void printNative( Dart_NativeArguments arguments );
 	static void toCinder( Dart_NativeArguments arguments );
 
+	std::string  loadSourceImpl( const ci::fs::path &sourcePath );
+	std::string  loadSourceImpl( const ci::DataSourceRef &dataSource );
+
 	Dart_Isolate				mIsolate;
 	ci::fs::path				mMainScriptPath;
 	NativeFunctionMap			mNativeFunctionMap;
