@@ -85,27 +85,15 @@ void VM::loadCinderDartLib()
 }
 
 // static
-string VM::getVersionString()
+const char* VM::getVersionString()
 {
 	return Dart_VersionString();
 }
 
-void VM::setCinderDartScriptPath( const fs::path &scriptPath )
-{
-	CI_ASSERT( fs::exists( scriptPath ) );
-
-	mCinderDartScriptPath = scriptPath;
-}
-
-void VM::setCinderDartScriptResource( const ci::DataSourceRef &scriptResource )
-{
-	mCinderDartScriptResource = scriptResource;
-}
-
 string VM::getCinderDartScript()
 {
-	if( mCinderDartScriptResource )
-		return loadString( mCinderDartScriptResource );
+	if( mCinderDartScriptDataSource )
+		return loadString( mCinderDartScriptDataSource );
 
 #if defined( CINDER_COCOA )
 	if( mCinderDartScriptPath.empty() ) {
@@ -115,13 +103,24 @@ string VM::getCinderDartScript()
 	}
 #endif
 
-	return loadString( loadFile( mCinderDartScriptPath ) );
+	if( ! mCinderDartScriptPath.empty() )
+		return loadString( loadFile( mCinderDartScriptPath ) );
+
+	throw DartException( "no provided cinder.dart script file" );
 }
 
 const DataSourceRef& VM::getSnapShot()
 {
-	if( ! mSnapshot )
-		mSnapshot = app::loadResource( "snapshot_gen.bin" );
+	if( ! mSnapshot ) {
+		if( ! mSnapshotPath.empty() ) {
+			mSnapshot = loadFile( mSnapshotPath );
+		}
+#if defined( CINDER_COCOA )
+		else {
+			mSnapshot = app::loadResource( "snapshot_gen.bin" );
+		}
+#endif
+	}
 
 	return mSnapshot;
 }

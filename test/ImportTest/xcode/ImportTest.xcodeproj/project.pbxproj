@@ -12,10 +12,11 @@
 		00B784B40FF439BC000DE1D7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B00FF439BC000DE1D7 /* AudioToolbox.framework */; };
 		00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B10FF439BC000DE1D7 /* AudioUnit.framework */; };
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
+		1135868E1A70B9CE00B204A9 /* snapshot_gen.bin in Resources */ = {isa = PBXBuildFile; fileRef = 1135868D1A70B9CE00B204A9 /* snapshot_gen.bin */; };
+		113586911A70DA4300B204A9 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 113586901A70DA4300B204A9 /* CinderApp.icns */; };
 		11397B1F19C0DAA200E3B138 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11397B1D19C0DAA200E3B138 /* AVFoundation.framework */; };
 		11397B2019C0DAA200E3B138 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11397B1E19C0DAA200E3B138 /* CoreMedia.framework */; };
 		114E91431A1699AA00364AD8 /* Script.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 114E91411A1699AA00364AD8 /* Script.cpp */; };
-		11D0BED51816CC8D000908D9 /* snapshot_gen.bin in Resources */ = {isa = PBXBuildFile; fileRef = 11D0BED41816CC8D000908D9 /* snapshot_gen.bin */; };
 		11D679A3175298E100E96E0D /* cinder.dart in Resources */ = {isa = PBXBuildFile; fileRef = 11D6799D175298E100E96E0D /* cinder.dart */; };
 		11D679A4175298E100E96E0D /* VM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11D6799E175298E100E96E0D /* VM.cpp */; };
 		11D679A5175298E100E96E0D /* Types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11D679A0175298E100E96E0D /* Types.cpp */; };
@@ -32,12 +33,13 @@
 		00B784B10FF439BC000DE1D7 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		00B784B20FF439BC000DE1D7 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		1135868D1A70B9CE00B204A9 /* snapshot_gen.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = snapshot_gen.bin; path = "../../../dart-runtime/lib/snapshot_gen.bin"; sourceTree = "<group>"; };
+		113586901A70DA4300B204A9 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
 		11397B1D19C0DAA200E3B138 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		11397B1E19C0DAA200E3B138 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		114E91411A1699AA00364AD8 /* Script.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Script.cpp; sourceTree = "<group>"; };
 		114E91421A1699AA00364AD8 /* Script.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Script.h; sourceTree = "<group>"; };
 		11CD53E01957C3E700F1C962 /* Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Debug.h; sourceTree = "<group>"; };
-		11D0BED41816CC8D000908D9 /* snapshot_gen.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = snapshot_gen.bin; path = "../../../dart-runtime/lib/macosx/snapshot_gen.bin"; sourceTree = "<group>"; };
 		11D0BED71816CCBB000908D9 /* dart_api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = dart_api.h; path = "../../../dart-runtime/include/dart_api.h"; sourceTree = "<group>"; };
 		11D0BED81816CCBB000908D9 /* dart_debugger_api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = dart_debugger_api.h; path = "../../../dart-runtime/include/dart_debugger_api.h"; sourceTree = "<group>"; };
 		11D0BED91816CCBB000908D9 /* dart_mirrors_api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = dart_mirrors_api.h; path = "../../../dart-runtime/include/dart_mirrors_api.h"; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				113586901A70DA4300B204A9 /* CinderApp.icns */,
 				571E7862924A423CA1FB7F4C /* Info.plist */,
 			);
 			name = Resources;
@@ -212,8 +215,8 @@
 		88177B35441041BD98AFE4AD /* dart-runtime */ = {
 			isa = PBXGroup;
 			children = (
+				1135868D1A70B9CE00B204A9 /* snapshot_gen.bin */,
 				11D0BED61816CCA7000908D9 /* include */,
-				BDDBE01FED384E45B8F9F9BE /* osx */,
 			);
 			name = "dart-runtime";
 			sourceTree = "<group>";
@@ -225,14 +228,6 @@
 				E4AB3925906043CC8B28FA6A /* src */,
 			);
 			name = Dart;
-			sourceTree = "<group>";
-		};
-		BDDBE01FED384E45B8F9F9BE /* osx */ = {
-			isa = PBXGroup;
-			children = (
-				11D0BED41816CC8D000908D9 /* snapshot_gen.bin */,
-			);
-			name = osx;
 			sourceTree = "<group>";
 		};
 		E4AB3925906043CC8B28FA6A /* src */ = {
@@ -295,7 +290,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11D0BED51816CC8D000908D9 /* snapshot_gen.bin in Resources */,
+				1135868E1A70B9CE00B204A9 /* snapshot_gen.bin in Resources */,
+				113586911A70DA4300B204A9 /* CinderApp.icns in Resources */,
 				11D679A3175298E100E96E0D /* cinder.dart in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,6 +1,24 @@
 #! /usr/bin/env bash
 
-PACKAGE_FILENAME="dart_runtime_libs_1.6.1_macosx_x64.zip"
+case "$(uname -s)" in
+    Darwin)
+		  echo 'Detected Mac OS X'
+		  PACKAGE_FILENAME="dart_runtime_libs_1.8.5_macosx_x64.zip"
+     	;;
+   	Linux)
+    	echo 'Error: Linux Platform not yet supported, exiting.'
+    	exit 0
+     	;;
+  	CYGWIN*|MINGW32*|MSYS*)
+     	echo 'Detected MS Windows'
+		  PACKAGE_FILENAME="dart_runtime_libs_1.8.5_msw_x64.zip"
+     	;;
+  	*)
+    	echo 'Error: Unknown OS, returning.' 
+    	exit 0
+    	;;
+esac
+
 PACKAGE_URL="https://dl.dropboxusercontent.com/u/3905723/cinder/dart-runtime-packages/"${PACKAGE_FILENAME}
 PACKAGE_DEST="dart-runtime/lib"
 
@@ -19,7 +37,7 @@ fi
 curl -O ${PACKAGE_URL}
 unzip ${PACKAGE_FILENAME} -d "package"
 mkdir ${DEST_PATH}
-mv "package/macosx" ${DEST_PATH}"/macosx"
+mv -v "package/lib/"* ${DEST_PATH}"/"
 
 # cleanup:
 rm -rf package

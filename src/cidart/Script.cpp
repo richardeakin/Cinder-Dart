@@ -22,11 +22,12 @@ Script::Script( const DataSourceRef &source, const Options &options )
 	mNativeFunctionMap["printNative"] = printNative;
 	mNativeFunctionMap["toCinder"] = toCinder;
 
-	mMainScriptPath = source->getFilePath();
+	mMainScriptPath = source->getFilePath(); // TODO: pass in full path
 
-	const char *sourcePath = mMainScriptPath.c_str();
+	const char *sourcePath = mMainScriptPath.string().c_str();
+
 	char *error;
-	mIsolate = Script::createIsolateCallback( sourcePath, "main", this, &error );
+	mIsolate = Script::createIsolateCallback( sourcePath, "main", NULL, this, &error );
 	if( ! mIsolate )
 		throw DartException( "could not create isolate, error: " + string( error ) );
 
@@ -35,7 +36,7 @@ Script::Script( const DataSourceRef &source, const Options &options )
 	VM::instance()->loadCinderDartLib();
 
 	Dart_Handle url = toDart( sourcePath );
-	string sourceStr = loadString( source );
+	string sourceStr = loadSourceImpl( source );
 
 	Dart_Handle sourceHandle = toDart( sourceStr );
 	CIDART_CHECK( sourceHandle );
@@ -71,16 +72,42 @@ void Script::invoke( const string &functionName, int argc, Dart_Handle *args )
 	return;
 }
 
+string Script::loadSourceImpl( const fs::path &sourcePath )
+{
+	try {
+		return loadString( loadFile( sourcePath ) );
+	}
+	catch( ci::StreamExc &exc ) {
+		throw DartException( "failed to load source path (StreamExc caught): " + sourcePath.string() );
+	}
+}
+
+string  Script::loadSourceImpl( const DataSourceRef &dataSource )
+{
+	try {
+		return loadString( dataSource );
+	}
+	catch( ci::StreamExc &exc ) {
+		string descr = "failed to load DataSource (StreamExc caught).";
+		if( dataSource->isFilePath() )
+			descr += " file path: " + dataSource->getFilePath().string();
+		throw DartException( descr );
+	}
+}
+
 // ----------------------------------------------------------------------------------------------------
 // MARK: - Dart Callbacks
 // ----------------------------------------------------------------------------------------------------
 
 // static
-Dart_Isolate Script::createIsolateCallback( const char *scriptUri, const char *main, void *callbackData, char **error )
+Dart_Isolate Script::createIsolateCallback( const char *scriptUri, const char *main, const char *packageRoot, void *callbackData, char **error )
 {
 	VM *vm = VM::instance();
 
-	uint8_t *snapshotData = (uint8_t *)vm->getSnapShot()->getBuffer().getData();
+	uint8_t *snapshotData = nullptr;
+	auto snapshot = vm->getSnapShot();
+	if( snapshot )
+		snapshotData = (uint8_t *) snapshot->getBuffer().getData();
 
 	Dart_Isolate isolate = Dart_CreateIsolate( scriptUri, main, snapshotData, callbackData, error );
 	if ( ! isolate ) {
@@ -140,7 +167,7 @@ Dart_Handle Script::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 			auto resolvedPath = resolvePackageImportPath( urlString, script->mMainScriptPath );
 			script->mImportedLibraries[urlString] = resolvedPath;
 
-			string libString = loadString( loadFile( resolvedPath ) );
+			string libString = script->loadSourceImpl( resolvedPath );
 			Dart_Handle source = toDart( libString );
 			CIDART_CHECK( source );
 
@@ -153,8 +180,7 @@ Dart_Handle Script::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 		// try to load file relative to main script path
 		auto fullPath = script->mMainScriptPath.parent_path() / urlString;
 		if( fs::exists( fullPath ) ) {
-
-			string fileString = loadString( loadFile( fullPath ) );
+			string fileString = script->loadSourceImpl( fullPath );
 
 			Dart_Handle libString = toDart( fileString );
 			Dart_Handle loadedHandle = Dart_LoadLibrary( urlHandle, libString, 0, 0 );
@@ -178,7 +204,7 @@ Dart_Handle Script::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 		const auto &libFolder = pathIt->second.parent_path();
 		auto resolvedPath = libFolder / urlString;
 
-		string sourceString = loadString( loadFile( resolvedPath ) );
+		string sourceString = script->loadSourceImpl( resolvedPath );
 		Dart_Handle source = toDart( sourceString );
 
 		Dart_Handle loadedHandle = Dart_LoadSource( library, urlHandle, source, 0, 0 );

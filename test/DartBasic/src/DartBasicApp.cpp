@@ -1,15 +1,21 @@
 #include "cinder/app/AppNative.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Timeline.h"
+#include "cinder/System.h"
 
 #if CINDER_VERSION >= 807
 	#include "cinder/app/RendererGl.h"
+	#include "cinder/Log.h"
+#else
+	#include "cinder/audio/Debug.h"
 #endif
 
 #include "cidart/VM.h"
 #include "cidart/Script.h"
 #include "cidart/Types.h"
 #include "cidart/Debug.h"
+
+#include "Resources.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -43,13 +49,21 @@ void DartBasicApp::setup()
 	mRotationRate = 2.0f;
 	mRotation = 0;
 
+	cidart::VM::setCinderDartScriptDataSource( loadResource( CIDART_RES_CINDER_DART ) );
+	cidart::VM::setSnapshotBinDataSource( loadResource( CIDART_RES_SNAPSHOT_BIN ) );
+
 	loadScript();
 }
 
 void DartBasicApp::loadScript()
 {
-	auto opts = cidart::Script::Options().mapReceiver( bind( &DartBasicApp::receiveMap, this, placeholders::_1 ) );
-	mScript = cidart::Script::create( loadAsset( "main.dart" ), opts );
+	try {
+		auto opts = cidart::Script::Options().mapReceiver( bind( &DartBasicApp::receiveMap, this, placeholders::_1 ) );
+		mScript = cidart::Script::create( loadAsset( "main.dart" ), opts );
+	}
+	catch( Exception &exc ) {
+		CI_LOG_E( "exception of type: " << System::demangleTypeName( typeid( exc ).name() ) << ", what: " << exc.what() );
+	}
 }
 
 void DartBasicApp::receiveMap( const cidart::DataMap &map )
