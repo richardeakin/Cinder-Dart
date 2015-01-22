@@ -54,6 +54,7 @@ void getValue( Dart_Handle handle, ci::dvec3 *value );
 void getValue( Dart_Handle handle, ci::Rectf *value );
 void getValue( Dart_Handle handle, std::string *value );
 
+//! Returns the value of type \a T held by \a handle. If an error occurs, the value returned is default constructed and an error message is logged.
 template <typename T>
 T	getValue( Dart_Handle handle )
 {
@@ -62,9 +63,12 @@ T	getValue( Dart_Handle handle )
 	return result;
 }
 
-//! Returns a \a Dart_Handle that represents the field \a name on \a container. If an error occurs, an error handle is returned.
+//! Returns a \a Dart_Handle that represents the field \a name on \a container.
 Dart_Handle getField( Dart_Handle container, const std::string &name );
-//! Returns the value of type \a T for field \a name on the \a container. If an error occurs, the value returned is default constructed and an error message is printed to console.
+//! Returns a \a Dart_Handle that represents the field \a name on \a container.
+Dart_Handle getField( Dart_Handle container, const char *name );
+
+//! Returns the value of type \a T for field \a name on the \a container. If an error occurs, the value returned is default constructed and an error message is logged.
 template <typename T>
 T	getField( Dart_Handle container, const std::string &name )
 {
@@ -73,6 +77,7 @@ T	getField( Dart_Handle container, const std::string &name )
 	return result;
 }
 
+//! Returns the value of type \a T for field \a name on the \a container, or \a defaultValue if the field was null or an error occurs.
 template <typename T>
 T getFieldOrDefault( Dart_Handle container, const std::string &name, const T &defaultValue )
 {
