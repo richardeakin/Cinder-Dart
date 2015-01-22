@@ -79,7 +79,7 @@ T	getField( Dart_Handle container, const std::string &name )
 
 //! Returns the value of type \a T for field \a name on the \a container, or \a defaultValue if the field was null or an error occurs.
 template <typename T>
-T getFieldOrDefault( Dart_Handle container, const std::string &name, const T &defaultValue )
+T	getFieldOrDefault( Dart_Handle container, const std::string &name, const T &defaultValue )
 {
 	Dart_Handle fieldHandle = cidart::getField( container, name );
 	if( Dart_IsNull( fieldHandle ) )
@@ -99,13 +99,13 @@ T	getArg( Dart_NativeArguments args, int index )
 	return result;
 }
 
-bool hasFunction( Dart_Handle handle, const std::string &name );
-Dart_Handle callFunction( Dart_Handle target, const std::string &name, int numArgs = 0, Dart_Handle *args = nullptr );
+bool			hasFunction( Dart_Handle handle, const std::string &name );
+Dart_Handle		callFunction( Dart_Handle target, const std::string &name, int numArgs = 0, Dart_Handle *args = nullptr );
 
-std::string getTypeName( Dart_Handle handle );
+std::string		getTypeName( Dart_Handle handle );
 
 // Debug utils:
-std::string printNativeArgumentsToString( Dart_NativeArguments args, bool printMethodNames = false );
+std::string		printNativeArgumentsToString( Dart_NativeArguments args, bool printMethodNames = false );
 
 class DartException : public ci::Exception {
   public:
