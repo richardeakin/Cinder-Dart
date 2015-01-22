@@ -16,13 +16,27 @@ using namespace std;
 
 namespace cidart {
 
-Script::Script( const DataSourceRef &source, const Options &options )
-	: mIsolate( nullptr ), mNativeFunctionMap( options.getNativeFunctionMap() ), mReceiveMapCallback( options.getReceiveMapCallback() )
+Script::Script( const fs::path &sourcePath, const Options &options )
+	: mIsolate( nullptr ), mMainScriptPath( sourcePath ),
+		mNativeCallbackMap( options.getNativeCallbackMap() ), mReceiveMapCallback( options.getReceiveMapCallback() )
 {
-	mNativeFunctionMap["printNative"] = printNative;
-	mNativeFunctionMap["toCinder"] = toCinder;
+	init();
+}
 
-	mMainScriptPath = source->getFilePath(); // TODO: pass in full path
+Script::Script( const DataSourceRef &source, const Options &options )
+	: mIsolate( nullptr ), mMainScriptPath( source->getFilePath() ),
+		mNativeCallbackMap( options.getNativeCallbackMap() ), mReceiveMapCallback( options.getReceiveMapCallback() )
+{
+	init();
+}
+
+void Script::init()
+{
+	if( mMainScriptPath.empty() || ! fs::exists( mMainScriptPath ) || fs::is_directory( mMainScriptPath ) )
+		throw DartException( "invalid script path: " + mMainScriptPath.string() );
+
+	mNativeCallbackMap["printNative"] = printNative;
+	mNativeCallbackMap["toCinder"] = bind( &Script::toCinder, this, placeholders::_1 );
 
 	const char *sourcePath = mMainScriptPath.string().c_str();
 
@@ -36,7 +50,7 @@ Script::Script( const DataSourceRef &source, const Options &options )
 	VM::instance()->loadCinderDartLib();
 
 	Dart_Handle url = toDart( sourcePath );
-	string sourceStr = loadSourceImpl( source );
+	string sourceStr = loadSourceImpl( mMainScriptPath );
 
 	Dart_Handle sourceHandle = toDart( sourceStr );
 	CIDART_CHECK( sourceHandle );
@@ -82,21 +96,8 @@ string Script::loadSourceImpl( const fs::path &sourcePath )
 	}
 }
 
-string  Script::loadSourceImpl( const DataSourceRef &dataSource )
-{
-	try {
-		return loadString( dataSource );
-	}
-	catch( ci::StreamExc &exc ) {
-		string descr = "failed to load DataSource (StreamExc caught).";
-		if( dataSource->isFilePath() )
-			descr += " file path: " + dataSource->getFilePath().string();
-		throw DartException( descr );
-	}
-}
-
 // ----------------------------------------------------------------------------------------------------
-// MARK: - Dart Callbacks
+// MARK: - Dart API Callbacks
 // ----------------------------------------------------------------------------------------------------
 
 // static
@@ -217,45 +218,56 @@ Dart_Handle Script::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 }
 
 // static
-Dart_NativeFunction Script::resolveNameHandler( Dart_Handle nameHandle, int numArgs, bool* auto_setup_scope )
+Dart_NativeFunction Script::resolveNameHandler( Dart_Handle nameHandle, int numArgs, bool *autoSetupScope )
 {
 	CI_ASSERT( Dart_IsString( nameHandle ) );
 
 	DartScope enterScope;
 
-	string name = getValue<string>( nameHandle );
-
 	Script *script = static_cast<Script *>( Dart_CurrentIsolateData() );
-	auto& functionMap = script->mNativeFunctionMap;
+
+	// store the name handle and return our callback handler
+	script->mLatestNativeCallbackName = getValue<string>( nameHandle );
+	return nativeCallbackHandler;
+}
+
+// ----------------------------------------------------------------------------------------------------
+// MARK: - Native Callbacks
+// ----------------------------------------------------------------------------------------------------
+
+// Static
+void Script::nativeCallbackHandler( Dart_NativeArguments args )
+{
+	Script *script = static_cast<Script *>( Dart_CurrentIsolateData() );
+
+	const string &name = script->mLatestNativeCallbackName;
+	auto& functionMap = script->mNativeCallbackMap;
+
 	auto functionIt = functionMap.find( name );
 	if( functionIt != functionMap.end() )
-		return functionIt->second;
-
-	return nullptr;
+		functionIt->second( args );
+	else {
+		// TODO: it would be nice to throw, but I can't seem to be able to catch exceptions that come from native callbacks.
+//		throw DartException( "Unhandled native callback for function name: " + name );
+		CI_LOG_E( "Unhandled native callback for function name: " << name );
+	}
 }
 
 // static
-void Script::printNative( Dart_NativeArguments arguments )
+void Script::printNative( Dart_NativeArguments args )
 {
-	DartScope enterScope;
-	Dart_Handle handle = Dart_GetNativeArgument( arguments, 0 );
-	CIDART_CHECK( handle );
-
-	ci::app::console() << "|dart| " << getValue<string>( handle ) << std::endl;
+	string message = getArg<string>( args, 0 );
+	ci::app::console() << "|dart| " << message << std::endl;
 }
 
-// static
-void Script::toCinder( Dart_NativeArguments arguments )
+void Script::toCinder( Dart_NativeArguments args )
 {
-	DartScope enterScope;
-
-	Script *cd = static_cast<Script *>( Dart_CurrentIsolateData() );
-	if( ! cd->mReceiveMapCallback ) {
+	if( ! mReceiveMapCallback ) {
 		CI_LOG_E( "no ReceiveMapCallback, returning." );
 		return;
 	}
 
-	Dart_Handle mapHandle = Dart_GetNativeArgument( arguments, 0 );
+	Dart_Handle mapHandle = Dart_GetNativeArgument( args, 0 );
 
 	if( ! Dart_IsMap( mapHandle ) ) {
 		CI_LOG_E( "expected object of type map" );
@@ -279,7 +291,7 @@ void Script::toCinder( Dart_NativeArguments arguments )
 		map[keyString] = valueHandle;
 	}
 	
-	cd->mReceiveMapCallback( map );
+	mReceiveMapCallback( map );
 }
 
 } // namespace ciadart

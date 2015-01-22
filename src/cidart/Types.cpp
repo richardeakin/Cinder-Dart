@@ -252,6 +252,11 @@ Dart_Handle callFunction( Dart_Handle target, const string &name, int numArgs, D
 	return result;
 }
 
+Dart_Handle getField( Dart_Handle container, const char *name )
+{
+	return Dart_GetField( container, toDart( name ) );
+}
+
 Dart_Handle getField( Dart_Handle container, const string &name )
 {
 	return Dart_GetField( container, toDart( name ) );
