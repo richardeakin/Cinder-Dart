@@ -83,6 +83,17 @@ T getFieldOrDefault( Dart_Handle container, const std::string &name, const T &de
 		return cidart::getValue<T>( fieldHandle );
 }
 
+//! Returns the native argument of type \a T at \a index. If an error occurs, the value returned is default constructed and an error message is logged.
+template <typename T>
+T	getArg( Dart_NativeArguments args, int index )
+{
+	T result;
+	Dart_Handle argHandle = Dart_GetNativeArgument( args, index );
+
+	getValue( argHandle, &result );
+	return result;
+}
+
 bool hasFunction( Dart_Handle handle, const std::string &name );
 Dart_Handle callFunction( Dart_Handle target, const std::string &name, int numArgs = 0, Dart_Handle *args = nullptr );
 

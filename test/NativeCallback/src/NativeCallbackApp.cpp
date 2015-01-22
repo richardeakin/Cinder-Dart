@@ -50,8 +50,7 @@ void NativeCallbackApp::loadScript()
 {
 	auto opts = cidart::Script::Options().native( "customCallback",
 				[this] ( Dart_NativeArguments args ) {
-					Dart_Handle firstArg = Dart_GetNativeArgument( args, 0 );
-					mScriptMessage = cidart::getValue<string>( firstArg );
+					mScriptMessage = cidart::getArg<string>( args, 0 );
 				}
 	);
 

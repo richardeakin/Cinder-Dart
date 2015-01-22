@@ -253,12 +253,10 @@ void Script::nativeCallbackHandler( Dart_NativeArguments args )
 }
 
 // static
-void Script::printNative( Dart_NativeArguments arguments )
+void Script::printNative( Dart_NativeArguments args )
 {
-	Dart_Handle handle = Dart_GetNativeArgument( arguments, 0 );
-	CIDART_CHECK( handle );
-
-	ci::app::console() << "|dart| " << getValue<string>( handle ) << std::endl;
+	string message = getArg<string>( args, 0 );
+	ci::app::console() << "|dart| " << message << std::endl;
 }
 
 void Script::toCinder( Dart_NativeArguments args )
