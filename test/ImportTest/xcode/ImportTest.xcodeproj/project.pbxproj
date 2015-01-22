@@ -13,6 +13,7 @@
 		00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B10FF439BC000DE1D7 /* AudioUnit.framework */; };
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
 		1135868E1A70B9CE00B204A9 /* snapshot_gen.bin in Resources */ = {isa = PBXBuildFile; fileRef = 1135868D1A70B9CE00B204A9 /* snapshot_gen.bin */; };
+		113586911A70DA4300B204A9 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 113586901A70DA4300B204A9 /* CinderApp.icns */; };
 		11397B1F19C0DAA200E3B138 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11397B1D19C0DAA200E3B138 /* AVFoundation.framework */; };
 		11397B2019C0DAA200E3B138 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11397B1E19C0DAA200E3B138 /* CoreMedia.framework */; };
 		114E91431A1699AA00364AD8 /* Script.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 114E91411A1699AA00364AD8 /* Script.cpp */; };
@@ -33,6 +34,7 @@
 		00B784B20FF439BC000DE1D7 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		1135868D1A70B9CE00B204A9 /* snapshot_gen.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = snapshot_gen.bin; path = "../../../dart-runtime/lib/snapshot_gen.bin"; sourceTree = "<group>"; };
+		113586901A70DA4300B204A9 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
 		11397B1D19C0DAA200E3B138 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		11397B1E19C0DAA200E3B138 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		114E91411A1699AA00364AD8 /* Script.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Script.cpp; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				113586901A70DA4300B204A9 /* CinderApp.icns */,
 				571E7862924A423CA1FB7F4C /* Info.plist */,
 			);
 			name = Resources;
@@ -288,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1135868E1A70B9CE00B204A9 /* snapshot_gen.bin in Resources */,
+				113586911A70DA4300B204A9 /* CinderApp.icns in Resources */,
 				11D679A3175298E100E96E0D /* cinder.dart in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
