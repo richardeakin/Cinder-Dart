@@ -20,9 +20,7 @@ typedef std::map<std::string, NativeCallback>			NativeCallbackMap;
 typedef std::map<std::string, Dart_Handle>	DataMap;
 typedef std::function<void( const DataMap& )>			ReceiveMapCallback;
 
-// TODO: consider whether to name this Isolate or Script
-// - is it at all useful to create an Isolate that doesn't spawn a new script?
-// - need to read up more on how Isolates are created in plain dart, and their uses
+//! Class representing a dart script.
 class Script {
   public:
 	struct Options {
