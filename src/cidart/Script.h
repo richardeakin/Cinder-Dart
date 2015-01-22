@@ -56,7 +56,7 @@ class Script {
 	static void nativeCallbackHandler( Dart_NativeArguments args );
 
 	static void printNative( Dart_NativeArguments arguments );
-	static void toCinder( Dart_NativeArguments arguments );
+	void toCinder( Dart_NativeArguments arguments );
 
 	std::string  loadSourceImpl( const ci::fs::path &sourcePath );
 	std::string  loadSourceImpl( const ci::DataSourceRef &dataSource );

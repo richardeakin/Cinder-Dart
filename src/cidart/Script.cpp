@@ -20,7 +20,7 @@ Script::Script( const DataSourceRef &source, const Options &options )
 	: mIsolate( nullptr ), mNativeCallbackMap( options.getNativeCallbackMap() ), mReceiveMapCallback( options.getReceiveMapCallback() )
 {
 	mNativeCallbackMap["printNative"] = printNative;
-	mNativeCallbackMap["toCinder"] = toCinder;
+	mNativeCallbackMap["toCinder"] = bind( &Script::toCinder, this, placeholders::_1 );
 
 	mMainScriptPath = source->getFilePath(); // TODO: pass in full path
 
@@ -255,25 +255,20 @@ void Script::nativeCallbackHandler( Dart_NativeArguments args )
 // static
 void Script::printNative( Dart_NativeArguments arguments )
 {
-	DartScope enterScope;
 	Dart_Handle handle = Dart_GetNativeArgument( arguments, 0 );
 	CIDART_CHECK( handle );
 
 	ci::app::console() << "|dart| " << getValue<string>( handle ) << std::endl;
 }
 
-// static
-void Script::toCinder( Dart_NativeArguments arguments )
+void Script::toCinder( Dart_NativeArguments args )
 {
-	DartScope enterScope;
-
-	Script *cd = static_cast<Script *>( Dart_CurrentIsolateData() );
-	if( ! cd->mReceiveMapCallback ) {
+	if( ! mReceiveMapCallback ) {
 		CI_LOG_E( "no ReceiveMapCallback, returning." );
 		return;
 	}
 
-	Dart_Handle mapHandle = Dart_GetNativeArgument( arguments, 0 );
+	Dart_Handle mapHandle = Dart_GetNativeArgument( args, 0 );
 
 	if( ! Dart_IsMap( mapHandle ) ) {
 		CI_LOG_E( "expected object of type map" );
@@ -297,7 +292,7 @@ void Script::toCinder( Dart_NativeArguments arguments )
 		map[keyString] = valueHandle;
 	}
 	
-	cd->mReceiveMapCallback( map );
+	mReceiveMapCallback( map );
 }
 
 } // namespace ciadart
