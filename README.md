@@ -44,7 +44,7 @@ dart-runtime
 
 ### Usage
 
-You currently need to get your hands dirty with the [embedder's api](http://dart.googlecode.com/svn/branches/bleeding_edge/dart/runtime/include/dart_api.h). See [DartBasic](test/DartBasic/src/DartBasicApp.cpp) for an example of how `Dart_Handle`'s are currently exposed to the app.
+The api is a combination of the dart [embedder's api](http://dart.googlecode.com/svn/branches/bleeding_edge/dart/runtime/include/dart_api.h) and helper functions in [cidart/Types.h](https://github.com/richardeakin/Cinder-Dart/blob/master/src/cidart/Types.h). Refer to the samples for how to interpret `Dart_Handle`s.
 
 TODO: improve these docs, there are now cidart::getValue<T>( Dart_Handle ) methods for most types.
 
