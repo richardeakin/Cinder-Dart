@@ -17,6 +17,6 @@ void main()
     print( "submitting sphere center: ${center}, radius: ${radius}" );
 
     submitSphere( center, radius );
-    submitCamLookAt( new Vector3( 0.0, 20.0, 100.0 ), new Vector3( 0.0, 0.0, 0.0 ) );
+    submitCamLookAt( new Vector3( 0.0, 20.0, 100.0 ), new Vector3.zero() );
 } 
  
