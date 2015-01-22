@@ -166,7 +166,7 @@ void getValue( Dart_Handle handle, ci::ivec3 *value )
 	Dart_Handle y = getField( handle, "y" );
 	Dart_Handle z = getField( handle, "z" );
 
-	if( Dart_IsError( x ) || Dart_IsError( y ) ) {
+	if( Dart_IsError( x ) || Dart_IsError( y ) || Dart_IsError( z ) ) {
 		CI_LOG_E( "expected handle to have fields 'x', 'y', and 'z'" );
 		return;
 	}

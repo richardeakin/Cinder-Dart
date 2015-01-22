@@ -17,8 +17,8 @@ typedef std::shared_ptr<class Script>		ScriptRef;
 typedef std::function<void( Dart_NativeArguments )>		NativeCallback;
 typedef std::map<std::string, NativeCallback>			NativeCallbackMap;
 
-typedef std::map<std::string, Dart_Handle>	DataMap;
-typedef std::function<void( const DataMap& )>			ReceiveMapCallback;
+typedef std::map<std::string, Dart_Handle>				InfoMap;
+typedef std::function<void( const InfoMap& )>			ReceiveMapCallback;
 
 //! Class representing a dart script.
 class Script {
@@ -41,7 +41,8 @@ class Script {
 	//! Creates a new Script object from the dart file located at \a source. \note Only file-based `DataSource`s are supported.
 	static ScriptRef	create( const ci::DataSourceRef &source, const Options &options = Options() )	{ return ScriptRef( new Script( source, options ) ); }
 
-	void invoke( const std::string &functionName, int argc = 0, Dart_Handle *args = nullptr );
+	//! Invokes the function \a functionName within the script.
+	Dart_Handle invoke( const std::string &functionName, int argc = 0, Dart_Handle *args = nullptr );
 
   private:
 	Script( const ci::fs::path &sourcePath, const Options &options );

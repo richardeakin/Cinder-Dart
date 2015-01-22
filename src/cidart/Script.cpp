@@ -66,7 +66,7 @@ void Script::init()
 	invoke( "main" );
 }
 
-void Script::invoke( const string &functionName, int argc, Dart_Handle *args )
+Dart_Handle Script::invoke( const string &functionName, int argc, Dart_Handle *args )
 {
 	Dart_Handle library = Dart_RootLibrary();
 	CI_ASSERT( ! Dart_IsNull( library ) );
@@ -77,13 +77,7 @@ void Script::invoke( const string &functionName, int argc, Dart_Handle *args )
 	if( Dart_IsError( result ) )
 		throw DartException( Dart_GetError( result ) );
 
-
-	// TODO: there was originally a note saying this probably isn't necessary.. try removing
-	// Keep handling messages until the last active receive port is closed.
-	result = Dart_RunLoop();
-	CIDART_CHECK( result );
-
-	return;
+	return result;
 }
 
 string Script::loadSourceImpl( const fs::path &sourcePath )
@@ -281,17 +275,17 @@ void Script::toCinder( Dart_NativeArguments args )
 	intptr_t numKeys;
 	CIDART_CHECK( Dart_ListLength( keysList, &numKeys ) );
 
-	DataMap map;
+	InfoMap info;
 
 	for( intptr_t i = 0; i < numKeys; i++ ) {
 		Dart_Handle keyHandle = Dart_ListGetAt( keysList, i );
 		Dart_Handle valueHandle = Dart_MapGetAt( mapHandle, keyHandle );
 
 		string keyString = getValue<string>( keyHandle );
-		map[keyString] = valueHandle;
+		info[keyString] = valueHandle;
 	}
 	
-	mReceiveMapCallback( map );
+	mReceiveMapCallback( info );
 }
 
 } // namespace ciadart
