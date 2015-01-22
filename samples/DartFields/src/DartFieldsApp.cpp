@@ -18,11 +18,13 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-struct MovingRect {
+struct BreathingRect {
 	vec2	pos;
 	vec2	size;
 	ColorA	color;
 	float   speed;
+	float	breath;
+	float   seed;
 };
 
 class DartFieldsApp : public AppNative {
@@ -30,14 +32,14 @@ class DartFieldsApp : public AppNative {
 	void setup() override;
 	void mouseDown( MouseEvent event ) override;
 	void keyDown( KeyEvent event ) override;
+	void update() override;
 	void draw() override;
 
 	void loadScript();
-	void receiveMovingRect( Dart_NativeArguments args );
 
 	cidart::ScriptRef	mScript;
 
-	std::vector<MovingRect>	mMovingRects;
+	std::vector<BreathingRect>	mBreathingRects;
 };
 
 void DartFieldsApp::setup()
@@ -53,52 +55,55 @@ void DartFieldsApp::setup()
 void DartFieldsApp::loadScript()
 {
 	try {
-		auto opts = cidart::Script::Options().native( "MovingRect::submit", bind( &DartFieldsApp::receiveMovingRect, this, placeholders::_1 ) );
-		mScript = cidart::Script::create( loadAsset( "main.dart" ), opts );
+		mScript = cidart::Script::create( loadAsset( "main.dart" ) );
 	}
 	catch( Exception &exc ) {
 		CI_LOG_E( "exception of type: " << System::demangleTypeName( typeid( exc ).name() ) << ", what: " << exc.what() );
 	}
 }
 
-// TODO: get this as a result from invoke()
-void DartFieldsApp::receiveMovingRect( Dart_NativeArguments args )
-{
-	MovingRect mr;
-
-	Dart_Handle handle = Dart_GetNativeArgument( args, 0 ); // 0 arg is the this argument
-
-	mr.pos = getMousePos() - getWindowPos();
-	mr.size = cidart::getField<vec2>( handle, "size" );
-	mr.color = cidart::getField<ColorA>( handle, "color" );
-	mr.speed = cidart::getField<float>( handle, "speed" );
-
-	mMovingRects.push_back( mr );
-
-	CI_LOG_I( "complete, mr.pos: " << mr.pos << ", size: " << mr.size << ", color: " << mr.color );
-}
-
 void DartFieldsApp::mouseDown( MouseEvent event )
 {
-	// TODO: fire off invoke
-	loadScript();
+	// Before calling into the script, you must enter into 'dart scope'.
+	// This way, you will have access to the handle it returns, and all resources will be freed at the end of the function.
+	cidart::DartScope  enterScope;
+
+	Dart_Handle handle = mScript->invoke( "makeBreathingRect" );
+
+	BreathingRect br;
+	br.pos = getMousePos() - getWindowPos();
+	br.breath = 0;
+	br.size = cidart::getField<vec2>( handle, "size" );
+	br.color = cidart::getField<ColorA>( handle, "color" );
+	br.speed = cidart::getField<float>( handle, "speed" );
+	br.seed = cidart::getField<float>( handle, "seed" );
+
+	mBreathingRects.push_back( br );
 }
 
 void DartFieldsApp::keyDown( KeyEvent event )
 {
-	if( event.getChar() == 'r' )
+	if( event.getChar() == 'r' ) // reload script
 		loadScript();
+	if( event.getChar() == 'c' ) // clear existing objects
+		mBreathingRects.clear();
+}
+
+void DartFieldsApp::update()
+{
+	for( auto &br : mBreathingRects )
+		br.breath = 0.7f + sinf( br.speed + getElapsedSeconds() + br.seed * 1000 ) * 0.3f;
 }
 
 void DartFieldsApp::draw()
 {
 	gl::clear();
 
-	for( const auto &mr : mMovingRects ) {
-		gl::color( mr.color );
+	for( const auto &br : mBreathingRects ) {
+		gl::color( br.color );
 
-		vec2 size2 = mr.size / 2;
-		Rectf rect( mr.pos.x - size2.x, mr.pos.y - size2.y, mr.pos.x + size2.x, mr.pos.y + size2.y );
+		vec2 size2 = ( br.size * br.breath ) / 2;
+		Rectf rect( br.pos.x - size2.x, br.pos.y - size2.y, br.pos.x + size2.x, br.pos.y + size2.y );
 		gl::drawSolidRect( rect );
 	}
 }
