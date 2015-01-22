@@ -38,11 +38,15 @@ class Script {
 		ReceiveMapCallback			mReceiveMapCallback;
 	};
 
+	//! Creates a new Script object from the dart file located at \a sourcePath.
+	static ScriptRef	create( const ci::fs::path &sourcePath, const Options &options = Options() )	{ return ScriptRef( new Script( sourcePath, options ) ); }
+	//! Creates a new Script object from the dart file located at \a source. \note Only file-based `DataSource`s are supported.
 	static ScriptRef	create( const ci::DataSourceRef &source, const Options &options = Options() )	{ return ScriptRef( new Script( source, options ) ); }
 
 	void invoke( const std::string &functionName, int argc = 0, Dart_Handle *args = nullptr );
 
   private:
+	Script( const ci::fs::path &sourcePath, const Options &options );
 	Script( const ci::DataSourceRef &source, const Options &options );
 
 	// Dart_IsolateCreateCallback
@@ -58,8 +62,8 @@ class Script {
 	static void printNative( Dart_NativeArguments arguments );
 	void toCinder( Dart_NativeArguments arguments );
 
-	std::string  loadSourceImpl( const ci::fs::path &sourcePath );
-	std::string  loadSourceImpl( const ci::DataSourceRef &dataSource );
+	void			init();
+	std::string		loadSourceImpl( const ci::fs::path &sourcePath );
 
 	Dart_Isolate				mIsolate;
 	ci::fs::path				mMainScriptPath;

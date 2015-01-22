@@ -16,13 +16,27 @@ using namespace std;
 
 namespace cidart {
 
-Script::Script( const DataSourceRef &source, const Options &options )
-	: mIsolate( nullptr ), mNativeCallbackMap( options.getNativeCallbackMap() ), mReceiveMapCallback( options.getReceiveMapCallback() )
+Script::Script( const fs::path &sourcePath, const Options &options )
+	: mIsolate( nullptr ), mMainScriptPath( sourcePath ),
+		mNativeCallbackMap( options.getNativeCallbackMap() ), mReceiveMapCallback( options.getReceiveMapCallback() )
 {
+	init();
+}
+
+Script::Script( const DataSourceRef &source, const Options &options )
+	: mIsolate( nullptr ), mMainScriptPath( source->getFilePath() ),
+		mNativeCallbackMap( options.getNativeCallbackMap() ), mReceiveMapCallback( options.getReceiveMapCallback() )
+{
+	init();
+}
+
+void Script::init()
+{
+	if( mMainScriptPath.empty() || ! fs::exists( mMainScriptPath ) || fs::is_directory( mMainScriptPath ) )
+		throw DartException( "invalid script path: " + mMainScriptPath.string() );
+
 	mNativeCallbackMap["printNative"] = printNative;
 	mNativeCallbackMap["toCinder"] = bind( &Script::toCinder, this, placeholders::_1 );
-
-	mMainScriptPath = source->getFilePath(); // TODO: pass in full path
 
 	const char *sourcePath = mMainScriptPath.string().c_str();
 
@@ -36,7 +50,7 @@ Script::Script( const DataSourceRef &source, const Options &options )
 	VM::instance()->loadCinderDartLib();
 
 	Dart_Handle url = toDart( sourcePath );
-	string sourceStr = loadSourceImpl( source );
+	string sourceStr = loadSourceImpl( mMainScriptPath );
 
 	Dart_Handle sourceHandle = toDart( sourceStr );
 	CIDART_CHECK( sourceHandle );
@@ -79,19 +93,6 @@ string Script::loadSourceImpl( const fs::path &sourcePath )
 	}
 	catch( ci::StreamExc &exc ) {
 		throw DartException( "failed to load source path (StreamExc caught): " + sourcePath.string() );
-	}
-}
-
-string  Script::loadSourceImpl( const DataSourceRef &dataSource )
-{
-	try {
-		return loadString( dataSource );
-	}
-	catch( ci::StreamExc &exc ) {
-		string descr = "failed to load DataSource (StreamExc caught).";
-		if( dataSource->isFilePath() )
-			descr += " file path: " + dataSource->getFilePath().string();
-		throw DartException( descr );
 	}
 }
 
