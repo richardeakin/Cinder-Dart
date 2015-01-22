@@ -96,7 +96,7 @@ string  Script::loadSourceImpl( const DataSourceRef &dataSource )
 }
 
 // ----------------------------------------------------------------------------------------------------
-// MARK: - Dart Callbacks
+// MARK: - Dart API Callbacks
 // ----------------------------------------------------------------------------------------------------
 
 // static
@@ -217,7 +217,7 @@ Dart_Handle Script::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 }
 
 // static
-Dart_NativeFunction Script::resolveNameHandler( Dart_Handle nameHandle, int numArgs, bool* auto_setup_scope )
+Dart_NativeFunction Script::resolveNameHandler( Dart_Handle nameHandle, int numArgs, bool *autoSetupScope )
 {
 	CI_ASSERT( Dart_IsString( nameHandle ) );
 
@@ -229,6 +229,10 @@ Dart_NativeFunction Script::resolveNameHandler( Dart_Handle nameHandle, int numA
 	script->mLatestNativeCallbackName = getValue<string>( nameHandle );
 	return nativeCallbackHandler;
 }
+
+// ----------------------------------------------------------------------------------------------------
+// MARK: - Native Callbacks
+// ----------------------------------------------------------------------------------------------------
 
 // Static
 void Script::nativeCallbackHandler( Dart_NativeArguments args )
