@@ -17,8 +17,8 @@ typedef std::shared_ptr<class Script>		ScriptRef;
 typedef std::function<void( Dart_NativeArguments )>		NativeCallback;
 typedef std::map<std::string, NativeCallback>			NativeCallbackMap;
 
-typedef std::map<std::string, Dart_Handle>	DataMap;
-typedef std::function<void( const DataMap& )>			ReceiveMapCallback;
+typedef std::map<std::string, Dart_Handle>				InfoMap;
+typedef std::function<void( const InfoMap& )>			ReceiveMapCallback;
 
 //! Class representing a dart script.
 class Script {

@@ -281,17 +281,17 @@ void Script::toCinder( Dart_NativeArguments args )
 	intptr_t numKeys;
 	CIDART_CHECK( Dart_ListLength( keysList, &numKeys ) );
 
-	DataMap map;
+	InfoMap info;
 
 	for( intptr_t i = 0; i < numKeys; i++ ) {
 		Dart_Handle keyHandle = Dart_ListGetAt( keysList, i );
 		Dart_Handle valueHandle = Dart_MapGetAt( mapHandle, keyHandle );
 
 		string keyString = getValue<string>( keyHandle );
-		map[keyString] = valueHandle;
+		info[keyString] = valueHandle;
 	}
 	
-	mReceiveMapCallback( map );
+	mReceiveMapCallback( info );
 }
 
 } // namespace ciadart

@@ -28,7 +28,7 @@ class DartBasicApp : public AppNative {
 	void draw();
 
 	void loadScript();
-	void receiveMap(  const cidart::DataMap& map );
+	void receiveMap(  const cidart::InfoMap& map );
 
 	cidart::ScriptRef mScript;
 
@@ -66,27 +66,27 @@ void DartBasicApp::loadScript()
 	}
 }
 
-void DartBasicApp::receiveMap( const cidart::DataMap &map )
+void DartBasicApp::receiveMap( const cidart::InfoMap &info )
 {
 	CI_LOG_I( "huzzah" );
-	for( auto &mp : map ) {
+	for( auto &mp : info ) {
 		CI_LOG_I( "key: " << mp.first << ", value type: " << cidart::getTypeName( mp.second ) );
 	}
 
-	auto radiusIt = map.find( "radius" );
-	if( radiusIt != map.end() )
+	auto radiusIt = info.find( "radius" );
+	if( radiusIt != info.end() )
 		mCircleRadius = cidart::getValue<float>( radiusIt->second );
 
-	auto segIt = map.find( "segments" );
-	if( segIt != map.end() )
+	auto segIt = info.find( "segments" );
+	if( segIt != info.end() )
 		mNumCircleSegments = cidart::getValue<int>( segIt->second );
 
-	auto colorIt = map.find( "color" );
-	if( colorIt != map.end() )
+	auto colorIt = info.find( "color" );
+	if( colorIt != info.end() )
 		mCircleColor = cidart::getValue<ColorA>( colorIt->second );
 
-	auto rotationRateIt = map.find( "rotationRate" );
-	if( rotationRateIt != map.end() ) {
+	auto rotationRateIt = info.find( "rotationRate" );
+	if( rotationRateIt != info.end() ) {
 		mRotationRate = cidart::getValue<float>( rotationRateIt->second );
 		timeline().apply( &mRotation, mRotation + 360.0f, mRotationRate ).loop();
 	}
