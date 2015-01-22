@@ -13,10 +13,12 @@
 namespace cidart {
 
 typedef std::shared_ptr<class Script>		ScriptRef;
-typedef std::map<std::string, Dart_Handle>	DataMap;
 
-typedef std::map<std::string, Dart_NativeFunction> NativeFunctionMap;
-typedef std::function<void( const DataMap& )>	ReceiveMapCallback;
+typedef std::function<void( Dart_NativeArguments )>		NativeCallback;
+typedef std::map<std::string, NativeCallback>			NativeCallbackMap;
+
+typedef std::map<std::string, Dart_Handle>	DataMap;
+typedef std::function<void( const DataMap& )>			ReceiveMapCallback;
 
 // TODO: consider whether to name this Isolate or Script
 // - is it at all useful to create an Isolate that doesn't spawn a new script?
@@ -24,15 +26,15 @@ typedef std::function<void( const DataMap& )>	ReceiveMapCallback;
 class Script {
   public:
 	struct Options {
-		Options& native( const std::string &dartFuncName, Dart_NativeFunction nativeFunc ) { mNativeFunctionMap[dartFuncName] = nativeFunc; return *this; }
+		Options& native( const std::string &dartFuncName, const NativeCallback &nativeFunc )	{ mNativeCallbackMap[dartFuncName] = nativeFunc; return *this; }
 		Options& mapReceiver( const ReceiveMapCallback &callback )	{ mReceiveMapCallback = callback; return *this; }
 
-		const NativeFunctionMap&	getNativeFunctionMap() const	{ return mNativeFunctionMap; }
-		NativeFunctionMap&			getNativeFunctionMap()			{ return mNativeFunctionMap; }
+		const NativeCallbackMap&	getNativeCallbackMap() const	{ return mNativeCallbackMap; }
+		NativeCallbackMap&			getNativeCallbackMap()			{ return mNativeCallbackMap; }
 		const ReceiveMapCallback&	getReceiveMapCallback() const	{ return mReceiveMapCallback; }
 
 	  private:
-		NativeFunctionMap			mNativeFunctionMap;
+		NativeCallbackMap			mNativeCallbackMap;
 		ReceiveMapCallback			mReceiveMapCallback;
 	};
 
@@ -50,6 +52,9 @@ class Script {
 	// Dart_NativeEntryResolver
 	static Dart_NativeFunction resolveNameHandler( Dart_Handle nameHandle, int numArgs, bool* auto_setup_scope );
 
+	// Dart_NativeFunction - this is used for all callbacks, so we can use std::function's instead of c function pointers
+	static void nativeCallbackHandler( Dart_NativeArguments args );
+
 	static void printNative( Dart_NativeArguments arguments );
 	static void toCinder( Dart_NativeArguments arguments );
 
@@ -58,8 +63,9 @@ class Script {
 
 	Dart_Isolate				mIsolate;
 	ci::fs::path				mMainScriptPath;
-	NativeFunctionMap			mNativeFunctionMap;
+	NativeCallbackMap			mNativeCallbackMap;
 	ReceiveMapCallback			mReceiveMapCallback;
+	std::string					mLatestNativeCallbackName;
 
 	std::map<std::string, ci::fs::path>		mImportedLibraries;
 

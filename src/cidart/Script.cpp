@@ -17,10 +17,10 @@ using namespace std;
 namespace cidart {
 
 Script::Script( const DataSourceRef &source, const Options &options )
-	: mIsolate( nullptr ), mNativeFunctionMap( options.getNativeFunctionMap() ), mReceiveMapCallback( options.getReceiveMapCallback() )
+	: mIsolate( nullptr ), mNativeCallbackMap( options.getNativeCallbackMap() ), mReceiveMapCallback( options.getReceiveMapCallback() )
 {
-	mNativeFunctionMap["printNative"] = printNative;
-	mNativeFunctionMap["toCinder"] = toCinder;
+	mNativeCallbackMap["printNative"] = printNative;
+	mNativeCallbackMap["toCinder"] = toCinder;
 
 	mMainScriptPath = source->getFilePath(); // TODO: pass in full path
 
@@ -223,15 +223,29 @@ Dart_NativeFunction Script::resolveNameHandler( Dart_Handle nameHandle, int numA
 
 	DartScope enterScope;
 
-	string name = getValue<string>( nameHandle );
-
 	Script *script = static_cast<Script *>( Dart_CurrentIsolateData() );
-	auto& functionMap = script->mNativeFunctionMap;
+
+	// store the name handle and return our callback handler
+	script->mLatestNativeCallbackName = getValue<string>( nameHandle );
+	return nativeCallbackHandler;
+}
+
+// Static
+void Script::nativeCallbackHandler( Dart_NativeArguments args )
+{
+	Script *script = static_cast<Script *>( Dart_CurrentIsolateData() );
+
+	const string &name = script->mLatestNativeCallbackName;
+	auto& functionMap = script->mNativeCallbackMap;
+
 	auto functionIt = functionMap.find( name );
 	if( functionIt != functionMap.end() )
-		return functionIt->second;
-
-	return nullptr;
+		functionIt->second( args );
+	else {
+		// TODO: it would be nice to throw, but I can't seem to be able to catch exceptions that come from native callbacks.
+//		throw DartException( "Unhandled native callback for function name: " + name );
+		CI_LOG_E( "Unhandled native callback for function name: " << name );
+	}
 }
 
 // static

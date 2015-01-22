@@ -21,13 +21,6 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-std::string sScriptMessage;
-
-void customNativeCallback( Dart_NativeArguments args )
-{
-	Dart_Handle firstArg = Dart_GetNativeArgument( args, 0 );
-	sScriptMessage = cidart::getValue<string>( firstArg );
-}
 
 class NativeCallbackApp : public AppNative {
   public:
@@ -38,6 +31,7 @@ class NativeCallbackApp : public AppNative {
 	void loadScript();
 
 	cidart::ScriptRef	mScript;
+	std::string			mScriptMessage;
 	gl::TextureFontRef	mTextureFont;
 };
 
@@ -54,8 +48,14 @@ void NativeCallbackApp::setup()
 
 void NativeCallbackApp::loadScript()
 {
+	auto opts = cidart::Script::Options().native( "customCallback",
+				[this] ( Dart_NativeArguments args ) {
+					Dart_Handle firstArg = Dart_GetNativeArgument( args, 0 );
+					mScriptMessage = cidart::getValue<string>( firstArg );
+				}
+	);
+
 	try {
-		auto opts = cidart::Script::Options().native( "customCallback", customNativeCallback );
 		mScript = cidart::Script::create( loadAsset( "main.dart" ), opts );
 	}
 	catch( Exception &exc ) {
@@ -73,9 +73,9 @@ void NativeCallbackApp::draw()
 {
 	gl::clear();
 
-	if( ! sScriptMessage.empty() ) {
+	if( ! mScriptMessage.empty() ) {
 		gl::color( Color( 0, 1, 1 ) );
-		mTextureFont->drawString( sScriptMessage, vec2( 10, getWindowCenter().y ) );
+		mTextureFont->drawString( mScriptMessage, vec2( 10, getWindowCenter().y ) );
 	}
 }
 
