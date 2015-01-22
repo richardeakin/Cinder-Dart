@@ -21,6 +21,8 @@
 #include "cidart/Types.h"
 #include "cidart/Debug.h"
 
+#include "Resources.h"
+
 using namespace ci;
 using namespace ci::app;
 using namespace std;
@@ -52,6 +54,9 @@ void ImportTestApp::setup()
 	mCircleColor = ColorA::white();
 	mRotationRate = 2.0f;
 	mRotation = 0;
+
+	cidart::VM::setCinderDartScriptDataSource( loadResource( CIDART_RES_CINDER_DART ) );
+	cidart::VM::setSnapshotBinDataSource( loadResource( CIDART_RES_SNAPSHOT_BIN ) );
 
 	loadScript();
 }
