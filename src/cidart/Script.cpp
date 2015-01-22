@@ -66,7 +66,7 @@ void Script::init()
 	invoke( "main" );
 }
 
-void Script::invoke( const string &functionName, int argc, Dart_Handle *args )
+Dart_Handle Script::invoke( const string &functionName, int argc, Dart_Handle *args )
 {
 	Dart_Handle library = Dart_RootLibrary();
 	CI_ASSERT( ! Dart_IsNull( library ) );
@@ -77,13 +77,7 @@ void Script::invoke( const string &functionName, int argc, Dart_Handle *args )
 	if( Dart_IsError( result ) )
 		throw DartException( Dart_GetError( result ) );
 
-
-	// TODO: there was originally a note saying this probably isn't necessary.. try removing
-	// Keep handling messages until the last active receive port is closed.
-	result = Dart_RunLoop();
-	CIDART_CHECK( result );
-
-	return;
+	return result;
 }
 
 string Script::loadSourceImpl( const fs::path &sourcePath )

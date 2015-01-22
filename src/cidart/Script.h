@@ -41,7 +41,8 @@ class Script {
 	//! Creates a new Script object from the dart file located at \a source. \note Only file-based `DataSource`s are supported.
 	static ScriptRef	create( const ci::DataSourceRef &source, const Options &options = Options() )	{ return ScriptRef( new Script( source, options ) ); }
 
-	void invoke( const std::string &functionName, int argc = 0, Dart_Handle *args = nullptr );
+	//! Invokes the function \a functionName within the script.
+	Dart_Handle invoke( const std::string &functionName, int argc = 0, Dart_Handle *args = nullptr );
 
   private:
 	Script( const ci::fs::path &sourcePath, const Options &options );
