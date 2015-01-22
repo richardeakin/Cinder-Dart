@@ -68,9 +68,9 @@ void DartBasicApp::loadScript()
 
 void DartBasicApp::receiveMap( const cidart::InfoMap &info )
 {
-	CI_LOG_I( "huzzah" );
+	CI_LOG_I( "info map received, number of elemnts: " << info.size() );
 	for( auto &mp : info ) {
-		CI_LOG_I( "key: " << mp.first << ", value type: " << cidart::getTypeName( mp.second ) );
+		CI_LOG_I( "\tkey: " << mp.first << ", value type: " << cidart::getTypeName( mp.second ) );
 	}
 
 	auto radiusIt = info.find( "radius" );
@@ -89,6 +89,14 @@ void DartBasicApp::receiveMap( const cidart::InfoMap &info )
 	if( rotationRateIt != info.end() ) {
 		mRotationRate = cidart::getValue<float>( rotationRateIt->second );
 		timeline().apply( &mRotation, mRotation + 360.0f, mRotationRate ).loop();
+	}
+
+	auto fruitIt = info.find( "fruit" );
+	if( fruitIt != info.end() ) {
+		Dart_Handle fruitStringHandle = cidart::callFunction( fruitIt->second, "toString", 0, nullptr );
+		string fruitString = cidart::getValue<string>( fruitStringHandle );
+
+		CI_LOG_I( "fruit enum value as string: " << fruitString );
 	}
 }
 
