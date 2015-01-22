@@ -102,7 +102,7 @@ void DartFieldsApp::draw()
 	for( const auto &br : mBreathingRects ) {
 		gl::color( br.color );
 
-		vec2 size2 = ( br.size * br.breath ) / 2;
+		vec2 size2 = ( br.size * br.breath ) / 2.0f;
 		Rectf rect( br.pos.x - size2.x, br.pos.y - size2.y, br.pos.x + size2.x, br.pos.y + size2.y );
 		gl::drawSolidRect( rect );
 	}
