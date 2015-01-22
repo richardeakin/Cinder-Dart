@@ -1,9 +1,19 @@
+// NOTES: This sample demonstrates how to use pub packaged dependencies, particularly vector_math
+//
+// First, you must get the dependency using pub (distributed with the dart editor, see www.dartlang.org)
+// You do this by cd'ing into the assets folder and running 'pub get'. On windows, you need to use
+// cmd.exe. 
+
 #include "cinder/app/AppNative.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Timeline.h"
+#include "cinder/System.h"
 
 #if CINDER_VERSION >= 807
 	#include "cinder/app/RendererGl.h"
+	#include "cinder/Log.h"
+#else
+	#include "cinder/audio/Debug.h"
 #endif
 
 #include "cidart/VM.h"
@@ -48,8 +58,14 @@ void ImportTestApp::setup()
 
 void ImportTestApp::loadScript()
 {
-	auto opts = cidart::Script::Options().mapReceiver( bind( &ImportTestApp::receiveMap, this, placeholders::_1 ) );
-	mScript = cidart::Script::create( loadAsset( "main.dart" ), opts );
+	try {
+		auto opts = cidart::Script::Options().mapReceiver( bind( &ImportTestApp::receiveMap, this, placeholders::_1 ) );
+		mScript = cidart::Script::create( loadAsset( "main.dart" ), opts );
+	}
+	catch( Exception &exc ) {
+		CI_LOG_E( "exception of type: " << System::demangleTypeName( typeid( exc ).name() ) << ", what: " << exc.what() );
+		CI_LOG_E( "For this sample to work, make sure to run 'pub get' from the assets folder." );
+	}
 }
 
 void ImportTestApp::receiveMap( const cidart::DataMap& map )

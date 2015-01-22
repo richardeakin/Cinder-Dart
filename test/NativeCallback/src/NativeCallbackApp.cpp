@@ -6,6 +6,9 @@
 
 #if CINDER_VERSION >= 807
 	#include "cinder/app/RendererGl.h"
+	#include "cinder/Log.h"
+#else
+	#include "cinder/audio/Debug.h"
 #endif
 
 #include "Resources.h"

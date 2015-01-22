@@ -1,9 +1,13 @@
 #include "cinder/app/AppNative.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Timeline.h"
+#include "cinder/System.h"
 
 #if CINDER_VERSION >= 807
 	#include "cinder/app/RendererGl.h"
+	#include "cinder/Log.h"
+#else
+	#include "cinder/audio/Debug.h"
 #endif
 
 #include "cidart/VM.h"
@@ -57,8 +61,8 @@ void DartBasicApp::loadScript()
 		auto opts = cidart::Script::Options().mapReceiver( bind( &DartBasicApp::receiveMap, this, placeholders::_1 ) );
 		mScript = cidart::Script::create( loadAsset( "main.dart" ), opts );
 	}
-	catch( cidart::DartException &exc ) {
-		CI_LOG_E( "caught dart exception, what: " << exc.what() );
+	catch( Exception &exc ) {
+		CI_LOG_E( "exception of type: " << System::demangleTypeName( typeid( exc ).name() ) << ", what: " << exc.what() );
 	}
 }
 
