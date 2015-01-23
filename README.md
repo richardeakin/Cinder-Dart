@@ -5,10 +5,11 @@ This cinderblock allows you to embed the [Dart](http://www.dartlang.org/) virtua
 
 #### Installation instructions
 
-Only 64-bit binaries are supplied (you'll have to build for 32-bit if needed).
+Clone this repo to your cinder/blocks folder and use [TinderBox](http://libcinder.org/docs/welcome/TinderBox.html) to create your project, selecting Cinder-Dart as a dependency.
 
-run the following command:
+You'll need to install the dart runtime libraries before running your app. 64-bit binaries are supplied for Mac OS X and Windows Desktop (you'll have to build for 32-bit if needed). 
 
+Get them by running the following command:
 ```
 ./fetch_libs.sh
 ```
@@ -42,6 +43,28 @@ dart-runtime
     snapshot_gen.bin
 ```
 
+
+
+### Resource files utilized by the VM:
+
+There are a couple files that, while not technically necessary, improve usage of the Dart VM.
+
+- `cinder.dart`: This file maps dart's print function back to the cinder's `app::console()`, and also provides you with some basic objects like Color, Vec2, and Rect. It is loaded when the Script initializes, so it is required.
+- `snapshot_gen.bin`: this file dramatically speeds up startup time, since it provides the VM with an already serializd binary heap of an initialized Dart isolate, including all of its libraries. More info on snapshots in dart can be found [here](https://www.dartlang.org/articles/snapshots/).
+
+If you're using tinderbox, both of the files are added as resources to your app project. Use the following to tell the VM where they are:
+
+```
+#include "cidart/VM.h"
+
+cidart::VM::setCinderDartScriptDataSource( app::loadResource( CIDART_RES_CINDER_DART ) );
+cidart::VM::setSnapshotBinDataSource( app::loadResource( CIDART_RES_SNAPSHOT_BIN ) );
+
+loadScript();
+```
+
+Alternatively, there are methods on `cidart::VM` to set the full paths to the resource file.
+
 ### Usage
 
 The api is a combination of the dart [embedder's api](http://dart.googlecode.com/svn/branches/bleeding_edge/dart/runtime/include/dart_api.h) and helper functions in [cidart/Types.h](https://github.com/richardeakin/Cinder-Dart/blob/master/src/cidart/Types.h). Refer to the samples for how to interpret `Dart_Handle`s.
@@ -64,7 +87,7 @@ cpp:
 ```
 auto opts = cidart::Script::Options().native( "customCallback",
       [this] ( Dart_NativeArguments args ) {
-        mScriptMessage = cidart::getArg<string>( args, 0 );
+        string message = cidart::getArg<string>( args, 0 );
       }
 
 mScript = cidart::Script::create( loadAsset( "main.dart" ), opts );
