@@ -88,7 +88,7 @@ cpp:
 auto opts = cidart::Script::Options().native( "customCallback",
       [this] ( Dart_NativeArguments args ) {
         string message = cidart::getArg<string>( args, 0 );
-      }
+      } );
 
 mScript = cidart::Script::create( loadAsset( "main.dart" ), opts );
 ```
