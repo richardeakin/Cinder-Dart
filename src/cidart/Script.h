@@ -20,7 +20,13 @@ typedef std::map<std::string, NativeCallback>			NativeCallbackMap;
 typedef std::map<std::string, Dart_Handle>				InfoMap;
 typedef std::function<void( const InfoMap& )>			ReceiveMapCallback;
 
-//! Class representing a dart script.
+//! \brief Class representing a dart script.
+//!
+//! Notes on error handling and exceptions: When an error occurs before a script is loaded,
+//! a cidart::DartException is thrown. If the error occurs in C++ (like in a native callback
+//! or parsing some type), you must throw an exception back into dart using Dart_ThrowException.
+//! If this goes unhandled, it will cause an error Dart_Handle to be returned from Dart_Invoke(),
+//! which will in turn be used to throw a cidart::DartException.
 class Script {
   public:
 	struct Options {

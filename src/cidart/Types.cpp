@@ -30,9 +30,9 @@ void getNumberValueImpl( Dart_Handle handle, T *value )
 	}
 	else {
 		if( Dart_IsError( handle ) )
-			throw DartException( string( "handle error: " ) + Dart_GetError( handle ) );
+			throwException( string( "handle error: " ) + Dart_GetError( handle ) );
 		else
-			throw DartException( "cannot make number from handle of type: " + getTypeName( handle ) );
+			throwException( "cannot make number from handle of type: " + getTypeName( handle ) );
 	}
 }
 	
@@ -270,6 +270,12 @@ string getTypeName( Dart_Handle handle )
 	CIDART_CHECK( typeName );
 
 	return getValue<string>( typeName );
+}
+
+void throwException( const std::string &description )
+{
+	Dart_Handle exceptionHandle = toDart( description );
+	CIDART_CHECK( Dart_ThrowException( exceptionHandle ) );
 }
 
 // ???: rename to isCinderType?

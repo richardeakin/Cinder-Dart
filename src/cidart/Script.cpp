@@ -240,11 +240,8 @@ void Script::nativeCallbackHandler( Dart_NativeArguments args )
 	auto functionIt = functionMap.find( name );
 	if( functionIt != functionMap.end() )
 		functionIt->second( args );
-	else {
-		// TODO: it would be nice to throw, but I can't seem to be able to catch exceptions that come from native callbacks.
-//		throw DartException( "Unhandled native callback for function name: " + name );
-		CI_LOG_E( "Unhandled native callback for function name: " << name );
-	}
+	else
+		throwException( "Unhandled native callback for function name: " + name );
 }
 
 // static
