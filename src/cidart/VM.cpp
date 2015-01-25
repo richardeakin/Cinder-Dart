@@ -24,6 +24,16 @@ using namespace ci;
 
 namespace cidart {
 
+namespace {
+
+template <typename T>
+std::unique_ptr<T, decltype( &free )> mallocScoped( size_t count )
+{
+	return unique_ptr<T, decltype( &free )>( (T*)malloc( count * sizeof( T ) ), free );
+}
+
+} // anonymouse namespace
+
 // static
 VM* VM::instance()
 {
@@ -41,14 +51,14 @@ VM::VM()
 	mVMFlags.push_back( "--no-profile" ); // currently dart's profiler seems to be blocking the main thread when debugging in xcode - this disables it for now
 //	mVMFlags.push_back( "--print-flags" );
 
-	const char **vmCFlags = (const char **)malloc( mVMFlags.size() * sizeof( const char * ) );
+	auto vmCFlags = mallocScoped<const char *>( mVMFlags.size() );
+
 	for( size_t i = 0; i < mVMFlags.size(); i++ )
-		vmCFlags[i] = mVMFlags[i].c_str();
+		vmCFlags.get()[i] = mVMFlags[i].c_str();
 
 	// setting VM startup options
-	bool success = Dart_SetVMFlags( mVMFlags.size(), vmCFlags );
+	bool success = Dart_SetVMFlags( mVMFlags.size(), vmCFlags.get() );
 	CI_VERIFY( success );
-	free( vmCFlags );
 
 	success = Dart_Initialize(	Script::createIsolateCallback,
 								interruptIsolateCallback,
