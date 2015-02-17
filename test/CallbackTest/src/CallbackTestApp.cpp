@@ -2,6 +2,7 @@
 #include "cinder/gl/gl.h"
 #include "cinder/gl/TextureFont.h"
 #include "cinder/System.h"
+#include "cinder/Timer.h"
 
 #if CINDER_VERSION >= 807
 	#include "cinder/app/RendererGl.h"
@@ -34,6 +35,7 @@ class CallbackTestApp : public AppNative {
 	void memberFunctionCallback( Dart_NativeArguments args );
 
 	void loadScript();
+	void runBenchmarks();
 
 	cidart::ScriptRef	mScript;
 	std::string			mScriptMessage;
@@ -71,10 +73,62 @@ void CallbackTestApp::loadScript()
 	}
 }
 
+void incrNativeHandler( Dart_NativeArguments args )
+{
+	static uint64_t sIncr = 0;
+	sIncr += cidart::getArg<int>( args, 0 );
+}
+
+void CallbackTestApp::runBenchmarks()
+{
+	Timer timer;
+
+	try {
+		uint64_t incr = 0;
+		auto opts = cidart::Script::Options();
+		opts.native( "incrStdFunction", [&incr]( Dart_NativeArguments args ) {
+			incr += cidart::getArg<int>( args, 1 );
+		});
+		opts.native( "incrNative", incrNativeHandler );
+
+		timer.start();
+
+		CI_LOG_I( "running benchmarks..." );
+		auto script = cidart::Script::create( loadAsset( "benchmark_callbacks.dart" ), opts );
+		console() << ".. complete, script load time (ms): " << timer.getSeconds() * 1000 << endl;
+
+		timer.stop();
+		timer.start();
+
+		{
+			cidart::DartScope enterScope;
+			script->invoke( "runIncrStdFunction" );
+		}
+
+		console() << ".. std::function callback time (ms): " << timer.getSeconds() * 1000 << endl;
+
+		timer.stop();
+		timer.start();
+
+		{
+			cidart::DartScope enterScope;
+			script->invoke( "runIncrNative" );
+		}
+
+		console() << ".. native callback time (ms): " << timer.getSeconds() * 1000 << endl;
+	}
+	catch( Exception &exc ) {
+		CI_LOG_E( "exception of type: " << System::demangleTypeName( typeid( exc ).name() ) << ", what: " << exc.what() );
+	}
+
+}
+
 void CallbackTestApp::keyDown( KeyEvent event )
 {
 	if( event.getChar() == 'r' )
 		loadScript();
+	if( event.getChar() == 'b' )
+		runBenchmarks();
 }
 
 void CallbackTestApp::draw()

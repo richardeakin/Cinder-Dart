@@ -9,8 +9,8 @@ void myCallback( String message ) => ci.callNative1( "myCallback", message );
 void main()
 {
 	print("1");
-	myCallback( "Hey Hey" );
+	myCallback( "Hey Joe" );
 	print("2");
-	myCallback( "Hey Hey" );
+	myCallback( "Hey Shmoe" );
 	print("3");
 }
