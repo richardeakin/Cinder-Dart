@@ -20,11 +20,18 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
+void nativeFunctionCallback( Dart_NativeArguments args )
+{
+	auto message = cidart::getArg<string>( args, 0 );
+	CI_LOG_I( "message: " << message );
+}
+
 class CallbackTestApp : public AppNative {
   public:
 	void setup() override;
 	void keyDown( KeyEvent event ) override;
 	void draw() override;
+	void memberFunctionCallback( Dart_NativeArguments args );
 
 	void loadScript();
 
@@ -44,14 +51,17 @@ void CallbackTestApp::setup()
 	gl::enableAlphaBlending();
 }
 
+void CallbackTestApp::memberFunctionCallback( Dart_NativeArguments args )
+{
+	mScriptMessage = cidart::getArg<string>( args, 1 ); // first arg is native method id
+	CI_LOG_I( "mScriptMessage: " << mScriptMessage );
+}
+
 void CallbackTestApp::loadScript()
 {
-	auto opts = cidart::Script::Options().native( "myCallback",
-				[this] ( Dart_NativeArguments args ) {
-					mScriptMessage = cidart::getArg<string>( args, 0 );
-					CI_LOG_I( "mScriptMessage: " << mScriptMessage );
-				}
-	);
+	auto opts = cidart::Script::Options();
+	opts.native( "myCallback", std::bind( &CallbackTestApp::memberFunctionCallback, this, placeholders::_1 ) );
+//	opts.native( "myCallback", nativeFunctionCallback );
 
 	try {
 		mScript = cidart::Script::create( loadAsset( "test_callback.dart" ), opts );
