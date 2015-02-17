@@ -31,8 +31,8 @@ typedef std::function<void( const InfoMap& )>			ReceiveMapCallback;
 class Script {
   public:
 	struct Options {
-		Options& native( const std::string &dartFuncName, Dart_NativeFunction nativeFn );
-		Options& native( const std::string &dartFuncName, const FunctionCallback &callbackFn );
+		Options& native( const std::string &key, Dart_NativeFunction nativeFn );
+		Options& native( const std::string &key, const FunctionCallback &callbackFn );
 		Options& mapReceiver( const ReceiveMapCallback &callback )	{ mReceiveMapCallback = callback; return *this; }
 
 		const NativeCallbackMap&	getNativeCallbackMap() const	{ return mNativeCallbackMap; }
@@ -44,7 +44,7 @@ class Script {
 	  private:
 		NativeCallbackMap			mNativeCallbackMap;
 		FunctionCallbackMap			mFunctionCallbackMap;
-		ReceiveMapCallback			mReceiveMapCallback; // TODO: remove ivar and store in FunctionCallbackMap
+		ReceiveMapCallback			mReceiveMapCallback;
 	};
 
 	//! Creates a new Script object from the dart file located at \a sourcePath.

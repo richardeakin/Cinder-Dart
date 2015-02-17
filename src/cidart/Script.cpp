@@ -16,15 +16,15 @@ using namespace std;
 
 namespace cidart {
 
-Script::Options& Script::Options::native( const string &dartFuncName, Dart_NativeFunction nativeFn )
+Script::Options& Script::Options::native( const string &key, Dart_NativeFunction nativeFn )
 {
-	mNativeCallbackMap[dartFuncName] = nativeFn;
+	mNativeCallbackMap[key] = nativeFn;
 	return *this;
 }
 
-Script::Options& Script::Options::native( const string &dartFuncName, const FunctionCallback &nativeFn )
+Script::Options& Script::Options::native( const string &key, const FunctionCallback &nativeFn )
 {
-	mFunctionCallbackMap[dartFuncName] = nativeFn;
+	mFunctionCallbackMap[key] = nativeFn;
 	return *this;
 }
 
