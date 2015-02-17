@@ -6,15 +6,17 @@ void incrStdFunction( int i ) => ci.callNative1( "incrStdFunction", i );
 // routes to a Dart_NativeFunction directly
 void incrNative( int i ) native "incrNative";
 
+const int numIterations = 1000000; // must match the numbers in the dart benchmarks;
+
 void runIncrStdFunction()
 {
-	for( int i = 0; i < 1000000; i++ )
+	for( int i = 0; i < numIterations; i++ )
 		incrStdFunction( 1 );
 }
 
 void runIncrNative()
 {
-	for( int i = 0; i < 1000000; i++ )
+	for( int i = 0; i < numIterations; i++ )
 		incrNative( 1 );
 }
 

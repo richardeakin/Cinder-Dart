@@ -81,7 +81,10 @@ void incrNativeHandler( Dart_NativeArguments args )
 
 void CallbackTestApp::runBenchmarks()
 {
-	Timer timer;
+	const double numIterations = 1000000; // must match the numbers in the dart benchmarks
+
+	const bool loadOnlyOnce = true;
+	static cidart::ScriptRef sScript;
 
 	try {
 		uint64_t incr = 0;
@@ -91,31 +94,37 @@ void CallbackTestApp::runBenchmarks()
 		});
 		opts.native( "incrNative", incrNativeHandler );
 
-		timer.start();
 
-		CI_LOG_I( "running benchmarks..." );
-		auto script = cidart::Script::create( loadAsset( "benchmark_callbacks.dart" ), opts );
-		console() << ".. complete, script load time (ms): " << timer.getSeconds() * 1000 << endl;
+		CI_LOG_I( "running benchmarks (iteratons = " << numIterations << ") ..." );
 
-		timer.stop();
-		timer.start();
+		if( loadOnlyOnce && ! sScript ) {
+			Timer timer( true );
 
-		{
-			cidart::DartScope enterScope;
-			script->invoke( "runIncrStdFunction" );
+			sScript = cidart::Script::create( loadAsset( "benchmark_callbacks.dart" ), opts );
+
+			console() << ".. complete, script load time: " << timer.getSeconds() * 1000 << "ms" << endl;
 		}
 
-		console() << ".. std::function callback time (ms): " << timer.getSeconds() * 1000 << endl;
+		if( 1 ) {
+			Timer timer( true );
 
-		timer.stop();
-		timer.start();
-
-		{
 			cidart::DartScope enterScope;
-			script->invoke( "runIncrNative" );
+			sScript->invoke( "runIncrStdFunction" );
+
+			double callbackNanos = timer.getSeconds() * 1e9 / numIterations;
+			console() << ".. std::function callback time: " << callbackNanos << "ns" << endl;
 		}
 
-		console() << ".. native callback time (ms): " << timer.getSeconds() * 1000 << endl;
+		if( 1 ) {
+			Timer timer( true );
+
+			cidart::DartScope enterScope;
+			sScript->invoke( "runIncrNative" );
+
+			double callbackNanos = timer.getSeconds() * 1e9 / numIterations;
+			console() << ".. native function callback time: " << callbackNanos << "ns" << endl;
+		}
+
 	}
 	catch( Exception &exc ) {
 		CI_LOG_E( "exception of type: " << System::demangleTypeName( typeid( exc ).name() ) << ", what: " << exc.what() );
