@@ -47,8 +47,8 @@ void Script::init()
 	if( mMainScriptPath.empty() || ! fs::exists( mMainScriptPath ) || fs::is_directory( mMainScriptPath ) )
 		throw DartException( "invalid script path: " + mMainScriptPath.string() );
 
-	mNativeCallbackMap["printNative"] = printNative;
-	mFunctionCallbackMap["toCinder"] = bind( &Script::toCinder, this, placeholders::_1 ); // TODO: store in mNativeCallbackMap
+	mNativeCallbackMap["cidart::printNative"] = printNativeHandler;
+	mNativeCallbackMap["cidart::toCinder"] = toCinderHandler;
 	mNativeCallbackMap["cidart::callNative0"] = callNativeFunctionHandler;
 	mNativeCallbackMap["cidart::callNative1"] = callNativeFunctionHandler;
 	mNativeCallbackMap["cidart::callNative2"] = callNativeFunctionHandler;
@@ -265,15 +265,18 @@ void Script::callNativeFunctionHandler( Dart_NativeArguments args )
 }
 
 // static
-void Script::printNative( Dart_NativeArguments args )
+void Script::printNativeHandler( Dart_NativeArguments args )
 {
 	string message = getArg<string>( args, 0 );
 	ci::app::console() << "|dart| " << message << std::endl;
 }
 
-void Script::toCinder( Dart_NativeArguments args )
+//static
+void Script::toCinderHandler( Dart_NativeArguments args )
 {
-	if( ! mReceiveMapCallback ) {
+	Script *script = static_cast<Script *>( Dart_CurrentIsolateData() );
+	auto &mapCallback = script->mReceiveMapCallback;
+	if( ! mapCallback ) {
 		CI_LOG_E( "no ReceiveMapCallback, returning." );
 		return;
 	}
@@ -302,7 +305,7 @@ void Script::toCinder( Dart_NativeArguments args )
 		info[keyString] = valueHandle;
 	}
 	
-	mReceiveMapCallback( info );
+	mapCallback( info );
 }
 
 } // namespace ciadart

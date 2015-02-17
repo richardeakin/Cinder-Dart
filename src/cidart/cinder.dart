@@ -8,8 +8,8 @@ get _printClosure => ( s ) {
 	}
 };
 
-void printNative( String message ) native "printNative";
-void toCinder( Map<String, dynamic> data ) native "toCinder";
+void printNative( String message ) 			native "cidart::printNative";
+void toCinder( Map<String, dynamic> data ) 	native "cidart::toCinder";
 
 /// callNativeN methods allow the method to hook up to a std::function. On the C++ side, the first argument recieved will be 'id'.
 void callNative0( String id ) native "cidart::callNative0";

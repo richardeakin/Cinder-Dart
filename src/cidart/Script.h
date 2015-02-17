@@ -66,11 +66,10 @@ class Script {
 	// Dart_NativeEntryResolver
 	static Dart_NativeFunction resolveNameHandler( Dart_Handle nameHandle, int numArgs, bool *autoSetupScope );
 
-	// Dart_NativeFunction - this is used for all callbacks, so we can use std::function's instead of c function pointers
-	static void callNativeFunctionHandler( Dart_NativeArguments args );
-
-	static void printNative( Dart_NativeArguments arguments );
-	void toCinder( Dart_NativeArguments arguments );
+	// Dart_NativeFunction's -
+	static void callNativeFunctionHandler( Dart_NativeArguments args ); // used to call std::function's
+	static void printNativeHandler( Dart_NativeArguments arguments );	// handles print() statements
+	static void toCinderHandler( Dart_NativeArguments arguments );		// toCinder() calls
 
 	void			init();
 	std::string		loadSourceImpl( const ci::fs::path &sourcePath );
