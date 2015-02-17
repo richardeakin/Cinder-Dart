@@ -1,0 +1,70 @@
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Blocks">
+      <UniqueIdentifier>{8A91E95C-AC16-4EBC-8557-5EBCA289C7A4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Dart">
+      <UniqueIdentifier>{E5BDBF92-2B25-4D96-9347-5FF721BF028A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Dart\src">
+      <UniqueIdentifier>{30A24C95-E7DB-465D-990E-D7C5E3E09452}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Dart\src\cidart">
+      <UniqueIdentifier>{4E623E6D-3659-4AFB-A336-56543EC97544}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\CallbackTestApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CallbackTestApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClInclude Include="..\include\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\cidart\Debug.h">
+      <Filter>Blocks\Dart\src\cidart</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\cidart\Script.h">
+      <Filter>Blocks\Dart\src\cidart</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\cidart\Types.h">
+      <Filter>Blocks\Dart\src\cidart</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\cidart\VM.h">
+      <Filter>Blocks\Dart\src\cidart</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\..\src\cidart\Script.cpp">
+      <Filter>Blocks\Dart\src\cidart</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\cidart\Types.cpp">
+      <Filter>Blocks\Dart\src\cidart</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\cidart\VM.cpp">
+      <Filter>Blocks\Dart\src\cidart</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resources.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
