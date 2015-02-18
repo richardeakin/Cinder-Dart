@@ -254,7 +254,7 @@ void Script::callNativeFunctionHandler( Dart_NativeArguments args )
 {
 	Script *script = static_cast<Script *>( Dart_CurrentIsolateData() );
 
-	const string &callbackKey = getArg<string>( args, 0 ); // first arg is always the callbackId
+	string callbackKey = getArg<string>( args, 0 ); // first arg is always the callbackId
 	auto &callbackMap = script->mFunctionCallbackMap;
 
 	auto functionIt = callbackMap.find( callbackKey );
