@@ -14,8 +14,9 @@ namespace cidart {
 
 typedef std::shared_ptr<class Script>		ScriptRef;
 
-typedef std::function<void( Dart_NativeArguments )>		NativeCallback;
-typedef std::map<std::string, NativeCallback>			NativeCallbackMap;
+typedef std::function<void( Dart_NativeArguments )>		FunctionCallback;
+typedef std::map<std::string, FunctionCallback>			FunctionCallbackMap;
+typedef std::map<std::string, Dart_NativeFunction>		NativeCallbackMap;
 
 typedef std::map<std::string, Dart_Handle>				InfoMap;
 typedef std::function<void( const InfoMap& )>			ReceiveMapCallback;
@@ -30,15 +31,19 @@ typedef std::function<void( const InfoMap& )>			ReceiveMapCallback;
 class Script {
   public:
 	struct Options {
-		Options& native( const std::string &dartFuncName, const NativeCallback &nativeFunc )	{ mNativeCallbackMap[dartFuncName] = nativeFunc; return *this; }
+		Options& native( const std::string &key, Dart_NativeFunction nativeFn );
+		Options& native( const std::string &key, const FunctionCallback &callbackFn );
 		Options& mapReceiver( const ReceiveMapCallback &callback )	{ mReceiveMapCallback = callback; return *this; }
 
 		const NativeCallbackMap&	getNativeCallbackMap() const	{ return mNativeCallbackMap; }
 		NativeCallbackMap&			getNativeCallbackMap()			{ return mNativeCallbackMap; }
+		const FunctionCallbackMap&	getFunctionCallbackMap() const	{ return mFunctionCallbackMap; }
+		FunctionCallbackMap&		getFunctionCallbackMap()		{ return mFunctionCallbackMap; }
 		const ReceiveMapCallback&	getReceiveMapCallback() const	{ return mReceiveMapCallback; }
 
 	  private:
 		NativeCallbackMap			mNativeCallbackMap;
+		FunctionCallbackMap			mFunctionCallbackMap;
 		ReceiveMapCallback			mReceiveMapCallback;
 	};
 
@@ -61,11 +66,10 @@ class Script {
 	// Dart_NativeEntryResolver
 	static Dart_NativeFunction resolveNameHandler( Dart_Handle nameHandle, int numArgs, bool *autoSetupScope );
 
-	// Dart_NativeFunction - this is used for all callbacks, so we can use std::function's instead of c function pointers
-	static void nativeCallbackHandler( Dart_NativeArguments args );
-
-	static void printNative( Dart_NativeArguments arguments );
-	void toCinder( Dart_NativeArguments arguments );
+	// Dart_NativeFunction's -
+	static void callNativeFunctionHandler( Dart_NativeArguments args ); // used to call std::function's
+	static void printNativeHandler( Dart_NativeArguments arguments );	// handles print() statements
+	static void toCinderHandler( Dart_NativeArguments arguments );		// toCinder() calls
 
 	void			init();
 	std::string		loadSourceImpl( const ci::fs::path &sourcePath );
@@ -73,8 +77,8 @@ class Script {
 	Dart_Isolate				mIsolate;
 	ci::fs::path				mMainScriptPath;
 	NativeCallbackMap			mNativeCallbackMap;
+	FunctionCallbackMap			mFunctionCallbackMap;
 	ReceiveMapCallback			mReceiveMapCallback;
-	std::string					mLatestNativeCallbackName;
 
 	std::map<std::string, ci::fs::path>		mImportedLibraries;
 
