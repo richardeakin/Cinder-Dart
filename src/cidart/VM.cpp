@@ -105,16 +105,11 @@ string VM::getCinderDartScript()
 	if( mCinderDartScriptDataSource )
 		return loadString( mCinderDartScriptDataSource );
 
-#if defined( CINDER_COCOA )
-	if( mCinderDartScriptPath.empty() ) {
-		// attempt to load it as a resource added to the project
-		auto resource = app::loadResource( "cinder.dart" );
-		mCinderDartScriptPath = resource->getFilePath();
+	for( auto dirIt = mImportSearchDirectories.rbegin(); dirIt != mImportSearchDirectories.rend(); ++dirIt ) {
+		auto cinderDartPath = *dirIt / "cinder.dart";
+		if( fs::exists( cinderDartPath ) )
+			return loadString( loadFile( cinderDartPath ) );
 	}
-#endif
-
-	if( ! mCinderDartScriptPath.empty() )
-		return loadString( loadFile( mCinderDartScriptPath ) );
 
 	throw DartException( "no provided cinder.dart script file" );
 }
@@ -135,9 +130,28 @@ const DataSourceRef& VM::getSnapShot()
 	return mSnapshot;
 }
 
-//// ----------------------------------------------------------------------------------------------------
-//// MARK: - Dart Callbacks
-//// ----------------------------------------------------------------------------------------------------
+void VM::addImportDirectoryImpl( const fs::path &directory )
+{
+	if( ! fs::is_directory( directory ) ) {
+		CI_LOG_E( "Not a directory: " << directory );
+		return;
+	}
+
+	fs::path dirCanonical = fs::canonical( directory );
+	auto it = find( mImportSearchDirectories.begin(), mImportSearchDirectories.end(), dirCanonical );
+	if( it == mImportSearchDirectories.end() )
+		mImportSearchDirectories.push_back( dirCanonical );
+}
+
+void VM::removeImportDirectoryImpl( const fs::path &directory )
+{
+	fs::path dirCanonical = fs::canonical( directory );
+	mImportSearchDirectories.erase( remove( mImportSearchDirectories.begin(), mImportSearchDirectories.end(), dirCanonical ), mImportSearchDirectories.end() );
+}
+
+// ----------------------------------------------------------------------------------------------------
+// MARK: - Dart Callbacks
+// ----------------------------------------------------------------------------------------------------
 
 // static
 bool VM::interruptIsolateCallback()

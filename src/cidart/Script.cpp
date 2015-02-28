@@ -136,6 +136,22 @@ Dart_Isolate Script::createIsolateCallback( const char *scriptUri, const char *m
 	return isolate;
 }
 
+fs::path Script::resolveRelativeImportPath( const string &url )
+{
+	auto result = mMainScriptPath.parent_path() / url;
+
+	if( fs::exists( result ) )
+		return result;
+
+	const auto &importDirs = VM::getImportSearchDirectories();
+	for( auto dirIt = importDirs.rbegin(); dirIt != importDirs.rend(); ++dirIt ) {
+		result = *dirIt / url;
+
+		if( fs::exists( result ) )
+			return result;
+	}
+}
+
 namespace {
 
 const std::string SCHEME_STRING_PACKAGE = "package:";
@@ -190,9 +206,9 @@ Dart_Handle Script::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 			return loadedLib;
 		}
 
-		// try to load file relative to main script path
-		auto fullPath = script->mMainScriptPath.parent_path() / urlString;
-		if( fs::exists( fullPath ) ) {
+		// try to load file relative to main script directory, then VM import direcories
+		auto fullPath = script->resolveRelativeImportPath( urlString );
+		if( ! fullPath.empty() ) {
 			string fileString = script->loadSourceImpl( fullPath );
 
 			Dart_Handle libString = toDart( fileString );

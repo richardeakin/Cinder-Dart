@@ -19,10 +19,14 @@ class VM {
   public:
 	static VM* instance();
 
-	static void setCinderDartScriptPath( const ci::fs::path &scriptPath )			{ instance()->mCinderDartScriptPath = scriptPath; }
 	static void setCinderDartScriptDataSource( const ci::DataSourceRef &script )	{ instance()->mCinderDartScriptDataSource = script; }
 	static void setSnapshotBinPath( const ci::fs::path &snapshotPath )				{ instance()->mSnapshotPath = snapshotPath; }
 	static void setSnapshotBinDataSource( const ci::DataSourceRef &snapshot )		{ instance()->mSnapshot = snapshot; }
+
+	static void	addImportDirectory( const ci::fs::path &directory )					{ instance()->addImportDirectoryImpl( directory ); }
+	static void	removeImportDirectory( const ci::fs::path &directory )				{ instance()->removeImportDirectoryImpl( directory ); }
+
+	static const std::vector<ci::fs::path>&	getImportSearchDirectories()			{ return instance()->mImportSearchDirectories; }
 
 	static const char* getVersionString();
 
@@ -32,10 +36,14 @@ class VM {
 	void			loadCinderDartLib();
 	std::string		getCinderDartScript();
 
+	void			addImportDirectoryImpl( const ci::fs::path &directory );
+	void			removeImportDirectoryImpl( const ci::fs::path &directory );
+
 	const ci::DataSourceRef& getSnapShot();
 
 	std::vector<std::string>	mVMFlags;
-	ci::fs::path				mCinderDartScriptPath, mSnapshotPath;
+	std::vector<ci::fs::path>	mImportSearchDirectories;
+	ci::fs::path				mSnapshotPath;
 	ci::DataSourceRef			mCinderDartScriptDataSource; // not used by default, available for windows resources
 	ci::DataSourceRef			mSnapshot;
 

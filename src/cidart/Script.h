@@ -73,6 +73,7 @@ class Script {
 
 	void			init();
 	std::string		loadSourceImpl( const ci::fs::path &sourcePath );
+	ci::fs::path	resolveRelativeImportPath( const std::string &url );
 
 	Dart_Isolate				mIsolate;
 	ci::fs::path				mMainScriptPath;
