@@ -31,6 +31,7 @@ class DartFieldsApp : public AppNative {
   public:
 	void setup() override;
 	void mouseDown( MouseEvent event ) override;
+	void mouseDrag( MouseEvent event ) override;
 	void keyDown( KeyEvent event ) override;
 	void update() override;
 	void draw() override;
@@ -79,6 +80,11 @@ void DartFieldsApp::mouseDown( MouseEvent event )
 	br.seed = cidart::getField<float>( handle, "seed" );
 
 	mBreathingRects.push_back( br );
+}
+
+void DartFieldsApp::mouseDrag( MouseEvent event )
+{
+	mouseDown( event );
 }
 
 void DartFieldsApp::keyDown( KeyEvent event )

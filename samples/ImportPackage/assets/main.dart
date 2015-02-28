@@ -1,9 +1,9 @@
-
+import 'cinder.dart' as ci;
 import 'dart:math' as math;
 import 'package:vector_math/vector_math.dart';
 
-void submitSphere( Vector3 origin, num radius  ) native "submitSphere";
-void submitCamLookAt( Vector3 eyePoint, Vector3 target  ) native "submitCamLookAt";
+void submitSphere( Vector3 origin, num radius  ) => ci.callNative2( "submitSphere", origin, radius );
+void submitCamLookAt( Vector3 eyePoint, Vector3 target  ) => ci.callNative2( "submitCamLookAt", eyePoint, target );
 
 void main()
 {

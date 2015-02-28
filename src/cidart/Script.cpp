@@ -150,6 +150,8 @@ fs::path Script::resolveRelativeImportPath( const string &url )
 		if( fs::exists( result ) )
 			return result;
 	}
+
+	return fs::path();
 }
 
 namespace {

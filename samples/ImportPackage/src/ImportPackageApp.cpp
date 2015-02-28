@@ -59,15 +59,15 @@ void ImportPackageApp::loadScript()
 
 	opts.native( "submitSphere",
 		 [this] ( Dart_NativeArguments args ) {
-			 mSphereCenter = cidart::getArg<vec3>( args, 0 );
-			 mSphereRadius = cidart::getArg<float>( args, 1 );
+			 mSphereCenter = cidart::getArg<vec3>( args, 1 );
+			 mSphereRadius = cidart::getArg<float>( args, 2 );
 		 }
 	);
 
 	opts.native( "submitCamLookAt",
 		[this] ( Dart_NativeArguments args ) {
-			vec3 eye = cidart::getArg<vec3>( args, 0 );
-			vec3 target = cidart::getArg<vec3>( args, 1 );
+			vec3 eye = cidart::getArg<vec3>( args, 1 );
+			vec3 target = cidart::getArg<vec3>( args, 2 );
 			mCam.lookAt( eye, target );
 		}
 	);

@@ -55,7 +55,7 @@
 		11D6799F175298E100E96E0D /* VM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VM.h; sourceTree = "<group>"; };
 		11D679A0175298E100E96E0D /* Types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Types.cpp; sourceTree = "<group>"; };
 		11D679A1175298E100E96E0D /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
-		11D679BC1752A73400E96E0D /* main.dart */ = {isa = PBXFileReference; explicitFileType = text; name = main.dart; path = ../assets/main.dart; sourceTree = "<group>"; };
+		11D679BC1752A73400E96E0D /* main.dart */ = {isa = PBXFileReference; explicitFileType = sourcecode.c; name = main.dart; path = ../assets/main.dart; sourceTree = "<group>"; };
 		2730F19BCC084D6B89BBA052 /* ImportPackage_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = ImportPackage_Prefix.pch; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };

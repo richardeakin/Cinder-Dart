@@ -1,5 +1,6 @@
+import "cinder.dart" as ci;
 
-void customCallback( String message ) native "customCallback";
+void customCallback( String message ) => ci.callNative1( "customCallback", message );
 
 void main()
 {
