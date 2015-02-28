@@ -87,11 +87,13 @@ cpp:
 ```
 auto opts = cidart::Script::Options().native( "customCallback",
       [this] ( Dart_NativeArguments args ) {
-        string message = cidart::getArg<string>( args, 0 );
+        string message = cidart::getArg<string>( args, 1 );
       } );
 
 mScript = cidart::Script::create( loadAsset( "main.dart" ), opts );
 ```
+
+Note that when using `std::function`s to connect native callbacks to C++, the first argument passed back in `Dart_NativeArguments` is the native id string (e.g. "customCallback" in above example), followed by the rest of the arguments passed from dart.
 
 ##### Parse fields from a dart class
 (snippet taken from [DartFields](samples/DartFields) sample)
