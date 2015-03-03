@@ -55,6 +55,9 @@ class Script {
 	//! Invokes the function \a functionName within the script.
 	Dart_Handle invoke( const std::string &functionName, int argc = 0, Dart_Handle *args = nullptr );
 
+	//! Returns a map of libraries this Script imported.
+	const std::map<std::string, ci::fs::path>&	getImportedLibraries() const	{ return mImportedLibraries; }
+
   private:
 	Script( const ci::fs::path &sourcePath, const Options &options );
 	Script( const ci::DataSourceRef &source, const Options &options );

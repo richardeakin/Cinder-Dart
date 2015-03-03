@@ -220,6 +220,7 @@ Dart_Handle Script::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 
 			CIDART_CHECK( Dart_SetNativeResolver( loadedHandle, resolveNameHandler, NULL ) );
 
+			script->mImportedLibraries[urlString] = fullPath;
 			return loadedHandle;
 		}
 	}
