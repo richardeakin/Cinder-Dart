@@ -71,8 +71,11 @@ class Script {
 
 	// Dart_NativeFunction's -
 	static void callNativeFunctionHandler( Dart_NativeArguments args ); // used to call std::function's
-	static void printNativeHandler( Dart_NativeArguments arguments );	// handles print() statements
-	static void toCinderHandler( Dart_NativeArguments arguments );		// toCinder() calls
+	static void printNativeHandler( Dart_NativeArguments args );		// handles print() statements
+	static void toCinderHandler( Dart_NativeArguments args );			// toCinder() calls
+	static void getWindowSize( Dart_NativeArguments args );
+	static void getWindowWidth( Dart_NativeArguments args );
+	static void getWindowHeight( Dart_NativeArguments args );
 
 	void			init();
 	std::string		loadSourceImpl( const ci::fs::path &sourcePath );

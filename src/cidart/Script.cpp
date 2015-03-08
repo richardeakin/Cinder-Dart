@@ -55,6 +55,9 @@ void Script::init()
 	mNativeCallbackMap["cidart::callNative3"] = callNativeFunctionHandler;
 	mNativeCallbackMap["cidart::callNative4"] = callNativeFunctionHandler;
 	mNativeCallbackMap["cidart::callNative5"] = callNativeFunctionHandler;
+	mNativeCallbackMap["cidart::getWindowSize"] = getWindowSize;
+	mNativeCallbackMap["cidart::getWindowWidth"] = getWindowWidth;
+	mNativeCallbackMap["cidart::getWindowHeight"] = getWindowHeight;
 
 	const char *sourcePath = mMainScriptPath.string().c_str();
 
@@ -181,10 +184,10 @@ Dart_Handle getFilePathFromUri( Dart_Handle script_uri, Dart_Handle builtin_lib 
 // static
 Dart_Handle Script::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library, Dart_Handle urlHandle )
 {
+	string urlString = getValue<string>( urlHandle );
 	if( tag == Dart_kCanonicalizeUrl )
 		return urlHandle;
 
-	string urlString = getValue<string>( urlHandle );
 
 	Script *script = static_cast<Script *>( Dart_CurrentIsolateData() );
 
@@ -256,7 +259,7 @@ Dart_NativeFunction Script::resolveNameHandler( Dart_Handle nameHandle, int numA
 	string name = getValue<string>( nameHandle );
 
 	Script *script = static_cast<Script *>( Dart_CurrentIsolateData() );
-	auto& callbackMap = script->mNativeCallbackMap;
+	auto &callbackMap = script->mNativeCallbackMap;
 	auto functionIt = callbackMap.find( name );
 	if( functionIt != callbackMap.end() )
 		return functionIt->second;
@@ -325,6 +328,42 @@ void Script::toCinderHandler( Dart_NativeArguments args )
 	}
 	
 	mapCallback( info );
+}
+
+//static
+void Script::getWindowSize( Dart_NativeArguments args )
+{
+	ivec2 size = app::getWindowSize();
+	Dart_Handle vecArgs[2] = { Dart_NewInteger( size.x ), Dart_NewInteger( size.y ) };
+
+	// FIXME: can't seem to lookup cinder library anymore, though I'm sure it's been loaded
+	Dart_Handle cinderLib = Dart_LookupLibrary( toDart( "cinder" ) );
+	CIDART_CHECK( cinderLib );
+
+	Dart_Handle typeHandle = Dart_GetType( cinderLib, toDart( "ivec2" ), 2, vecArgs );
+	CIDART_CHECK( typeHandle );
+//	Dart_Handle retHandle = Dart_New( typeHandle, Dart_Null(), 2, vecArgs );
+//	CIDART_CHECK( retHandle );
+
+	Dart_SetReturnValue( args, typeHandle );
+}
+
+//static
+void Script::getWindowWidth( Dart_NativeArguments args )
+{
+	Dart_Handle retHandle = Dart_NewInteger( app::getWindowWidth() );
+	CIDART_CHECK( retHandle );
+
+	Dart_SetReturnValue( args, retHandle );
+}
+
+//static
+void Script::getWindowHeight( Dart_NativeArguments args )
+{
+	Dart_Handle retHandle = Dart_NewInteger( app::getWindowHeight() );
+	CIDART_CHECK( retHandle );
+
+	Dart_SetReturnValue( args, retHandle );
 }
 
 } // namespace ciadart
