@@ -5,8 +5,8 @@ import 'dart:math' as math;
 math.Random rand = new math.Random();
 
 class BreathingRect {
-	Vec2	pos = new Vec2( 50, 50 );
-	Vec2	size = new Vec2( 20, 20 );
+	vec2	pos = new vec2( 50, 50 );
+	vec2	size = new vec2( 20, 20 );
 	Color 	color = new Color( 1, 1, 1 );
 	num   	speed = 1;
 	num     seed = 0;

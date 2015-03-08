@@ -19,22 +19,34 @@ void callNative3( String key, arg1, arg2, arg3 ) native "cidart::callNative3";
 void callNative4( String key, arg1, arg2, arg3, arg4 ) native "cidart::callNative4";
 void callNative5( String key, arg1, arg2, arg3, arg4, arg5 ) native "cidart::callNative5";
 
+class vec2 {
+	num x, y;
+	
+	vec2( this.x, this.y );
+}
+
+class ivec2 {
+	int x, y;
+	
+	ivec2( this.x, this.y );
+}
+
+class vec3 {
+	num x, y, z;
+	
+	vec3( this.x, this.y, this.z );
+}
+
+class ivec3 {
+	int x, y;
+	
+	ivec3( this.x, this.y );
+}
+
 class Color {
 	num r, g, b, a;
 
 	Color( this.r, this.g, this.b, [this.a = 1.0] );
-}
-
-class Vec2 {
-	num x, y;
-	
-	Vec2( this.x, this.y );
-}
-
-class Vec3 {
-	num x, y, z;
-	
-	Vec3( this.x, this.y, this.z );
 }
 
 class Rect {
