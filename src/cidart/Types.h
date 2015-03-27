@@ -9,6 +9,7 @@
 #include "cinder/Color.h"
 #include "cinder/Rect.h"
 #include "cinder/Exception.h"
+#include "cinder/Log.h"
 
 #if( CINDER_VERSION < 900 )
 
@@ -52,6 +53,7 @@ void getValue( Dart_Handle handle, ci::ivec3 *value );
 void getValue( Dart_Handle handle, ci::vec3 *value );
 void getValue( Dart_Handle handle, ci::dvec3 *value );
 void getValue( Dart_Handle handle, ci::Rectf *value );
+void getValue( Dart_Handle handle, ci::log::Level *value );
 void getValue( Dart_Handle handle, std::string *value );
 
 //! Returns the value of type \a T held by \a handle. If an error occurs, the value returned is default constructed and an error message is logged.

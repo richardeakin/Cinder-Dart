@@ -9,6 +9,7 @@
 
 #include <sstream>
 
+using namespace ci;
 using namespace std;
 
 namespace cidart {
@@ -224,6 +225,20 @@ void getValue( Dart_Handle handle, ci::Rectf *value )
 	value->x2 = getValue<float>( x2 );
 	value->y1 = getValue<float>( y1 );
 	value->y2 = getValue<float>( y2 );
+}
+
+void getValue( Dart_Handle handle, log::Level *value )
+{
+	int index = getField<int>( handle, "index" );
+
+	switch ( index ) {
+		case 0:		*value = log::LEVEL_VERBOSE; return;
+		case 1:		*value = log::LEVEL_INFO; return;
+		case 2:		*value = log::LEVEL_WARNING; return;
+		case 3:		*value = log::LEVEL_ERROR; return;
+		case 4:		*value = log::LEVEL_FATAL; return;
+		default:	CI_ASSERT_NOT_REACHABLE();
+	}
 }
 
 void getValue( Dart_Handle handle, std::string *value )

@@ -58,3 +58,11 @@ class Rect {
 
 	Rect( this.x1, this.y1, this.x2, this.y2 );
 }
+
+enum LogLevel {
+	VERBOSE,
+	INFO,
+	WARNING,
+	ERROR,
+	FATAL
+}
