@@ -58,6 +58,8 @@ class Script {
 	//! Returns a map of libraries this Script imported.
 	const std::map<std::string, ci::fs::path>&	getImportedLibraries() const	{ return mImportedLibraries; }
 
+	Dart_Isolate	getIsolate() const	{ return mIsolate; }
+
   private:
 	Script( const ci::fs::path &sourcePath, const Options &options );
 	Script( const ci::DataSourceRef &source, const Options &options );
