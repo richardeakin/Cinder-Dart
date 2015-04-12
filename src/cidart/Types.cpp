@@ -209,6 +209,60 @@ void getValue( Dart_Handle handle, ci::dvec3 *value )
 	value->z = getValue<double>( z );
 }
 
+void getValue( Dart_Handle handle, ci::ivec4 *value )
+{
+	Dart_Handle x = getField( handle, "x" );
+	Dart_Handle y = getField( handle, "y" );
+	Dart_Handle z = getField( handle, "z" );
+	Dart_Handle w = getField( handle, "w" );
+
+	if( Dart_IsError( x ) || Dart_IsError( y ) || Dart_IsError( z ) || Dart_IsError( w ) ) {
+		CI_LOG_E( "expected handle to have fields 'x', 'y', 'z' and 'w'" );
+		return;
+	}
+
+	value->x = getValue<int>( x );
+	value->y = getValue<int>( y );
+	value->z = getValue<int>( z );
+	value->w = getValue<int>( w );
+}
+
+void getValue( Dart_Handle handle, ci::vec4 *value )
+{
+	Dart_Handle x = getField( handle, "x" );
+	Dart_Handle y = getField( handle, "y" );
+	Dart_Handle z = getField( handle, "z" );
+	Dart_Handle w = getField( handle, "w" );
+
+	if( Dart_IsError( x ) || Dart_IsError( y ) || Dart_IsError( z ) || Dart_IsError( w ) ) {
+		CI_LOG_E( "expected handle to have fields 'x', 'y', 'z' and 'w'" );
+		return;
+	}
+
+	value->x = getValue<float>( x );
+	value->y = getValue<float>( y );
+	value->z = getValue<float>( z );
+	value->w = getValue<float>( w );
+}
+
+void getValue( Dart_Handle handle, ci::dvec4 *value )
+{
+	Dart_Handle x = getField( handle, "x" );
+	Dart_Handle y = getField( handle, "y" );
+	Dart_Handle z = getField( handle, "z" );
+	Dart_Handle w = getField( handle, "w" );
+
+	if( Dart_IsError( x ) || Dart_IsError( y ) || Dart_IsError( z ) || Dart_IsError( w ) ) {
+		CI_LOG_E( "expected handle to have fields 'x', 'y', 'z' and 'w'" );
+		return;
+	}
+
+	value->x = getValue<double>( x );
+	value->y = getValue<double>( y );
+	value->z = getValue<double>( z );
+	value->w = getValue<double>( w );
+}
+
 void getValue( Dart_Handle handle, ci::Rectf *value )
 {
 	Dart_Handle x1 = getField( handle, "x1" );
