@@ -39,7 +39,7 @@ class VM {
 	void			addImportDirectoryImpl( const ci::fs::path &directory );
 	void			removeImportDirectoryImpl( const ci::fs::path &directory );
 
-	const ci::DataSourceRef& getSnapShot();
+	ci::DataSourceRef getSnapShot();
 
 	std::vector<std::string>	mVMFlags;
 	std::vector<ci::fs::path>	mImportSearchDirectories;

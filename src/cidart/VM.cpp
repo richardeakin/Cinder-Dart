@@ -114,7 +114,7 @@ string VM::getCinderDartScript()
 	throw DartException( "no provided cinder.dart script file" );
 }
 
-const DataSourceRef& VM::getSnapShot()
+DataSourceRef VM::getSnapShot()
 {
 	if( ! mSnapshot ) {
 		if( ! mSnapshotPath.empty() ) {
