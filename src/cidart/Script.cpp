@@ -123,7 +123,7 @@ Dart_Isolate Script::createIsolateCallback( const char *scriptUri, const char *m
 	uint8_t *snapshotData = nullptr;
 	auto snapshot = vm->getSnapShot();
 	if( snapshot )
-		snapshotData = (uint8_t *) snapshot->getBuffer().getData();
+		snapshotData = (uint8_t *)snapshot->getBuffer()->getData();
 
 	Dart_Isolate isolate = Dart_CreateIsolate( scriptUri, main, snapshotData, callbackData, error );
 	if ( ! isolate ) {
