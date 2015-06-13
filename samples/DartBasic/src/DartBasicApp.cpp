@@ -1,14 +1,9 @@
 #include "cinder/app/App.h"
 #include "cinder/gl/gl.h"
 #include "cinder/gl/TextureFont.h"
-#include "cinder/System.h"
 
-#if CINDER_VERSION >= 807
-	#include "cinder/app/RendererGl.h"
-	#include "cinder/Log.h"
-#else
-	#include "cidart/Debug.h"
-#endif
+#include "cinder/app/RendererGl.h"
+#include "cinder/Log.h"
 
 #include "Resources.h"
 
@@ -56,7 +51,7 @@ void DartBasicApp::loadScript()
 		mScript = cidart::Script::create( loadAsset( "main.dart" ), opts );
 	}
 	catch( Exception &exc ) {
-		CI_LOG_E( "exception of type: " << System::demangleTypeName( typeid( exc ).name() ) << ", what: " << exc.what() );
+		CI_LOG_EXCEPTION( "failed to load script", exc );
 	}
 }
 

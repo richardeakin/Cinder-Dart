@@ -1,12 +1,9 @@
 #include "cinder/app/App.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Timeline.h"
-#include "cinder/System.h"
 
-#if CINDER_VERSION >= 807
-	#include "cinder/app/RendererGl.h"
-	#include "cinder/Log.h"
-#endif
+#include "cinder/app/RendererGl.h"
+#include "cinder/Log.h"
 
 #include "cidart/VM.h"
 #include "cidart/Script.h"
@@ -60,7 +57,7 @@ void InfoMapApp::loadScript()
 		mScript = cidart::Script::create( loadAsset( "main.dart" ), opts );
 	}
 	catch( Exception &exc ) {
-		CI_LOG_E( "exception of type: " << System::demangleTypeName( typeid( exc ).name() ) << ", what: " << exc.what() );
+		CI_LOG_EXCEPTION( "failed to load script", exc );
 	}
 }
 
@@ -110,16 +107,13 @@ void InfoMapApp::draw()
 {
 	gl::clear();
 
-	gl::pushMatrices();
-		gl::translate( getWindowCenter() );
-#if CINDER_VERSION >= 807
-		gl::rotate( toRadians( mRotation() ) );
-#else
-		gl::rotate( mRotation );
-#endif
-		gl::color( mCircleColor );
-		gl::drawSolidCircle( vec2( 0, 0 ), mCircleRadius, mNumCircleSegments );
-	gl::popMatrices();
+	gl::ScopedModelMatrix modelScope;
+
+	gl::translate( getWindowCenter() );
+	gl::rotate( toRadians( mRotation() ) );
+
+	gl::color( mCircleColor );
+	gl::drawSolidCircle( vec2( 0, 0 ), mCircleRadius, mNumCircleSegments );
 }
 
 CINDER_APP( InfoMapApp, RendererGl( RendererGl::Options().msaa( 8 ) ) )

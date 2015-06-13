@@ -11,20 +11,6 @@
 #include "cinder/Exception.h"
 #include "cinder/Log.h"
 
-#if( CINDER_VERSION < 900 )
-
-// for compatibility with 0.8.6, add typedef's for used vectypes back to old ci vectypes
-namespace cinder {
-	typedef Vec2f	vec2;
-	typedef Vec2i	ivec2;
-	typedef Vec2d	dvec2;
-	typedef Vec3f	vec3;
-	typedef Vec3i	ivec3;
-	typedef Vec3d	dvec3;
-}
-
-#endif
-
 namespace cidart {
 
 struct DartScope {

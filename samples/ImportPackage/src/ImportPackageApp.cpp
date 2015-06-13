@@ -7,18 +7,14 @@
 #include "cinder/app/App.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Timeline.h"
-#include "cinder/System.h"
 #include "cinder/Camera.h"
 
-#if CINDER_VERSION >= 807
-	#include "cinder/app/RendererGl.h"
-	#include "cinder/Log.h"
-#endif
+#include "cinder/app/RendererGl.h"
+#include "cinder/Log.h"
 
 #include "cidart/VM.h"
 #include "cidart/Script.h"
 #include "cidart/Types.h"
-#include "cidart/Debug.h"
 
 #include "Resources.h"
 
@@ -76,7 +72,7 @@ void ImportPackageApp::loadScript()
 		mScript = cidart::Script::create( loadAsset( "main.dart" ), opts );
 	}
 	catch( Exception &exc ) {
-		CI_LOG_E( "exception of type: " << System::demangleTypeName( typeid( exc ).name() ) << ", what: " << exc.what() );
+		CI_LOG_EXCEPTION( "failed to load script", exc );
 		CI_LOG_E( "For this sample to work, make sure to run 'pub get' from the assets folder." );
 	}
 }
