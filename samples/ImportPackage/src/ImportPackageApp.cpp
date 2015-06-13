@@ -4,7 +4,7 @@
 // You do this by cd'ing into the assets folder and running 'pub get'. On windows, you need to use
 // cmd.exe. 
 
-#include "cinder/app/AppNative.h"
+#include "cinder/app/App.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Timeline.h"
 #include "cinder/System.h"
@@ -26,7 +26,7 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-class ImportPackageApp : public AppNative {
+class ImportPackageApp : public App {
   public:
 	void setup() override;
 	void resize() override;
@@ -107,4 +107,4 @@ void ImportPackageApp::draw()
 	gl::drawSphere( mSphereCenter, mSphereRadius, 30 );
 }
 
-CINDER_APP_NATIVE( ImportPackageApp, RendererGl )
+CINDER_APP( ImportPackageApp, RendererGl( RendererGl::Options().msaa( 8 ) ) )

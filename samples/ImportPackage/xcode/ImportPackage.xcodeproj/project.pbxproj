@@ -20,6 +20,7 @@
 		11D679A3175298E100E96E0D /* cinder.dart in Resources */ = {isa = PBXBuildFile; fileRef = 11D6799D175298E100E96E0D /* cinder.dart */; };
 		11D679A4175298E100E96E0D /* VM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11D6799E175298E100E96E0D /* VM.cpp */; };
 		11D679A5175298E100E96E0D /* Types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11D679A0175298E100E96E0D /* Types.cpp */; };
+		11F7A0491B2CE18100D930D0 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F7A0481B2CE18100D930D0 /* IOKit.framework */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -56,6 +57,7 @@
 		11D679A0175298E100E96E0D /* Types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Types.cpp; sourceTree = "<group>"; };
 		11D679A1175298E100E96E0D /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
 		11D679BC1752A73400E96E0D /* main.dart */ = {isa = PBXFileReference; explicitFileType = sourcecode.c; name = main.dart; path = ../assets/main.dart; sourceTree = "<group>"; };
+		11F7A0481B2CE18100D930D0 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		2730F19BCC084D6B89BBA052 /* ImportPackage_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = ImportPackage_Prefix.pch; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -72,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11F7A0491B2CE18100D930D0 /* IOKit.framework in Frameworks */,
 				11397B1F19C0DAA200E3B138 /* AVFoundation.framework in Frameworks */,
 				11397B2019C0DAA200E3B138 /* CoreMedia.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
@@ -198,6 +201,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				11F7A0481B2CE18100D930D0 /* IOKit.framework */,
 				11397B1D19C0DAA200E3B138 /* AVFoundation.framework */,
 				11397B1E19C0DAA200E3B138 /* CoreMedia.framework */,
 				11D0BEDB1816CF86000908D9 /* libdart_builtin.a */,
@@ -377,7 +381,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/boost\"";
+				HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../../../dart-runtime ../../../src";
@@ -394,7 +398,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/boost\"";
+				HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../../../dart-runtime ../../../src";

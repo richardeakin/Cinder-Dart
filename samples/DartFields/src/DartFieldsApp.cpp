@@ -1,4 +1,4 @@
-#include "cinder/app/AppNative.h"
+#include "cinder/app/App.h"
 #include "cinder/gl/gl.h"
 #include "cinder/System.h"
 
@@ -27,7 +27,7 @@ struct BreathingRect {
 	float   seed;
 };
 
-class DartFieldsApp : public AppNative {
+class DartFieldsApp : public App {
   public:
 	void setup() override;
 	void mouseDown( MouseEvent event ) override;
@@ -114,4 +114,4 @@ void DartFieldsApp::draw()
 	}
 }
 
-CINDER_APP_NATIVE( DartFieldsApp, RendererGl )
+CINDER_APP( DartFieldsApp, RendererGl )

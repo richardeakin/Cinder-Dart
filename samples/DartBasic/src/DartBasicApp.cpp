@@ -1,4 +1,4 @@
-#include "cinder/app/AppNative.h"
+#include "cinder/app/App.h"
 #include "cinder/gl/gl.h"
 #include "cinder/gl/TextureFont.h"
 #include "cinder/System.h"
@@ -20,7 +20,7 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-class DartBasicApp : public AppNative {
+class DartBasicApp : public App {
   public:
 	void setup() override;
 	void keyDown( KeyEvent event ) override;
@@ -76,4 +76,4 @@ void DartBasicApp::draw()
 	}
 }
 
-CINDER_APP_NATIVE( DartBasicApp, RendererGl )
+CINDER_APP( DartBasicApp, RendererGl )

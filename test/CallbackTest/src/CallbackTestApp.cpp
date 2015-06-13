@@ -1,4 +1,4 @@
-#include "cinder/app/AppNative.h"
+#include "cinder/app/App.h"
 #include "cinder/gl/gl.h"
 #include "cinder/gl/TextureFont.h"
 #include "cinder/System.h"
@@ -27,7 +27,7 @@ void nativeFunctionCallback( Dart_NativeArguments args )
 	CI_LOG_I( "message: " << message );
 }
 
-class CallbackTestApp : public AppNative {
+class CallbackTestApp : public App {
   public:
 	void setup() override;
 	void keyDown( KeyEvent event ) override;
@@ -150,4 +150,4 @@ void CallbackTestApp::draw()
 	}
 }
 
-CINDER_APP_NATIVE( CallbackTestApp, RendererGl )
+CINDER_APP( CallbackTestApp, RendererGl )

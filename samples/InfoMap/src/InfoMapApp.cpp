@@ -1,4 +1,4 @@
-#include "cinder/app/AppNative.h"
+#include "cinder/app/App.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Timeline.h"
 #include "cinder/System.h"
@@ -19,7 +19,7 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-class InfoMapApp : public AppNative {
+class InfoMapApp : public App {
   public:
 	void setup();
 	void keyDown( KeyEvent event );
@@ -122,4 +122,4 @@ void InfoMapApp::draw()
 	gl::popMatrices();
 }
 
-CINDER_APP_NATIVE( InfoMapApp, RendererGl )
+CINDER_APP( InfoMapApp, RendererGl( RendererGl::Options().msaa( 8 ) ) )
