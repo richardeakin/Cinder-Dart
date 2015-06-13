@@ -1,16 +1,12 @@
 #include "cinder/app/App.h"
+#include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
 #include "cinder/System.h"
-
-#if CINDER_VERSION >= 807
-	#include "cinder/app/RendererGl.h"
-	#include "cinder/Log.h"
-#endif
+#include "cinder/Log.h"
 
 #include "cidart/VM.h"
 #include "cidart/Script.h"
 #include "cidart/Types.h"
-#include "cidart/Debug.h"
 
 #include "Resources.h"
 
@@ -41,6 +37,7 @@ class DartFieldsApp : public App {
 	cidart::ScriptRef	mScript;
 
 	std::vector<BreathingRect>	mBreathingRects;
+	ci::gl::BatchRef			mBatchRect;
 };
 
 void DartFieldsApp::setup()
@@ -50,6 +47,7 @@ void DartFieldsApp::setup()
 	loadScript();
 
 	// setup rendering
+	mBatchRect = gl::Batch::create( geom::Rect(), gl::getStockShader( gl::ShaderDef().color() ) );
 	gl::enableAlphaBlending();
 }
 
@@ -108,10 +106,12 @@ void DartFieldsApp::draw()
 	for( const auto &br : mBreathingRects ) {
 		gl::color( br.color );
 
-		vec2 size2 = ( br.size * br.breath ) / 2.0f;
-		Rectf rect( br.pos.x - size2.x, br.pos.y - size2.y, br.pos.x + size2.x, br.pos.y + size2.y );
-		gl::drawSolidRect( rect );
+		gl::ScopedModelMatrix modelScope;
+		gl::translate( br.pos );
+		gl::scale( br.size * br.breath );
+
+		mBatchRect->draw();
 	}
 }
 
-CINDER_APP( DartFieldsApp, RendererGl )
+CINDER_APP( DartFieldsApp, RendererGl( RendererGl::Options().msaa( 8 ) ) )
