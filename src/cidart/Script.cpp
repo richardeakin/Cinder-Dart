@@ -58,6 +58,8 @@ void Script::init()
 	mNativeCallbackMap["cidart::getWindowSize"] = getWindowSize;
 	mNativeCallbackMap["cidart::getWindowWidth"] = getWindowWidth;
 	mNativeCallbackMap["cidart::getWindowHeight"] = getWindowHeight;
+	mNativeCallbackMap["cidart::getElapsedSeconds"] = getElapsedSeconds;
+	mNativeCallbackMap["cidart::getElapsedFrames"] = getElapsedFrames;
 
 	const char *sourcePath = mMainScriptPath.string().c_str();
 
@@ -361,6 +363,24 @@ void Script::getWindowWidth( Dart_NativeArguments args )
 void Script::getWindowHeight( Dart_NativeArguments args )
 {
 	Dart_Handle retHandle = Dart_NewInteger( app::getWindowHeight() );
+	CIDART_CHECK( retHandle );
+
+	Dart_SetReturnValue( args, retHandle );
+}
+
+//static
+void Script::getElapsedSeconds( Dart_NativeArguments args )
+{
+	Dart_Handle retHandle = Dart_NewDouble( app::getElapsedSeconds() );
+	CIDART_CHECK( retHandle );
+
+	Dart_SetReturnValue( args, retHandle );
+}
+
+//static
+void Script::getElapsedFrames( Dart_NativeArguments args )
+{
+	Dart_Handle retHandle = Dart_NewInteger( app::getElapsedFrames() );
 	CIDART_CHECK( retHandle );
 
 	Dart_SetReturnValue( args, retHandle );

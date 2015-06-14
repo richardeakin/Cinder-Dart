@@ -19,9 +19,11 @@ void callNative3( String key, arg1, arg2, arg3 ) native "cidart::callNative3";
 void callNative4( String key, arg1, arg2, arg3, arg4 ) native "cidart::callNative4";
 void callNative5( String key, arg1, arg2, arg3, arg4, arg5 ) native "cidart::callNative5";
 
-vec2i getWindowSize() 	native "cidart::getWindowSize";
-int getWindowWidth() 	native "cidart::getWindowWidth";
-int getWindowHeight() 	native "cidart::getWindowHeight";
+vec2i 	getWindowSize() 		native "cidart::getWindowSize";
+int 	getWindowWidth() 		native "cidart::getWindowWidth";
+int 	getWindowHeight() 		native "cidart::getWindowHeight";
+double 	getElapsedSeconds() 	native "cidart::getElapsedSeconds";
+int 	getElapsedFrames() 		native "cidart::getElapsedFrames";
 
 class vec2 {
 	num x, y;
