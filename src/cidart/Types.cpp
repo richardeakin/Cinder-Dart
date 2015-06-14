@@ -49,6 +49,37 @@ Dart_Handle toDart( const std::string &str )
 	return toDart( str.c_str() );
 }
 
+Dart_Handle toDart( int value )
+{
+	return Dart_NewInteger( value );
+}
+
+Dart_Handle toDart( float value )
+{
+	return Dart_NewDouble( (double)value );
+}
+
+Dart_Handle toDart( double value )
+{
+	return Dart_NewDouble( value );
+}
+
+Dart_Handle toDart( const ci::vec3 &value )
+{
+	Dart_Handle vecArgs[3] = { toDart( value.x ), toDart( value.y ), toDart( value.z ) };
+
+	Dart_Handle vectorMathLib = Dart_LookupLibrary( toDart( "vector_math" ) );
+	CIDART_CHECK( vectorMathLib );
+
+	Dart_Handle typeHandle = Dart_GetType( vectorMathLib, toDart( "Vector3" ), 3, vecArgs );
+	CIDART_CHECK( typeHandle );
+
+	Dart_Handle result = Dart_New( typeHandle, Dart_Null(), 3, vecArgs );
+	CIDART_CHECK( result );
+
+	return result;
+}
+
 float getFloatForKey( Dart_Handle mapHandle, const char *key )
 {
 	CI_ASSERT( Dart_IsMap( mapHandle ) );
