@@ -11,6 +11,9 @@
 
 #define PROFILE_LOAD_TIME 0
 
+//#define LOG_IMPORTS( stream )	CI_LOG_I( stream )
+#define LOG_IMPORTS( stream )	((void)0)
+
 using namespace ci;
 using namespace std;
 
@@ -216,6 +219,8 @@ Dart_Handle Script::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 			Dart_Handle loadedLib = Dart_LoadLibrary( urlHandle, source, 0, 0  );
 			CIDART_CHECK( loadedLib );
 
+			LOG_IMPORTS( "loaded lib package: " << urlString );
+
 			return loadedLib;
 		}
 
@@ -232,6 +237,9 @@ Dart_Handle Script::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 			CIDART_CHECK( Dart_SetNativeResolver( loadedHandle, resolveNameHandler, NULL ) );
 
 			script->mImportedLibraries[urlString] = fullPath;
+
+			LOG_IMPORTS( "loaded relative: " << urlString );
+
 			return loadedHandle;
 		}
 	}
@@ -252,6 +260,9 @@ Dart_Handle Script::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 
 		Dart_Handle loadedHandle = Dart_LoadSource( library, urlHandle, source, 0, 0 );
 		CIDART_CHECK( loadedHandle );
+
+		LOG_IMPORTS( "loaded source part: " << urlString );
+
 		return loadedHandle;
 	}
 
