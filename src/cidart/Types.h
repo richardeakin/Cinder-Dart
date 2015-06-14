@@ -20,6 +20,10 @@ struct DartScope {
 
 Dart_Handle toDart( const char *str );
 Dart_Handle toDart( const std::string &str );
+Dart_Handle toDart( int value );
+Dart_Handle toDart( float value );
+Dart_Handle toDart( double value );
+Dart_Handle toDart( const ci::vec3 &value );
 
 bool		isCinderClass( Dart_Handle handle, const char *className );
 
