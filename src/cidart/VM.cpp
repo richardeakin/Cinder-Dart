@@ -80,7 +80,10 @@ void VM::loadCinderDartLib()
 	CIDART_CHECK( source );
 
 	Dart_Handle cinderDartLib = Dart_LoadLibrary( toDart( "cinder.dart" ), source, 0, 0 );
-	CIDART_CHECK( cinderDartLib );
+	if( Dart_IsError( cinderDartLib ) ) {
+		throw DartException( string( "failed to load cinder.dart, error message: " ) + Dart_GetError( cinderDartLib ) );
+	}
+
 	CIDART_CHECK( Dart_SetNativeResolver( cinderDartLib, Script::resolveNameHandler, NULL ) );
 
 	// finalize any scripts loaded, needs to be done before the libs can be looked up and modified below
