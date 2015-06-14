@@ -55,6 +55,12 @@ void Script::init()
 	mNativeCallbackMap["cidart::callNative3"] = callNativeFunctionHandler;
 	mNativeCallbackMap["cidart::callNative4"] = callNativeFunctionHandler;
 	mNativeCallbackMap["cidart::callNative5"] = callNativeFunctionHandler;
+	mNativeCallbackMap["cidart::callNative0Return"] = callNativeFunctionHandler;
+	mNativeCallbackMap["cidart::callNative1Return"] = callNativeFunctionHandler;
+	mNativeCallbackMap["cidart::callNative2Return"] = callNativeFunctionHandler;
+	mNativeCallbackMap["cidart::callNative3Return"] = callNativeFunctionHandler;
+	mNativeCallbackMap["cidart::callNative4Return"] = callNativeFunctionHandler;
+	mNativeCallbackMap["cidart::callNative5Return"] = callNativeFunctionHandler;
 	mNativeCallbackMap["cidart::getWindowSize"] = getWindowSize;
 	mNativeCallbackMap["cidart::getWindowWidth"] = getWindowWidth;
 	mNativeCallbackMap["cidart::getWindowHeight"] = getWindowHeight;
