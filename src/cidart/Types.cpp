@@ -412,6 +412,13 @@ void throwException( const std::string &description )
 	CIDART_CHECK( Dart_ThrowException( exceptionHandle ) );
 }
 
+void throwIfError( Dart_Handle handle, const std::string &description )
+{
+	if( Dart_IsError( handle ) ) {
+		throwException( description + ", description: " + Dart_GetError( handle ) );
+	}
+}
+
 // ???: rename to isCinderType?
 // - maybe shoud be using Dart_GetType as well
 bool isCinderClass( Dart_Handle handle, const char *className )

@@ -102,6 +102,8 @@ std::string		getTypeName( Dart_Handle handle );
 
 //! Throws an exception into dart. If unhandled, will cause a cidart::DartException with \a description.
 void			throwException( const std::string &description );
+//! Throws an exception into dart if \a handle is an error.
+void			throwIfError( Dart_Handle handle, const std::string &description = "" );
 
 // Debug utils:
 std::string		printNativeArgumentsToString( Dart_NativeArguments args, bool printMethodNames = false );
