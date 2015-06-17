@@ -68,10 +68,10 @@ Dart_Handle toDart( const ci::vec3 &value )
 {
 	Dart_Handle vecArgs[3] = { toDart( value.x ), toDart( value.y ), toDart( value.z ) };
 
-	Dart_Handle vectorMathLib = Dart_LookupLibrary( toDart( "vector_math" ) );
-	CIDART_CHECK( vectorMathLib );
+	Dart_Handle vectorMathLib = Dart_LookupLibrary( toDart( "package:vector_math/vector_math.dart" ) );
+	throwIfError( vectorMathLib, "could not lookup vector_math library" );
 
-	Dart_Handle typeHandle = Dart_GetType( vectorMathLib, toDart( "Vector3" ), 3, vecArgs );
+	Dart_Handle typeHandle = Dart_GetType( vectorMathLib, toDart( "Vector3" ), 0, nullptr );
 	CIDART_CHECK( typeHandle );
 
 	Dart_Handle result = Dart_New( typeHandle, Dart_Null(), 3, vecArgs );
