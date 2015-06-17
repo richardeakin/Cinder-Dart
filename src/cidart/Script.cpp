@@ -88,8 +88,7 @@ void Script::init()
 	CIDART_CHECK( sourceHandle );
 
 	Dart_Handle scriptHandle = Dart_LoadScript( url, sourceHandle, 0, 0 );
-	if( Dart_IsError( scriptHandle ) )
-		throw DartException( Dart_GetError( scriptHandle ) );
+	throwIfError( scriptHandle, "failed to load script" );
 
 	CIDART_CHECK( Dart_SetNativeResolver( Dart_RootLibrary(), resolveNameHandler, NULL ) );
 
