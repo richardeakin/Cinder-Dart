@@ -25,7 +25,7 @@ dynamic callNative3Return( String key, arg1, arg2, arg3 ) native "cidart::callNa
 dynamic callNative4Return( String key, arg1, arg2, arg3, arg4 ) native "cidart::callNative4Return";
 dynamic callNative5Return( String key, arg1, arg2, arg3, arg4, arg5 ) native "cidart::callNative5Return";
 
-vec2i 	getWindowSize() 		native "cidart::getWindowSize";
+ivec2 	getWindowSize() 		native "cidart::getWindowSize";
 int 	getWindowWidth() 		native "cidart::getWindowWidth";
 int 	getWindowHeight() 		native "cidart::getWindowHeight";
 double 	getElapsedSeconds() 	native "cidart::getElapsedSeconds";

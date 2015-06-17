@@ -360,15 +360,15 @@ void Script::getWindowSize( Dart_NativeArguments args )
 	Dart_Handle vecArgs[2] = { Dart_NewInteger( size.x ), Dart_NewInteger( size.y ) };
 
 	// FIXME: can't seem to lookup cinder library anymore, though I'm sure it's been loaded
-	Dart_Handle cinderLib = Dart_LookupLibrary( toDart( "cinder" ) );
+	Dart_Handle cinderLib = Dart_LookupLibrary( toDart( "cinder.dart" ) );
 	CIDART_CHECK( cinderLib );
 
-	Dart_Handle typeHandle = Dart_GetType( cinderLib, toDart( "ivec2" ), 2, vecArgs );
+	Dart_Handle typeHandle = Dart_GetType( cinderLib, toDart( "ivec2" ), 0, nullptr );
 	CIDART_CHECK( typeHandle );
-//	Dart_Handle retHandle = Dart_New( typeHandle, Dart_Null(), 2, vecArgs );
-//	CIDART_CHECK( retHandle );
+	Dart_Handle retHandle = Dart_New( typeHandle, Dart_Null(), 2, vecArgs );
+	CIDART_CHECK( retHandle );
 
-	Dart_SetReturnValue( args, typeHandle );
+	Dart_SetReturnValue( args, retHandle );
 }
 
 //static
