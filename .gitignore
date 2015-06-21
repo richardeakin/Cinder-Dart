@@ -2,9 +2,9 @@
 dart-runtime/lib
 
 # dart pub related
+.pub
+pubspec.lock
 samples/ImportPackage/assets/packages
-samples/ImportPackage/assets/pubspec.lock
-samples/ImportPackage/assets/.pub
 
 # Mac OS X cruft
 *.pbxuser
