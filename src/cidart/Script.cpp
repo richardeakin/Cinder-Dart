@@ -278,6 +278,11 @@ Dart_NativeFunction Script::resolveNameHandler( Dart_Handle nameHandle, int numA
 	string name = getValue<string>( nameHandle );
 
 	Script *script = static_cast<Script *>( Dart_CurrentIsolateData() );
+
+	// current isolate data seems to be null during script reloads sometimes, but this is still called
+	if( ! script )
+		return nullptr;
+
 	auto &callbackMap = script->mNativeCallbackMap;
 	auto functionIt = callbackMap.find( name );
 	if( functionIt != callbackMap.end() )
