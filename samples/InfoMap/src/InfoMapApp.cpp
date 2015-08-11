@@ -63,7 +63,7 @@ void InfoMapApp::loadScript()
 
 void InfoMapApp::receiveMap( const cidart::InfoMap &info )
 {
-	CI_LOG_I( "info map received, number of elemnts: " << info.size() );
+	CI_LOG_I( "Info map received, number of elements: " << info.size() );
 	for( auto &mp : info ) {
 		CI_LOG_I( "\tkey: " << mp.first << ", value type: " << cidart::getTypeName( mp.second ) );
 	}

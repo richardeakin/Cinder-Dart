@@ -263,6 +263,40 @@ void getValue( Dart_Handle handle, ci::dvec4 *value )
 	value->w = getValue<double>( w );
 }
 
+void getValue( Dart_Handle handle, ci::mat4 *value )
+{
+    Dart_Handle r1x = getField( handle, "r1x" );
+    Dart_Handle r2x = getField( handle, "r2x" );
+    Dart_Handle r3x = getField( handle, "r3x" );
+    Dart_Handle r4x = getField( handle, "r4x" );
+    Dart_Handle r1y = getField( handle, "r1y" );
+    Dart_Handle r2y = getField( handle, "r2y" );
+    Dart_Handle r3y = getField( handle, "r3y" );
+    Dart_Handle r4y = getField( handle, "r4y" );
+    Dart_Handle r1z = getField( handle, "r1z" );
+    Dart_Handle r2z = getField( handle, "r2z" );
+    Dart_Handle r3z = getField( handle, "r3z" );
+    Dart_Handle r4z = getField( handle, "r4z" );
+    Dart_Handle r1w = getField( handle, "r1w" );
+    Dart_Handle r2w = getField( handle, "r2w" );
+    Dart_Handle r3w = getField( handle, "r3w" );
+    Dart_Handle r4w = getField( handle, "r4w" );
+    
+    if( Dart_IsError( r1x ) || Dart_IsError( r2x ) || Dart_IsError( r3x ) || Dart_IsError( r4x ) ||
+        Dart_IsError( r1y ) || Dart_IsError( r2y ) || Dart_IsError( r3y ) || Dart_IsError( r4y ) ||
+        Dart_IsError( r1z ) || Dart_IsError( r2z ) || Dart_IsError( r3z ) || Dart_IsError( r4z ) ||
+        Dart_IsError( r1w ) || Dart_IsError( r2w ) || Dart_IsError( r3w ) || Dart_IsError( r4w ) ) {
+        CI_LOG_E( "expected handle to have fields 'r1x', 'r2x', 'r3x', 'r4x', 'r1y', 'r2y', 'r3y', 'r4y', 'r1z', 'r2z', 'r3z', 'r4z', 'r1w', 'r2w', 'r3w', 'r4w'" );
+        return;
+    }
+    float vals[16] = { getValue<float>( r1x ), getValue<float>( r2x ), getValue<float>( r3x ), getValue<float>( r4x ),
+                       getValue<float>( r1y ), getValue<float>( r2y ), getValue<float>( r3y ), getValue<float>( r4y ),
+                       getValue<float>( r1z ), getValue<float>( r2z ), getValue<float>( r3z ), getValue<float>( r4z ),
+                       getValue<float>( r1w ), getValue<float>( r2w ), getValue<float>( r3w ), getValue<float>( r4w ) };
+    
+    *value = glm::make_mat4( vals );
+}
+    
 void getValue( Dart_Handle handle, ci::Rectf *value )
 {
 	Dart_Handle x1 = getField( handle, "x1" );

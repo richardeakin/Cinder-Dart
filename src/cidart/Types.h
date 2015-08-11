@@ -41,6 +41,7 @@ void getValue( Dart_Handle handle, ci::dvec3 *value );
 void getValue( Dart_Handle handle, ci::ivec4 *value );
 void getValue( Dart_Handle handle, ci::vec4 *value );
 void getValue( Dart_Handle handle, ci::dvec4 *value );
+void getValue( Dart_Handle handle, ci::mat4 *value );
 void getValue( Dart_Handle handle, ci::Rectf *value );
 void getValue( Dart_Handle handle, ci::log::Level *value );
 void getValue( Dart_Handle handle, std::string *value );
