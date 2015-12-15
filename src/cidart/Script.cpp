@@ -6,6 +6,7 @@
 #include "cidart/VM.h"
 #include "cidart/Types.h"
 #include "cidart/Debug.h"
+#include "cidart/Exception.h"
 
 #include "cinder/Utilities.h"
 
