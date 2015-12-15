@@ -46,7 +46,7 @@ class ivec2 {
 class vec3 {
 	num x, y, z;
 	
-	vec3( this.x, this.y, this.z );
+	vec3( [this.x, this.y, this.z] );
 }
 
 class ivec3 {
