@@ -4,9 +4,10 @@
 
 #pragma once
 
-#include "cinder/DataSource.h"
-
+#include "cidart/Types.h"
 #include "include/dart_api.h"
+
+#include "cinder/DataSource.h"
 
 #include <map>
 
@@ -54,6 +55,9 @@ class Script {
 
 	//! Invokes the function \a functionName within the script.
 	Dart_Handle invoke( const std::string &functionName, int argc = 0, Dart_Handle *args = nullptr );
+	//! Invokes the function \a functionName within the script, and returns type T or throws exception if the return value could not be converted.
+	template<typename T>
+	T invoke( const std::string &functionName, int argc = 0, Dart_Handle *args = nullptr );
 
 	//! Returns a map of libraries this Script imported.
 	const std::map<std::string, ci::fs::path>&	getImportedLibraries() const	{ return mImportedLibraries; }
@@ -95,5 +99,12 @@ class Script {
 
 	friend class VM;
 };
+
+template<typename T>
+T Script::invoke( const std::string &functionName, int argc, Dart_Handle *args )
+{
+	Dart_Handle resultHandle = invoke( functionName, argc, args );
+	return getValue<T>( resultHandle );
+}
 
 } // namespace ciadart
