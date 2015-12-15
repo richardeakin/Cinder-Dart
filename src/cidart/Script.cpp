@@ -224,7 +224,7 @@ Dart_Handle Script::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 			return loadedLib;
 		}
 
-		// try to load file relative to main script directory, then VM import direcories
+		// try to load file relative to main script directory, then VM import directories
 		auto fullPath = script->resolveRelativeImportPath( urlString );
 		if( ! fullPath.empty() ) {
 			string fileString = script->loadSourceImpl( fullPath );
@@ -246,14 +246,22 @@ Dart_Handle Script::libraryTagHandler( Dart_LibraryTag tag, Dart_Handle library,
 	else if( tag == Dart_kSourceTag ) {
 		Script *script = static_cast<Script *>( Dart_CurrentIsolateData() );
 
+		fs::path resolvedPath;
 		Dart_Handle libraryUrl = Dart_LibraryUrl( library );
 		string libraryUrlString = getValue<string>( libraryUrl );
 		auto pathIt = script->mImportedLibraries.find( libraryUrlString );
 
-		CI_ASSERT( pathIt != script->mImportedLibraries.end() );
-
-		const auto &libFolder = pathIt->second.parent_path();
-		auto resolvedPath = libFolder / urlString;
+		// TODO: to handle 'part of' sources for the current main library, need to load the main libs path into mImportedLibaries.
+		// - but this really isn't an 'imported library', so need to redesign so as things don't get too confusing
+//		CI_ASSERT( pathIt != script->mImportedLibraries.end() );
+		if( pathIt != script->mImportedLibraries.end() ) {
+			const auto &sourceFolder = pathIt->second.parent_path();
+			resolvedPath = sourceFolder / urlString;
+		}
+		else {
+			// try to find source relative to main script
+			resolvedPath = script->resolveRelativeImportPath( urlString );
+		}
 
 		string sourceString = script->loadSourceImpl( resolvedPath );
 		Dart_Handle source = toDart( sourceString );
