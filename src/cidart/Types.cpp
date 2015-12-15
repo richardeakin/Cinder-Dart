@@ -329,6 +329,42 @@ void getValue( Dart_Handle handle, ci::mat4 *value )
     *value = glm::make_mat4( vals );
 }
     
+void getValue( Dart_Handle handle, quat *value )
+{
+	Dart_Handle x = getField( handle, "x" );
+	Dart_Handle y = getField( handle, "y" );
+	Dart_Handle z = getField( handle, "z" );
+	Dart_Handle w = getField( handle, "w" );
+
+	if( Dart_IsError( x ) || Dart_IsError( y ) || Dart_IsError( z ) || Dart_IsError( w ) ) {
+		CI_LOG_E( "expected handle to have fields 'x', 'y', 'z' and 'w'" );
+		return;
+	}
+
+	value->x = getValue<float>( x );
+	value->y = getValue<float>( y );
+	value->z = getValue<float>( z );
+	value->w = getValue<float>( w );
+}
+
+void getValue( Dart_Handle handle, dquat *value )
+{
+	Dart_Handle x = getField( handle, "x" );
+	Dart_Handle y = getField( handle, "y" );
+	Dart_Handle z = getField( handle, "z" );
+	Dart_Handle w = getField( handle, "w" );
+
+	if( Dart_IsError( x ) || Dart_IsError( y ) || Dart_IsError( z ) || Dart_IsError( w ) ) {
+		CI_LOG_E( "expected handle to have fields 'x', 'y', 'z' and 'w'" );
+		return;
+	}
+
+	value->x = getValue<double>( x );
+	value->y = getValue<double>( y );
+	value->z = getValue<double>( z );
+	value->w = getValue<double>( w );
+}
+
 void getValue( Dart_Handle handle, ci::Rectf *value )
 {
 	Dart_Handle x1 = getField( handle, "x1" );
@@ -395,6 +431,12 @@ Dart_Handle getField( Dart_Handle container, const char *name )
 Dart_Handle getField( Dart_Handle container, const string &name )
 {
 	return Dart_GetField( container, toDart( name ) );
+}
+
+Dart_Handle getMapValueForKey( Dart_Handle mapHandle, const char *key )
+{
+	CI_ASSERT( Dart_IsMap( mapHandle ) );
+	return Dart_MapGetAt( mapHandle, toDart( key ) );
 }
 
 string getTypeName( Dart_Handle handle )

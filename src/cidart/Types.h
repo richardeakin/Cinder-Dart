@@ -5,7 +5,9 @@
 #pragma once
 
 #include "include/dart_api.h"
+
 #include "cinder/Vector.h"
+#include "cinder/Quaternion.h"
 #include "cinder/Color.h"
 #include "cinder/Rect.h"
 #include "cinder/Exception.h"
@@ -27,6 +29,7 @@ Dart_Handle toDart( const ci::vec3 &value );
 
 bool		isCinderClass( Dart_Handle handle, const char *className );
 
+// TODO: remove, replace with getMapValueForKey<T>()
 float		getFloatForKey( Dart_Handle mapHandle, const char *key );
 
 void getValue( Dart_Handle handle, bool *value );
@@ -46,6 +49,8 @@ void getValue( Dart_Handle handle, ci::ivec4 *value );
 void getValue( Dart_Handle handle, ci::vec4 *value );
 void getValue( Dart_Handle handle, ci::dvec4 *value );
 void getValue( Dart_Handle handle, ci::mat4 *value );
+void getValue( Dart_Handle handle, ci::quat *value );
+void getValue( Dart_Handle handle, ci::dquat *value );
 void getValue( Dart_Handle handle, ci::Rectf *value );
 void getValue( Dart_Handle handle, ci::log::Level *value );
 void getValue( Dart_Handle handle, std::string *value );
@@ -82,6 +87,19 @@ T	getFieldOrDefault( Dart_Handle container, const std::string &name, const T &de
 		return defaultValue;
 	else
 		return cidart::getValue<T>( fieldHandle );
+}
+
+Dart_Handle getMapValueForKey( Dart_Handle mapHandle, const char *key );
+
+template <typename T>
+T getMapValueForKey( Dart_Handle mapHandle, const char *key )
+{
+	CI_ASSERT( Dart_IsMap( mapHandle ) );
+	Dart_Handle valueHandle = Dart_MapGetAt( mapHandle, toDart( key ) );
+
+	T result;
+	getValue( valueHandle, &result );
+	return result;
 }
 
 //! Returns the native argument of type \a T at \a index. If an error occurs, the value returned is default constructed and an error message is logged.
