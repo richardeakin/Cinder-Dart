@@ -8,3 +8,4 @@
 #include "cidart/Types.h"
 #include "cidart/VM.h"
 #include "cidart/Debug.h"
+#include "cidart/Exception.h"

@@ -100,20 +100,7 @@ Dart_Handle		callFunction( Dart_Handle target, const std::string &name, int numA
 
 std::string		getTypeName( Dart_Handle handle );
 
-//! Throws an exception into dart. If unhandled, will cause a cidart::DartException with \a description.
-void			throwException( const std::string &description );
-//! Throws an exception into dart if \a handle is an error.
-void			throwIfError( Dart_Handle handle, const std::string &description = "" );
-
 // Debug utils:
 std::string		printNativeArgumentsToString( Dart_NativeArguments args, bool printMethodNames = false );
-
-class DartException : public ci::Exception {
-  public:
-	DartException( const std::string &descr ) : mDescription( descr )	{}
-	virtual const char* what() const throw()	{ return mDescription.c_str(); }
-  protected:
-	std::string mDescription;
-};
 
 } // namespace cidart

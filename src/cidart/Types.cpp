@@ -4,6 +4,7 @@
 
 #include "cidart/Types.h"
 #include "cidart/Debug.h"
+#include "cidart/Exception.h"
 
 #include "include/dart_mirrors_api.h"
 
@@ -93,7 +94,7 @@ float getFloatForKey( Dart_Handle mapHandle, const char *key )
 
 void getValue( Dart_Handle handle, bool *value )
 {
-	CIDART_CHECK( Dart_BooleanValue( handle, value ) );
+	throwIfError( Dart_BooleanValue( handle, value ) ); // TODO: support checking num here too
 }
 
 void getValue( Dart_Handle handle, int *value )
@@ -404,19 +405,6 @@ string getTypeName( Dart_Handle handle )
 	CIDART_CHECK( typeName );
 
 	return getValue<string>( typeName );
-}
-
-void throwException( const std::string &description )
-{
-	Dart_Handle exceptionHandle = toDart( description );
-	CIDART_CHECK( Dart_ThrowException( exceptionHandle ) );
-}
-
-void throwIfError( Dart_Handle handle, const std::string &description )
-{
-	if( Dart_IsError( handle ) ) {
-		throwException( description + ", description: " + Dart_GetError( handle ) );
-	}
 }
 
 // ???: rename to isCinderType?
