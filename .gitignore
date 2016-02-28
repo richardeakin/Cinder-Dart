@@ -20,6 +20,7 @@ xcuserdata/
 *.suo
 *.ncb
 *.sdf
+*.opendb
 *.opensdf
 Debug/
 Release/
