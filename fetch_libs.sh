@@ -9,7 +9,7 @@ case "$(uname -s)" in
     	echo 'Error: Linux Platform not yet supported, exiting.'
     	exit 0
      	;;
-  	CYGWIN*|MINGW32*|MSYS*)
+  	CYGWIN*|MINGW*|MSYS*)
      	echo 'Detected MS Windows'
 		  PACKAGE_FILENAME="dart_runtime_libs_1.8.5_msw_x64.zip"
      	;;
